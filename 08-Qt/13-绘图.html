@@ -1,0 +1,667 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>13 绘图 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="Qt的绘图系统Qt中的绘图和之前使用OpenCV时在图中进行绘图的方式差别还是很大的，在用OpenCV时，一般都是主动调用绘图函数就行了，但是在Qt中，如果要在控件上绘制东西，一般都得是在其绘图事件中进行绘制，并不能主动调用绘图函数。  Qt中针对不同的控件，绘图的方式区别很大 这些控件主要分为2类  继承自QWidget的控件：重写paintEvent，在此函数里面用QPainter进行绘图 G">
+<meta property="og:type" content="article">
+<meta property="og:title" content="13 绘图">
+<meta property="og:url" content="https://li-ruiqi777.github.io/08-Qt/13-%E7%BB%98%E5%9B%BE.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Qt的绘图系统Qt中的绘图和之前使用OpenCV时在图中进行绘图的方式差别还是很大的，在用OpenCV时，一般都是主动调用绘图函数就行了，但是在Qt中，如果要在控件上绘制东西，一般都得是在其绘图事件中进行绘制，并不能主动调用绘图函数。  Qt中针对不同的控件，绘图的方式区别很大 这些控件主要分为2类  继承自QWidget的控件：重写paintEvent，在此函数里面用QPainter进行绘图 G">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.777Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:38.793Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/08-Qt/13-%E7%BB%98%E5%9B%BE.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '13 绘图',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">13 绘图</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">13 绘图</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.777Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:38.793Z" title="Updated 2025-06-04 16:29:38">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/08-Qt/">08-Qt</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Qt的绘图系统"><a href="#Qt的绘图系统" class="headerlink" title="Qt的绘图系统"></a>Qt的绘图系统</h1><p>Qt中的绘图和之前使用OpenCV时在图中进行绘图的方式<strong>差别还是很大的</strong>，在用OpenCV时，一般都是主动调用绘图函数就行了，但是在Qt中，如果要在控件上绘制东西，一般都得是在其绘图事件中进行绘制，并不能主动调用绘图函数。</p>
+<blockquote>
+<p>Qt中针对不同的控件，绘图的方式<strong>区别很大</strong></p>
+<p>这些控件主要分为2类</p>
+<ul>
+<li>继承自<code>QWidget</code>的控件：重写<code>paintEvent</code>，在此函数里面用<code>QPainter</code>进行绘图</li>
+<li><code>Graphics View</code>相关的控件：此类控件不会触发<code>paintEvent</code>，需要调用函数往场景中插入元素来显示</li>
+</ul>
+</blockquote>
+<p>Qt的绘图系统主要包括2部分</p>
+<ul>
+<li><code>QPainter</code>绘图系统：绘制基本的点、线等形状组成自己需要的图形，得到的图形是<strong>不可交互</strong>操作的</li>
+<li><code>Graphics View</code>绘图系统：绘制复杂的组件化图形，每个图件是可选择、<strong>可交互</strong>的</li>
+</ul>
+<h2 id="1-QPainter绘图系统"><a href="#1-QPainter绘图系统" class="headerlink" title="1.QPainter绘图系统"></a>1.QPainter绘图系统</h2><p><code>QPainter</code>绘图系统主要包括以下几部分：</p>
+<ul>
+<li><code>QPainter</code>类：用于进行绘图操作</li>
+<li><code>QPaintDevice</code>类：绘图设备的基类，每个可以用<code>QPainter</code>绘制的类，比如<code>QWidget</code>,<code>QPixmap</code>, <code>QImage</code>等都继承了该类</li>
+</ul>
+<h3 id="1-1QPainter绘图的主要属性"><a href="#1-1QPainter绘图的主要属性" class="headerlink" title="1.1QPainter绘图的主要属性"></a>1.1QPainter绘图的主要属性</h3><p>控制<code>QPainter</code>绘图的属性主要包括：</p>
+<ul>
+<li>pen：这是一个<code>QPen</code>对象，用于控制<strong>线条</strong>的颜色、宽度等</li>
+<li>brush：这是一个<code>QBrush</code>对象，用于控制一个<strong>区域的填充特性</strong>，包括颜色，渐变特性等</li>
+<li>font：这是一个<code>QFront</code>对象，用于绘制文字时，设置字体的样式、大小</li>
+</ul>
+<h3 id="1-2QPainter绘制基本图形"><a href="#1-2QPainter绘制基本图形" class="headerlink" title="1.2QPainter绘制基本图形"></a>1.2QPainter绘制基本图形</h3><p><code>QPainter</code>定义了许多绘制基本图形的API，都以draw开头，比如<code>drawLines</code>……</p>
+<h3 id="1-3绘图的方法"><a href="#1-3绘图的方法" class="headerlink" title="1.3绘图的方法"></a>1.3绘图的方法</h3><p>要在绘图设备上进行绘图，必须重写其<code>paintEvent()</code>事件，在其中用<code>QPainter</code>类的实例调用绘图的方法即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">QWidget::paintEvent</span><span class="params">(QPaintEvent *e)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QPainter <span class="title">painter</span><span class="params">(<span class="keyword">this</span>)</span></span>;</span><br><span class="line">    <span class="comment">//设置画笔</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置画刷</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//调用绘图API</span></span><br><span class="line">    painter.<span class="built_in">drawXXX</span>();</span><br><span class="line">    ....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4坐标系统和坐标变换"><a href="#1-4坐标系统和坐标变换" class="headerlink" title="1.4坐标系统和坐标变换"></a>1.4坐标系统和坐标变换</h3><p><code>QPainter</code>在窗口上绘图的默认坐标系统为左上角为原点，为了绘图方便，<code>QPainter</code>提供了一些坐标变化的功能，通过平移、旋转等坐标变换<strong>让原点、X、Y轴移动</strong>，得到一个逻辑坐标系，使得绘图更方便。</p>
+<h2 id="2-Graphics-View绘图系统"><a href="#2-Graphics-View绘图系统" class="headerlink" title="2.Graphics View绘图系统"></a>2.Graphics View绘图系统</h2><p>Graphics View绘图架构主要由以下3部分组成：</p>
+<ul>
+<li><code>QGraphicsScene</code>类：绘图<strong>场景</strong>，场景是不可见的，它是一个抽象的管理图像的<strong>容器</strong>，可以往其中添加图形项</li>
+<li><code>QGraphicsView</code>类：<strong>视图</strong>组件，用于显示场景中的内容，可以为一个场景设置不同的视图，视图不同，显示的内容可能也不同。当视图大于场景时，能正常显示场景中的内容，当视图小于场景时，视图只能显示场景的一部分，但会自动生成滚动条</li>
+<li><code>QGraphicsItem</code>类：<strong>图形项</strong>的基类，是画在场景中的东西。支持鼠标、键盘输入的事件。</li>
+</ul>
+<hr>
+<p><code>QGraphicsView</code>一般不用手动创建，而是用UI设计里面直接拖的，它的尺寸会随界面而改变</p>
+<p><img src="../assets/image-20231015231412858.png" alt="image-20231015231412858"><img src="../assets/image-20231015231527243.png" alt="image-20231015231527243"></p>
+<p><code>QGraphicsScene</code>一般需要写代码手动创建，并指定一个固定大小。</p>
+<h3 id="2-1绘图基本逻辑"><a href="#2-1绘图基本逻辑" class="headerlink" title="2.1绘图基本逻辑"></a>2.1绘图基本逻辑</h3><p>1.创建视图和场景对象，视图要主动关联场景</p>
+<p>2.创建图形项，调用场景的<code>.addItem()</code>方法将图形项添加到容器中，这样就能在视图中看到图形项了</p>
+<h2 id="3-Qt-Charts"><a href="#3-Qt-Charts" class="headerlink" title="3.Qt Charts"></a>3.Qt Charts</h2><blockquote>
+<p>Qt Charts是Qt中的一个模块，基于<code>Graphics View</code>系统。可以用于绘制&#x3D;&#x3D;2D&#x3D;&#x3D;的图表，包括：折线图、柱状图、饼图等</p>
+</blockquote>
+<p>QChart的数据分装层次大概为 &#x3D;&#x3D;QChartView -&gt; QChart -&gt; Series -&gt; Value&#x3D;&#x3D;，就是说view装chart，chart装series， series装对应类型的值，一些图表值中可能还会细分，只要记住这个顺序，一般都不会漏掉</p>
+<h3 id="3-1引入图表模块"><a href="#3-1引入图表模块" class="headerlink" title="3.1引入图表模块"></a>3.1引入图表模块</h3><p>在程序中引入Charts模块，需要以下步骤：</p>
+<ul>
+<li>1.在<code>.pro</code>文件中加入：<code>QT +=charts</code></li>
+<li>2.在代码中加入：<code>using namespace QtCharts;</code></li>
+</ul>
+<h3 id="3-2相关类的介绍"><a href="#3-2相关类的介绍" class="headerlink" title="3.2相关类的介绍"></a>3.2相关类的介绍</h3><p>1、QChartView</p>
+<p>视图组件(画布)，其父类是<code>QGraphicsView</code>，无法单独进行显示，需要依附其他组件进行显示。比如QChartView通过setChart将QChart添加为显示的图表。 </p>
+<p>2、QChart</p>
+<p>图表类，其最原始的父类是<code>QGraphicsItem</code>类。可以包含一个或多个QAbstractSeries（序列）对象。它提供了管理和控制图表的方法，如添加&#x2F;移除序列、设置图表标题、轴标签等。</p>
+<p>3、QAbstractSeries</p>
+<p>是所有<code>Series</code>类的基类，代表图表中的一串数据。派生类包括QLineSeries（线性序列）、QScatterSeries（散点序列）、QBarSeries（柱状序列）等。每个<code>Series</code>可以包含一个或多个数据点，并且可以设置序列的样式、颜色、图例(legend)等属性。 </p>
+<p>4、QLineSeries</p>
+<p>行序列，数据的表现形式，也就是我们要显示的数据，例如折线图。一般是通过QChart的addSeries将QLineSeries添加到图表中，当然不止QLineSeries，还有其他很多类型。 </p>
+<p>5、QScatterSeries</p>
+<p>代表图表中的散点序列，用于绘制散点图。可以通过添加数据点来构建散点序列，也可以设置散点的样式和颜色。</p>
+<p>6、QBarSeries</p>
+<p>代表图表中的柱状序列，用于绘制柱状图。可以通过添加数据点来构建柱状序列，也可以设置柱子的样式和颜色。</p>
+<p>7、QAbstractAxis</p>
+<p>是所有轴类的基类，代表图表中的一个轴。派生类包括QValueAxis（数值轴）和QCategoryAxis（分类轴）。每个轴可以设置轴范围、刻度间隔、标签等属性。</p>
+<p>8、QValueAxis</p>
+<p>数值坐标轴。具体使用步骤为：</p>
+<p>①使用QChart的addAxis将坐标轴添加到图表上；</p>
+<p>②使用QLineSeries的attachAxis设置数据与坐标轴的<strong>依赖</strong>关系；</p>
+<blockquote>
+<p>注意这两步设置有先后关系，必须先将坐标轴添加到QChart，如果顺序反了会提示没有与之关联的坐标轴。 </p>
+</blockquote>
+<p>9、QCategoryAxis</p>
+<p>分类坐标轴，用于显示离散的类别。可以设置轴的类别列表、标签格式等属性。</p>
+<img src="../assets/image-20240330195510911.png" alt="image-20240330195510911" style="zoom: 80%;" />
+
+<h3 id="3-3在Qt-Designer中添加图表画布"><a href="#3-3在Qt-Designer中添加图表画布" class="headerlink" title="3.3在Qt Designer中添加图表画布"></a>3.3在Qt Designer中添加图表画布</h3><p>1.创建一个<code>Graphics View</code></p>
+<img src="../assets/image-20240330194958089.png" alt="image-20240330194958089" style="zoom: 80%;" />
+
+<p>2.将其提升为图表画布</p>
+<img src="../assets/image-20240330195058054.png" alt="image-20240330195058054" style="zoom:80%;" />
+
+<h3 id="3-4QChart常用函数"><a href="#3-4QChart常用函数" class="headerlink" title="3.4QChart常用函数"></a>3.4QChart常用函数</h3><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>图表外观</strong></td>
+<td><code>void setTitle()</code></td>
+<td>设置图表标题，显示在图表上方，支持HTML格式</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setTitleFont()</code></td>
+<td>设置图表标题字体</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setTitleBrush()</code></td>
+<td>设置图表标题画刷</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setTheme()</code></td>
+<td>设置主题，主题是内置的UI设置，定义了图表的配色</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setMargins()</code></td>
+<td>设置绘图区与图表边界的4个边距</td>
+</tr>
+<tr>
+<td></td>
+<td><code>QLegend* legend()</code></td>
+<td>返回图表的图例，是一个QLegend类的对象</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setAnimationOptions()</code></td>
+<td>设置序列或坐标轴的动画效果</td>
+</tr>
+<tr>
+<td><strong>数据序列</strong></td>
+<td><code>void addSeries()</code></td>
+<td>添加序列</td>
+</tr>
+<tr>
+<td></td>
+<td><code>QList&lt;QAbstractSeries*&gt;series()</code></td>
+<td>返回图表拥有的序列的列表</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void removeSeries()</code></td>
+<td>移除一个序列，但并不删除序列对象</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void removeAllSeries()</code></td>
+<td>移除并删除图表的所有序列</td>
+</tr>
+<tr>
+<td><strong>坐标轴</strong></td>
+<td><code>void addAxis()</code></td>
+<td>为图表的某个反向添加坐标轴</td>
+</tr>
+<tr>
+<td></td>
+<td><code>QList&lt;QAbstractAxis *&gt;axes()</code></td>
+<td>返回某个方向的坐标轴列表</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setAxisX()</code></td>
+<td>设置某个序列的水平方向的坐标轴</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setAxisY()</code></td>
+<td>设置某个序列的垂直方向的坐标轴</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void removeAxis()</code></td>
+<td>移除一个坐标轴</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void createDefaultAxes()</code></td>
+<td>根据已添加的序列的类型，创建缺省的坐标轴，前面已有的坐标轴会被删除</td>
+</tr>
+</tbody></table>
+<h3 id="3-5数值轴常用函数"><a href="#3-5数值轴常用函数" class="headerlink" title="3.5数值轴常用函数"></a>3.5数值轴常用函数</h3><p>数值轴就是<code>QValueAxis</code>类</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>坐标轴整体</strong></td>
+<td><code>void setVisible()</code></td>
+<td>设置坐标轴可见性</td>
+</tr>
+<tr>
+<td></td>
+<td><code>Qt::Orientation orientation()</code></td>
+<td>返回坐标轴方向</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setMin()</code></td>
+<td>设置坐标轴最小值</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setMax()</code></td>
+<td>设置坐标轴最大值</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setRange()</code></td>
+<td>设置坐标轴范围</td>
+</tr>
+<tr>
+<td><strong>轴标题</strong></td>
+<td><code>void setTitleVisible()</code></td>
+<td>设置轴标题可见性</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setTitleText()</code></td>
+<td>设置轴标题文字</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setTitleFont()</code></td>
+<td>设置轴标题字体</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setTitleBrush()</code></td>
+<td>设置轴标题画刷</td>
+</tr>
+<tr>
+<td><strong>轴标签</strong></td>
+<td><code>void setLabelFormat()</code></td>
+<td>设置标签格式</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLabelsAngle()</code></td>
+<td>设置标签角度</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLabelsBrush()</code></td>
+<td>设置标签画刷</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLabelsColor()</code></td>
+<td>设置标签文字颜色</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLabelsFont()</code></td>
+<td>设置标签文字字体</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLabelsVisible()</code></td>
+<td>设置轴标签文字可见性</td>
+</tr>
+<tr>
+<td><strong>轴线和刻度线</strong></td>
+<td><code>void setTickCount()</code></td>
+<td>设置主刻度个数</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLineVisible()</code></td>
+<td>设置轴线和刻度线可见性</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLinePen()</code></td>
+<td>设置轴线和刻度线画笔</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setLinePenColor()</code></td>
+<td>设置轴线和刻度线颜色</td>
+</tr>
+<tr>
+<td><strong>主刻度线</strong></td>
+<td><code>void setGridLineColor()</code></td>
+<td>设置网格线颜色</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setGridLinePen()</code></td>
+<td>设置网格线画笔</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setGridLineVisible()</code></td>
+<td>设置网格线可见性</td>
+</tr>
+<tr>
+<td><strong>次刻度和次网格线</strong></td>
+<td><code>void setMinorTickCount()</code></td>
+<td>设置次刻度个数</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setMinorGridLineColor()</code></td>
+<td>设置次网格线颜色</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setMinorGridLinePen()</code></td>
+<td>设置次网格线画笔</td>
+</tr>
+<tr>
+<td></td>
+<td><code>void setMinorGridLineVisible()</code></td>
+<td>设置次网格线可见性</td>
+</tr>
+</tbody></table>
+<h3 id="3-6数据序列常用函数"><a href="#3-6数据序列常用函数" class="headerlink" title="3.6数据序列常用函数"></a>3.6数据序列常用函数</h3><ul>
+<li><code>QChart</code>添加和删除数据系列：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>void addSeries(QAbstractSeries *series)</code></td>
+<td>向图表添加数据系列。</td>
+</tr>
+<tr>
+<td><code>void removeSeries(QAbstractSeries *series)</code></td>
+<td>从图表中移除数据系列。</td>
+</tr>
+<tr>
+<td><code>QList&lt;QAbstractSeries *&gt; series()</code></td>
+<td>返回图表中的所有数据系列。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>Series</code>属性设置：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>void setName(const QString &amp;name)</code></td>
+<td>设置数据系列的名称。</td>
+</tr>
+<tr>
+<td><code>QString name() const</code></td>
+<td>获取数据系列的名称。</td>
+</tr>
+<tr>
+<td><code>void setColor(const QColor &amp;color)</code></td>
+<td>设置数据系列的颜色。</td>
+</tr>
+<tr>
+<td><code>QColor color() const</code></td>
+<td>获取数据系列的颜色。</td>
+</tr>
+<tr>
+<td><code>void setPen(const QPen &amp;pen)</code></td>
+<td>设置数据系列的画笔。</td>
+</tr>
+<tr>
+<td><code>QPen pen() const</code></td>
+<td>获取数据系列的画笔。</td>
+</tr>
+<tr>
+<td><code>void setBrush(const QBrush &amp;brush)</code></td>
+<td>设置数据系列的画刷。</td>
+</tr>
+<tr>
+<td><code>QBrush brush() const</code></td>
+<td>获取数据系列的画刷。</td>
+</tr>
+<tr>
+<td><code>void setBorderColor(const QColor &amp;color)</code></td>
+<td>设置数据系列的边框颜色。</td>
+</tr>
+<tr>
+<td><code>QColor borderColor() const</code></td>
+<td>获取数据系列的边框颜色。</td>
+</tr>
+<tr>
+<td><code>void setBorderWidth(float width)</code></td>
+<td>设置数据系列的边框宽度。</td>
+</tr>
+<tr>
+<td><code>float borderWidth() const</code></td>
+<td>获取数据系列的边框宽度。</td>
+</tr>
+<tr>
+<td><code>void setLabelsColor(const QColor &amp;color)</code></td>
+<td>设置数据系列的标签颜色。</td>
+</tr>
+<tr>
+<td><code>QColor labelsColor() const</code></td>
+<td>获取数据系列的标签颜色。</td>
+</tr>
+<tr>
+<td><code>void setLabelsVisible(bool visible)</code></td>
+<td>设置数据系列的标签是否可见。</td>
+</tr>
+<tr>
+<td><code>bool labelsVisible() const</code></td>
+<td>获取数据系列的标签是否可见。</td>
+</tr>
+<tr>
+<td><code>void setPointLabelsFormat(const QString &amp;format)</code></td>
+<td>设置数据系列中点的标签格式。</td>
+</tr>
+<tr>
+<td><code>QString pointLabelsFormat() const</code></td>
+<td>获取数据系列中点的标签格式。</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>Series</code>中数据点的CRUD：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>void append(QPointF point)</code></td>
+<td>在数据系列的末尾添加一个点。</td>
+</tr>
+<tr>
+<td><code>void append(QList&lt;QPointF&gt; points)</code></td>
+<td>在数据系列的末尾添加多个点。</td>
+</tr>
+<tr>
+<td><code>void clear()</code></td>
+<td>清空数据系列中的所有点。</td>
+</tr>
+<tr>
+<td><code>QVector&lt;QPointF&gt; pointsVector() const</code></td>
+<td>获取数据系列中的所有点。</td>
+</tr>
+<tr>
+<td><code>void replace(QPointF oldPoint, QPointF newPoint)</code></td>
+<td>用新点替换数据系列中的旧点。</td>
+</tr>
+<tr>
+<td><code>void replace(QList&lt;QPointF&gt; oldPoints, QList&lt;QPointF&gt; newPoints)</code></td>
+<td>用新点替换数据系列中的旧点。</td>
+</tr>
+<tr>
+<td><code>void remove(QPointF point)</code></td>
+<td>从数据系列中移除指定的点。</td>
+</tr>
+<tr>
+<td><code>void remove(QList&lt;QPointF&gt; points)</code></td>
+<td>从数据系列中移除指定的多个点。</td>
+</tr>
+<tr>
+<td><code>void insert(int index, QPointF point)</code></td>
+<td>在指定索引处插入一个点。</td>
+</tr>
+<tr>
+<td><code>void insert(int index, QList&lt;QPointF&gt; points)</code></td>
+<td>在指定索引处插入多个点。</td>
+</tr>
+<tr>
+<td><code>int count() const</code></td>
+<td>返回数据系列中点的数量。</td>
+</tr>
+<tr>
+<td><code>bool isEmpty() const</code></td>
+<td>检查数据系列是否为空。</td>
+</tr>
+</tbody></table>
+<h3 id="3-7向图表添加坐标轴"><a href="#3-7向图表添加坐标轴" class="headerlink" title="3.7向图表添加坐标轴"></a>3.7向图表添加坐标轴</h3><p>共有3中方式可以像一个<code>QChart</code>实例添加坐标轴：</p>
+<p>1.使用<code>addAxis</code>方式（可以设置坐标轴<strong>位置</strong>）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.创建画布(已用ui设置)</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//2.创建图表</span></span><br><span class="line">chart = <span class="keyword">new</span> QChart;</span><br><span class="line"><span class="comment">//3.创建xy坐标</span></span><br><span class="line">axisX = <span class="keyword">new</span> QValueAxis;</span><br><span class="line">axisY = <span class="keyword">new</span> QValueAxis;</span><br><span class="line"><span class="comment">//4.设置坐标范围</span></span><br><span class="line">axisX-&gt;<span class="built_in">setRange</span>(<span class="number">-10</span>,<span class="number">10</span>);</span><br><span class="line">axisY-&gt;<span class="built_in">setRange</span>(<span class="number">-10</span>,<span class="number">10</span>);</span><br><span class="line"><span class="comment">//5.将坐标加入图表,并设置坐标位置</span></span><br><span class="line">chart-&gt;<span class="built_in">addAxis</span>(axisX,Qt::AlignBottom);</span><br><span class="line">chart-&gt;<span class="built_in">addAxis</span>(axisY,Qt::AlignLeft);</span><br><span class="line"><span class="comment">//6.将序列加入图表</span></span><br><span class="line">QScatterSeries *series = <span class="keyword">new</span> <span class="built_in">QScatterSeries</span>(chart);</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> index = <span class="number">0</span>; index != <span class="number">5</span>; ++index)</span><br><span class="line">&#123;</span><br><span class="line">    series-&gt;<span class="built_in">append</span>(index, index * count * <span class="number">5</span> + <span class="built_in">rand</span>() % <span class="number">5</span>);</span><br><span class="line">&#125;</span><br><span class="line">chart-&gt;<span class="built_in">addSeries</span>(series);<span class="comment">// 将series添加到QChart对象中</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//7.关联xy轴,将序列加入自己的xy坐标(attachAxis)</span></span><br><span class="line">series-&gt;<span class="built_in">attachAxis</span>(axisX);</span><br><span class="line">series-&gt;<span class="built_in">attachAxis</span>(axisY);</span><br><span class="line"></span><br><span class="line"><span class="comment">//8.将图表加入画布</span></span><br><span class="line">ui-&gt;chartView-&gt;<span class="built_in">setChart</span>(chart);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.使用<code>setAxisX</code>、<code>setAxisY</code>方式(&#x3D;&#x3D;不可以&#x3D;&#x3D;设置坐标轴位置)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.创建画布(已用ui设置)</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//2.创建图表</span></span><br><span class="line">chart = <span class="keyword">new</span> QChart;</span><br><span class="line"><span class="comment">//3.创建xy坐标</span></span><br><span class="line">axisX = <span class="keyword">new</span> QValueAxis;</span><br><span class="line">axisY = <span class="keyword">new</span> QValueAxis;</span><br><span class="line"><span class="comment">//4.设置坐标范围</span></span><br><span class="line">axisX-&gt;<span class="built_in">setRange</span>(<span class="number">-10</span>,<span class="number">10</span>);</span><br><span class="line">axisY-&gt;<span class="built_in">setRange</span>(<span class="number">-10</span>,<span class="number">10</span>);</span><br><span class="line"><span class="comment">//5.将坐标加入图表,关联xy轴(将序列图表放在自己创建的坐标系上)</span></span><br><span class="line">chart-&gt;<span class="built_in">setAxisX</span>(axisX);</span><br><span class="line">chart-&gt;<span class="built_in">setAxisY</span>(axisY);</span><br><span class="line"><span class="comment">//6.将序列加入图表</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//7.关联xy轴,将序列加入自己的xy坐标(attachAxis)</span></span><br><span class="line">series-&gt;<span class="built_in">attachAxis</span>(axisX);</span><br><span class="line">series-&gt;<span class="built_in">attachAxis</span>(axisY);</span><br><span class="line"><span class="comment">//8.将图表加入画布</span></span><br><span class="line">ui-&gt;chartView-&gt;<span class="built_in">setChart</span>(chart);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>3.使用QChart的<code>createDefaultAxes()</code>方法，创建默认坐标轴</p>
+<ul>
+<li>需要在QChart添加了<code>Series</code>之后调用，坐标轴的范围会根据<code>Series</code>范围自适应</li>
+</ul>
+<blockquote>
+<p>总结：</p>
+<p>在Qt的QChart中，可以使用以下3种方式来设置坐标轴：</p>
+<p>1、使用<code>addAxis()</code>方法：在这种方式下，轴对象可以在图表中独立于系列添加和移除，因此可以在图表中<strong>灵活</strong>地管理和控制不同的轴。</p>
+<p>2、使用<code>setAxisX()</code>和<code>setAxisY()</code>方法：在这种方式下，每个图表只能有<strong>一个X轴和一个Y轴</strong>，并且会自动将系列与这些轴关联起来。当添加新的系列时，它们会自动使用已设置的X轴和Y轴。</p>
+<p>总体而言，使用addAxis()方法可以在图表中添加多个轴，并且可以更灵活地管理不同的轴。</p>
+<p>而使用setAxisX()和setAxisY()方法则适用于只需要一个X轴和一个Y轴的简单情况，并且可以自动关联系列和轴。选择使用哪种方式取决于你的需求和使用场景。</p>
+</blockquote>
+<h3 id="3-8QChart使用步骤"><a href="#3-8QChart使用步骤" class="headerlink" title="3.8QChart使用步骤"></a>3.8QChart使用步骤</h3><p>1、创建QChartView画布</p>
+<p>2、创建QChart图表</p>
+<p>3、创建序列</p>
+<p>4、创建QValueAxis坐标轴(部分图表不用，例如：饼状图)</p>
+<p>5、配置序列(坐标轴)、设置序列(坐标轴)参数、添加数据等</p>
+<p>6、将序列加入QChart</p>
+<p>7、将坐标轴加入QChart</p>
+<p>8、关联xy轴(部分图表不用，例如：饼状图)，将图表和自己创建的xy轴关联</p>
+<p>9、将图表QChart加入QChartView画布中</p>
+<h3 id="3-9设置图表显示范围"><a href="#3-9设置图表显示范围" class="headerlink" title="3.9设置图表显示范围"></a>3.9设置图表显示范围</h3><p>有2种方式可以改变图表的显示范围</p>
+<p>1.使用<code>QValueAxis</code>的<code>setRange()</code>方法，设置完后，页面可能跳转（变化多的话）</p>
+<p>2.使用<code>QChart</code>的<code>scroll()</code>方法将页面朝一个方向滚动一段距离</p>
+<h3 id="3-10使用分类轴"><a href="#3-10使用分类轴" class="headerlink" title="3.10使用分类轴"></a>3.10使用分类轴</h3><p>数值轴就是<code>QValueAxis</code>类</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建图表</span></span><br><span class="line">chart = <span class="keyword">new</span> QChart;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a bar series</span></span><br><span class="line">QBarSeries *series = <span class="keyword">new</span> <span class="built_in">QBarSeries</span>();</span><br><span class="line">QStringList categories;</span><br><span class="line">categories &lt;&lt; <span class="string">&quot;Category 1&quot;</span> &lt;&lt; <span class="string">&quot;Category 2&quot;</span> &lt;&lt; <span class="string">&quot;Category 3&quot;</span> &lt;&lt; <span class="string">&quot;Category 4&quot;</span> &lt;&lt; <span class="string">&quot;Category 5&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add data to the series</span></span><br><span class="line">QBarSet *set = <span class="keyword">new</span> <span class="built_in">QBarSet</span>(<span class="string">&quot;Data Set&quot;</span>);</span><br><span class="line">*set &lt;&lt; <span class="number">10</span> &lt;&lt; <span class="number">30</span> &lt;&lt; <span class="number">20</span> &lt;&lt; <span class="number">50</span> &lt;&lt; <span class="number">40</span>;</span><br><span class="line">series-&gt;<span class="built_in">append</span>(set);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Add the series to the chart</span></span><br><span class="line">chart-&gt;<span class="built_in">addSeries</span>(series);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a chart view</span></span><br><span class="line">QChartView *chartView = <span class="keyword">new</span> <span class="built_in">QChartView</span>(chart);</span><br><span class="line">chartView-&gt;<span class="built_in">setRenderHint</span>(QPainter::Antialiasing);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set up the category axis</span></span><br><span class="line">QCategoryAxis *axisX = <span class="keyword">new</span> <span class="built_in">QCategoryAxis</span>();</span><br><span class="line"><span class="type">int</span> categoryCount = categories.<span class="built_in">size</span>();</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; categoryCount; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    axisX-&gt;<span class="built_in">append</span>(categories.<span class="built_in">at</span>(i), i); <span class="comment">// Adjusting position for alignment</span></span><br><span class="line">&#125;</span><br><span class="line">axisX-&gt;<span class="built_in">setLabelsPosition</span>(QCategoryAxis::AxisLabelsPositionOnValue);</span><br><span class="line">axisX-&gt;<span class="built_in">setLineVisible</span>(<span class="literal">false</span>); <span class="comment">// Hide the axis line to make it look aligned with bars</span></span><br><span class="line">chart-&gt;<span class="built_in">addAxis</span>(axisX, Qt::AlignBottom);</span><br><span class="line">series-&gt;<span class="built_in">attachAxis</span>(axisX);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set up the value axis</span></span><br><span class="line">QValueAxis *axisY = <span class="keyword">new</span> <span class="built_in">QValueAxis</span>();</span><br><span class="line">chart-&gt;<span class="built_in">addAxis</span>(axisY, Qt::AlignLeft);</span><br><span class="line">series-&gt;<span class="built_in">attachAxis</span>(axisY);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//将图表加入画布</span></span><br><span class="line">ui-&gt;chartview-&gt;<span class="built_in">setChart</span>(chart);</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/08-Qt/13-%E7%BB%98%E5%9B%BE.html">https://li-ruiqi777.github.io/08-Qt/13-%E7%BB%98%E5%9B%BE.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/09-ROS/006-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F.html" title="006 机器人仿真"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">006 机器人仿真</div></div><div class="info-2"><div class="info-item-1">机器人仿真常见仿真软件目前市面上有许多机器人仿真软件，这些仿真软件其实是独立于ROS的，他们是通过一些物理引擎做的。通过一些插件，可以让这些仿真软件和ROS2结合。下面的笔记全是基于Gazebo的 所需参数仿真时URDF文件必须定义一些子标签：  碰撞（collison标签） 内参：包括物体质量（mass标签）、旋转惯量（inertia标签）、摩擦力（gazebo扩展的一些标签）  Gazebo的使用Gazebo本身是个与ROS无关的软件，必须通过一些插件，才能让它和ROS2结合 启动直接启动Gazebo的话，不会启动对应的ROS2 node，这样的话就无法和ROS2联动了。所以启动Gazebo的时候必须指定ROS2插件 1gazebo --verbose -s libgazebo_ros_init.so -s libgazebo_ros_factory.so   此时会创建一个叫/gazebo的ROS节点，该节点创建了一些service，让我们可以与其交互（gazeo里面本身也有一些GUI操作工具，但是无法直接加载urdf文件） 1234567891011121314ros2...</div></div></div></a><a class="pagination-related" href="/08-Qt/14-Qt%E5%A4%9A%E7%BA%BF%E7%A8%8B.html" title="14 Qt多线程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">14 Qt多线程</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Qt%E7%9A%84%E7%BB%98%E5%9B%BE%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">Qt的绘图系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-QPainter%E7%BB%98%E5%9B%BE%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.1.</span> <span class="toc-text">1.QPainter绘图系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1QPainter%E7%BB%98%E5%9B%BE%E7%9A%84%E4%B8%BB%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1QPainter绘图的主要属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2QPainter%E7%BB%98%E5%88%B6%E5%9F%BA%E6%9C%AC%E5%9B%BE%E5%BD%A2"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2QPainter绘制基本图形</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3%E7%BB%98%E5%9B%BE%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3绘图的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4%E5%9D%90%E6%A0%87%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%9D%90%E6%A0%87%E5%8F%98%E6%8D%A2"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4坐标系统和坐标变换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Graphics-View%E7%BB%98%E5%9B%BE%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.2.</span> <span class="toc-text">2.Graphics View绘图系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1%E7%BB%98%E5%9B%BE%E5%9F%BA%E6%9C%AC%E9%80%BB%E8%BE%91"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1绘图基本逻辑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Qt-Charts"><span class="toc-number">1.3.</span> <span class="toc-text">3.Qt Charts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E5%BC%95%E5%85%A5%E5%9B%BE%E8%A1%A8%E6%A8%A1%E5%9D%97"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1引入图表模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2%E7%9B%B8%E5%85%B3%E7%B1%BB%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2相关类的介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3%E5%9C%A8Qt-Designer%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%9B%BE%E8%A1%A8%E7%94%BB%E5%B8%83"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3在Qt Designer中添加图表画布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4QChart%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4QChart常用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5%E6%95%B0%E5%80%BC%E8%BD%B4%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.5数值轴常用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6%E6%95%B0%E6%8D%AE%E5%BA%8F%E5%88%97%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.3.6.</span> <span class="toc-text">3.6数据序列常用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7%E5%90%91%E5%9B%BE%E8%A1%A8%E6%B7%BB%E5%8A%A0%E5%9D%90%E6%A0%87%E8%BD%B4"><span class="toc-number">1.3.7.</span> <span class="toc-text">3.7向图表添加坐标轴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8QChart%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.3.8.</span> <span class="toc-text">3.8QChart使用步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9%E8%AE%BE%E7%BD%AE%E5%9B%BE%E8%A1%A8%E6%98%BE%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="toc-number">1.3.9.</span> <span class="toc-text">3.9设置图表显示范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10%E4%BD%BF%E7%94%A8%E5%88%86%E7%B1%BB%E8%BD%B4"><span class="toc-number">1.3.10.</span> <span class="toc-text">3.10使用分类轴</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

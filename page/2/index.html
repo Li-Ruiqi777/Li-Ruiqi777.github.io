@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://li-ruiqi777.github.io/page/2/">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a></span><div id="menus"></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/BackBone.html" title="BackBone">BackBone</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">BackBone在深度学习的论文中，经常见到Backbone这个单词，它代表着主干网络。这个主干网络大多时候指的是提取特征的网络，其作用就是提取图片中的信息，供后面的网络使用。这些网络经常使用的是resnet、VGG等已被证明有较强的特征提取能力的网络，而不是我们自己设计的网络。在用这些网络作为backbone的时候，都是直接加载官方已经训练好的模型参数，后面接着我们自己的网络。这就是常说的迁移学习因为加载的backbone模型已经具有提取特征的能力了，在我们的训练过程中，会对他进行微调，使得其更适合于我们自己的任务。 举个例子，比如VGG的原始应用是给1000个种类进行分类，如果我们要利用VGG进行5个种类的分类的话，只需要重写原始网络中的那3个全连接层，改变输出向量的维度就可以了。在训练的时候可以锁定预先加载的VGG网络的所有参数，只训练自己新加的全连接层。这就叫迁移学习。 </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%BA%A4%E5%8F%89%E7%86%B5.html" title="交叉熵">交叉熵</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">交叉熵1.交叉熵的作用交叉熵主要用来进行 分类问题 的损失函数计算，因为分类问题的输出可以看成一个概率分布，交叉熵可以看成是 衡量概率分布之间的”距离“ 的方法。 2.交叉熵的原理信息量：它是用来衡量一个事件的不确定性的；一个事件发生的概率越大，不确定性越小，则它所携带的信息量就越小 当概率为1时，信息量等于0，也就是说该事件的发生不会导致任何信息量的增加。 熵：它是用来衡量一个系统的混乱程度的，代表一个系统中信息量的总和；信息量总和越大，表明这个系统不确定性就越大。 熵的度量：所有可能发生事件的信息量的期望 交叉熵：它主要刻画的是实际输出（概率）与期望输出（概率）的距离，也就是交叉熵的值越小，两个概率分布就越接近。假设概率分布p为期望输出，概率分布q为实际输出 对于二分类问题，计算公式就变成了这样： 在使用MBGD时，每个Batch的Loss一般取平均值 3.Pytorch中求交叉熵（1）对于二分类问题，一般用criterion = nn.BCELoss(size_average=True)来计算损失(交叉熵) （2）对于多分类问题，一般用criterion =...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.html" title="卷积神经网络">卷积神经网络</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">卷积神经网络一个卷积神经网络一般有如下结构：  输入  卷积层  池化层(下采样)  激活函数层  全连接层  输出   一般卷积层和池化层负责特征提取，全连接层负责将多维的输出拉直成一维。 1.卷积层(以输入为图像为例)(1)定义卷积层的卷积运算与之前数字图像处理学的图片的卷积很类似，只不过当时忽略了一个细节：卷积核其实是个张量。如果输入图片是3x640x480，那么卷积核的尺寸应该是3 x w x h也就是卷积核的通道数必须和输入一致。如果只是拿这样一个3维张量的卷积核去与输入运算，那么输出的通道数会变少的（3—&gt;1）。 如果要想使输出的通道数变多，那么就应该采用多个这样3维的卷积核，因此，实际上卷积核的维度应该是4维的。它的定义应该是(输出通道m,输入通道数n,w,h)  最后输出图片的维度就变成了m x w&#39; x...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%E5%8F%8A%E6%8C%87%E6%A0%87.html" title="混淆矩阵及指标">混淆矩阵及指标</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">混淆矩阵及深度学习中的一些评价指标1.混淆矩阵混淆矩阵的每一列代表了预测类别，每一列的总数表示预测为该类别的数据的数目；每一行代表了数据的真实归属类别，每一行的数据总数表示该类别的数据实例的数目；每一列中的数值表示真实数据被预测为该类的数目。  True Positive（TP）：真正类。样本的真实类别是正类，并且模型识别的结果也是正类。 False Negative（FN）：假负类。样本的真实类别是正类，但是模型将其识别为负类。 False Positive（FP）：假正类。样本的真实类别是负类，但是模型将其识别为正类。 True Negative（TN）：真负类。样本的真实类别是负类，并且模型将其识别为负类。 该矩阵可用于易于理解的二类分类问题，但通过向混淆矩阵添加更多行和列，可轻松应用于具有3个或更多类值的问题。 举例 如有150个样本数据，预测为类I，类II，类III 各为50个。分类结束后得到的混淆矩阵为：  2.评价指标2.1...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92.html" title="逻辑回归">逻辑回归</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">逻辑回归(Logistic Regression)1.逻辑回归和线性回归的区别逻辑回归是用于解决二分类问题。如果用0&#x2F;1表示类别，逻辑回归的输出是x对应的P(class &#x3D; 1)，即类别是1的概率。虽然是解决分类问题，但实际的输出是概率。 线性回归是用于求y&#x3D;wx+b的各系数的，它的输出y是个连续的结果(如果x连续) 2.逻辑回归的实现逻辑回归实际上是一种非线性模型，他对线性计算的结果进行了非线性处理(激活函数)，把结果压缩到了[0,1]，近似为发生的概率。 这种处理一般用sigmoid的函数(也叫激活函数)来进行，sigmoid 函数是一类单调递增的饱和函数，他能把输出压缩到[0,1]，其中最典型的sigmoid函数为logistic 函数，在pytorch中的sigmoid函数就是指logistic 函数。 3.逻辑回归的损失函数逻辑回归的损失函数一般用BCE来衡量(二分类交叉熵) 4.Pytorch实现逻辑回归1.准备数据12x_data = torch.tensor([[1.0],[2.0],[7.0]])y_data =...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.html" title="激活函数">激活函数</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">激活函数1.激活函数的作用使对线性的计算结果做一个非线性的处理，使其结果被压缩到某个区间内。 2.为什么要用激活函数对于一个多层的神经网络，如果各层都是y = wx+b,那么根据线性代数里面矩阵相乘的特性，最后多层网络的w通过矩阵乘法可以化成一个，也就是说不管多少次神经网络最后都只相当于一层，模型的复杂度也就会很低。 如果在各层之间加了激活函数，那么每一层的结果都会变成非线性的，层与层之间就变得独立了。 3.什么时候需要激活函数一般只有在分类问题中(输出的结果是概率)才需要加上激活函数，且为了保证最后的输出概率在(0,1)间，最后一层的激活函数一般用logistic function。 对于线性回归问题，因为他的输出是一个连续的、范围在(-∞,+∞)的值，所以就不需要加非线性激活函数。但是也可以使用线性的激活函数，比如ReLU激活函数，ReLU = max(0,x)，他在预测房价等场合可以用于把结果限制在[0,+∞) </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念">基本概念</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.933Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">基础概念</a></span></div><div class="content">1.基本概念机器学习的分类：监督学习、无监督学习、强化学习、半监督学习、主动学习 1.监督学习监督学习是从&lt;x,...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9A%84%E6%96%B9%E6%B3%95.html" title="查看模型结构的方法">查看模型结构的方法</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.917Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/">Pytorch</a></span></div><div class="content">查看模型结构的方法1.直接print()123456net = nn.Sequential(    nn.Linear(1,10),    nn.ReLU(),    nn.Linear(10,2),)print(net)  输出如下： 12345Sequential(  (0): Linear(in_features=1, out_features=10, bias=True)  (1): ReLU()  (2): Linear(in_features=10, out_features=2, bias=True))  该方法的优缺点：  优点：比较简单 缺点：只是输出了模型各层的结构，如果模型结构本身有错，无法识别出来  2.使用torchsummary库 这个库不随pytorch一起被安装，需要自己手动安装  2.1函数介绍：作用 ： 通过指定输入尺寸，来查看网络每一层的输出尺寸 和 每一层的参数数量。 只需指定 input_size 即可，不需要实际的输入数据。 1torchsummary.summary(model, input_size=(3, 224,...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD.html" title="梯度下降和反向传播">梯度下降和反向传播</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.917Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/">Pytorch</a></span></div><div class="content">梯度下降和反向传播1.损失函数(Loss Function)损失函数是用来衡量预测值和实际值的差的，一般为 (y预测 - y实际)^2 MSE：预测值和实际值的差的平方和的均值 2.梯度下降 梯度下降的目的：借助损失函数的梯度(偏导)，通过不断迭代求解某个回归问题的权重w  梯度下降可以分为 （1）批量梯度下降(BGD)：每轮更新w时，通过所有样本的损失函数(cost)的均值来计算梯度，cost其实就是MSE。计算快、w收敛慢 优点：    一次迭代是对所有样本进行计算，此时利用矩阵进行操作，实现了并行。    由全数据集确定的方向能够更好地代表样本总体，从而更准确地朝向极值所在的方向。当目标函数为凸函数时，BGD一定能够得到全局最优。   缺点：    当样本数目 m 很大时，每迭代一步都需要对所有样本计算，训练过程会很慢  从迭代的次数上来看，BGD迭代的次数相对较少。   （2）随机梯度下降(SGD)：每次迭代w只用一个样本的损失函数(loss)来计算梯度，使得训练速度加快。计算慢、w收敛快 优点： ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BF%9D%E5%AD%98%E5%92%8C%E5%8A%A0%E8%BD%BD.html" title="模型的保存和加载">模型的保存和加载</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.917Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/">Pytorch</a></span></div><div class="content">模型的加载和保存Pytorch的相关API（1）保存模型  Pytorch保存模型用torch.save(变量名,文件名)，一般文件格式为.pt或.pth  保存的变量可以是各种数据类型，比如 有序字典、Tensor、包括Tensor的容器，或者普通的容器….  torch.save(变量名,文件名)会调用Python中的Pickle模块来对要保存的文件进行序列化处理(全部转换成二进制文件)   （2）加载模型  Pytorch加载模型用变量 = torch.load(文件名)，一般文件格式为.pt或.pth  常见序列化形式1.直接序列化模型实例1234567891011121314151617class net(nn.Module):  def __init__(self) -&gt; None:    super().__init__()    self.layer = nn.Sequential(      nn.Linear(3,1),      nn.Sigmoid()    )  def forward(self,x):    return...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            <a class="card-more-btn" href="/categories/" title="View More">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/"><span class="card-category-list-name">01-计算机基础八股</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">02-开发工具</span><span class="card-category-list-count">11</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/"><span class="card-category-list-name">CMake</span><span class="card-category-list-count">7</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/03-C/"><span class="card-category-list-name">03-C++</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/"><span class="card-category-list-name">04-Linux</span><span class="card-category-list-count">39</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"><span class="card-category-list-name">01-Linux基本操作</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/"><span class="card-category-list-name">02-系统移植</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">03-内核开发</span><span class="card-category-list-count">19</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+    <ul class="card-archive-list">
+  
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/06/">
+          <span class="card-archive-list-date">June 2025</span>
+          <span class="card-archive-list-count">179</span>
+        </a>
+      </li>
+    </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">179</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-06-04T08:54:21.676Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

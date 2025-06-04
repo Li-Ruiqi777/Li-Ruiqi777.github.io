@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>07 模板编程 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="模板 C++的泛型编程利用的主要就是模板  模板主要分为函数模板 和 类模板   一、函数模板函数模板的作用： 建立一个通用的函数，其返回值和形参类型可以不具体确定，用一个虚拟的类型来代表。 1.语法：12345678template&lt;typename T&gt;&#x2F;&#x2F;声明一个模板，告诉编译器后边的T是一个通用数据类型&#x2F;&#x2F;函数的声明&#x2F;定义void swap(T &amp;a,T &amp;b)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07 模板编程">
+<meta property="og:url" content="https://li-ruiqi777.github.io/03-C++/07-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="模板 C++的泛型编程利用的主要就是模板  模板主要分为函数模板 和 类模板   一、函数模板函数模板的作用： 建立一个通用的函数，其返回值和形参类型可以不具体确定，用一个虚拟的类型来代表。 1.语法：12345678template&lt;typename T&gt;&#x2F;&#x2F;声明一个模板，告诉编译器后边的T是一个通用数据类型&#x2F;&#x2F;函数的声明&#x2F;定义void swap(T &amp;a,T &amp;b)">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.480Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/03-C++/07-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '07 模板编程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">07 模板编程</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">07 模板编程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.480Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/03-C/">03-C++</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><ul>
+<li><p>C++的<mark>泛型</mark>编程利用的主要就是模板</p>
+</li>
+<li><p>模板主要分为<strong>函数模板</strong> 和 <strong>类模板</strong></p>
+</li>
+</ul>
+<h2 id="一、函数模板"><a href="#一、函数模板" class="headerlink" title="一、函数模板"></a>一、函数模板</h2><p><strong>函数模板的作用</strong>：</p>
+<p>建立一个通用的函数，其返回值和形参类型可以不具体确定，用一个<strong>虚拟的类型</strong>来代表。</p>
+<h5 id="1-语法："><a href="#1-语法：" class="headerlink" title="1.语法："></a>1.语法：</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;<span class="comment">//声明一个模板，告诉编译器后边的T是一个通用数据类型</span></span><br><span class="line"><span class="comment">//函数的声明/定义</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">swap</span><span class="params">(T &amp;a,T &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T temp = a;</span><br><span class="line">    a=b;</span><br><span class="line">    b=temp;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>template：关键字，声明创建模板</p>
+</li>
+<li><p>typename：关键字，可以用class替代，表面其后面的符号是一种数据类型</p>
+</li>
+<li><p>T：通用的数据类型，也可换成其他的符号</p>
+</li>
+</ul>
+<h5 id="2-注意："><a href="#2-注意：" class="headerlink" title="2.注意："></a>2.注意：</h5><ul>
+<li><p><strong>如果把函数的声明和实现<mark>分别放到.h和.cpp</mark>中，则要写两次template<typename T></strong></p>
+</li>
+<li><p>template&lt; &gt;仅对紧跟的一个函数的声明或者定义有效，如果要写多个函数模板，则要写多次template&lt; &gt;</p>
+</li>
+</ul>
+<h5 id="3-使用方法"><a href="#3-使用方法" class="headerlink" title="3.使用方法"></a>3.使用方法</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.自动推导数据类型</span></span><br><span class="line"><span class="type">int</span> a,b;</span><br><span class="line"><span class="built_in">swap</span>(a,b);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.显式指定数据类型</span></span><br><span class="line"><span class="built_in">swap</span>&lt;<span class="type">int</span>&gt;(a,b);<span class="comment">//&lt; &gt;称为模板的参数列表</span></span><br></pre></td></tr></table></figure>
+
+<p><mark>模板必须确定出T的数据类型，函数才能正常运行</mark></p>
+<h5 id="4-函数模板和普通函数的区别"><a href="#4-函数模板和普通函数的区别" class="headerlink" title="4.函数模板和普通函数的区别"></a>4.函数模板和普通函数的区别</h5><ul>
+<li><p>普通函数可以发生自动类型转换(隐式类型转换)</p>
+</li>
+<li><p>自动类型推导的函数模板不能发生隐式类型转换</p>
+</li>
+<li><p>显示指定数据类型的函数模板，可以发生隐式类型转换</p>
+</li>
+</ul>
+<h5 id="5-函数模板和普通函数重载时的调用规则"><a href="#5-函数模板和普通函数重载时的调用规则" class="headerlink" title="5.函数模板和普通函数重载时的调用规则"></a>5.函数模板和普通函数重载时的调用规则</h5><ul>
+<li><p>如果函数模板和普通函数都能实现，优先调用函数模板</p>
+</li>
+<li><p>可以通过空模板参数列表&lt; &gt;来强制调用函数模板</p>
+</li>
+<li><p>函数模板本身也可以重载</p>
+</li>
+<li><p>如果函数模板可以产生更好的匹配，则优先调用函数模板</p>
+</li>
+</ul>
+<p> </p>
+<h5 id="6-模板可以针对特定的数据类型重载"><a href="#6-模板可以针对特定的数据类型重载" class="headerlink" title="6.模板可以针对特定的数据类型重载"></a>6.模板可以针对特定的数据类型重载</h5><p>语法：</p>
+<p><mark>template&lt; &gt; 返回值类型 函数名(特定数据类型 a , 特定数据类型 b….)</mark></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(T &amp;a, T &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (a == b)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;a==b&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;a!=b&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果传入数据类型T为一个用户自定义的类，则该模板函数就不能用了，用户需要针对该类重载一个模板函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;&gt; <span class="function"><span class="type">void</span> <span class="title">func</span><span class="params">(Person &amp;a, Person &amp;b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(a.age==b.age)</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;a==b&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;a!=b&quot;</span> &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二、类模板"><a href="#二、类模板" class="headerlink" title="二、类模板"></a>二、类模板</h2><p><strong>类模板的作用：</strong></p>
+<p> 创建一个通用类，类中成员的数据类型可以不具体指定，而用一个<strong>虚拟的类型</strong>代替。</p>
+<h5 id="1-语法：-1"><a href="#1-语法：-1" class="headerlink" title="1.语法："></a>1.语法：</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>,<span class="keyword">class</span> <span class="title class_">T2</span> ....&gt;</span><br><span class="line"><span class="comment">//类的声明</span></span><br><span class="line"><span class="comment">//如：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type_name, <span class="keyword">typename</span> Type_height&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Pen</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Pen</span>(Type_name m_name, Type_height m_height)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_name = m_name;</span><br><span class="line">        <span class="keyword">this</span>-&gt;m_height = m_height;</span><br><span class="line">    &#125;</span><br><span class="line">    Type_name m_name;</span><br><span class="line">    Type_height m_height;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li><p>用类模板实例对象时，<mark>必须要在模板参数列表&lt; &gt;中指定数据类型</mark></p>
+</li>
+<li><p>类不能重载，因此类模板不能和已有的类重名</p>
+</li>
+</ul>
+<h5 id="2-类模板和函数模板的区别"><a href="#2-类模板和函数模板的区别" class="headerlink" title="2.类模板和函数模板的区别"></a>2.类模板和函数模板的区别</h5><ul>
+<li><p>类模板不能自动推导数据类型，只能显式指定</p>
+</li>
+<li><p>类模板可以在模板参数列表中有默认的参数，如：</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Type_name, <span class="keyword">typename</span> Type_height = <span class="type">int</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-类模板中成员函数的创建时机"><a href="#3-类模板中成员函数的创建时机" class="headerlink" title="3.类模板中成员函数的创建时机"></a>3.类模板中成员函数的创建时机</h5><ul>
+<li><p>普通类的成员函数在类被定义好后就会被创建</p>
+</li>
+<li><p>模板类的成员函数只有在具体的一个实例调用该函数时才会被创建</p>
+</li>
+</ul>
+<h5 id="4-类模板作为函数的参数"><a href="#4-类模板作为函数的参数" class="headerlink" title="4.类模板作为函数的参数"></a>4.类模板作为函数的参数</h5><p>类模板有三种方法可以作为函数的参数：</p>
+<p>1.传入指定的数据类型—直接在形参列表显式指定数据类型</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">test01</span><span class="params">(Pen&lt;string, <span class="type">int</span>&gt; &amp;p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    p.<span class="built_in">PenPrint</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.参数模板化—将对象中的参数变成模板进行传递</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test02</span><span class="params">(Pen&lt;T1, T2&gt;&amp; p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    p.<span class="built_in">PenPrint</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3.整个类模板化—将这个对象类型 模板化进行传递</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">T1</span>&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">test03</span><span class="params">(T1&amp; p)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    p.<span class="built_in">PenPrint</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">Pen&lt;string, <span class="type">int</span>&gt; <span class="title">p1</span><span class="params">(<span class="string">&quot;钢笔&quot;</span>, <span class="number">12</span>)</span></span>;</span><br><span class="line">    <span class="function">Pen&lt;string, <span class="type">int</span>&gt; <span class="title">p2</span><span class="params">(<span class="string">&quot;铅笔&quot;</span>, <span class="number">12</span>)</span></span>;</span><br><span class="line">    <span class="function">Pen&lt;string, <span class="type">int</span>&gt; <span class="title">p3</span><span class="params">(<span class="string">&quot;蜡笔&quot;</span>, <span class="number">12</span>)</span></span>;</span><br><span class="line">    <span class="built_in">test01</span>(p1);</span><br><span class="line">    <span class="built_in">test02</span>(p2);</span><br><span class="line">    <span class="built_in">test03</span>(p3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-类模板和继承"><a href="#5-类模板和继承" class="headerlink" title="5.类模板和继承"></a>5.类模板和继承</h5><ul>
+<li><p>当子类继承一个类模板的时候，如果想让这个子类不是类模板而是一个确定的类，则需要在继承时在模板参数列表中写清楚数据类型</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>,<span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Base</span></span><br><span class="line">&#123;</span><br><span class="line">    T1 m_age;</span><br><span class="line">    T2 m_weight;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Son</span> : <span class="keyword">public</span> Base&lt;<span class="type">int</span>,<span class="type">float</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果想让子类的数据类型也是灵活可变的，则子类也要写成类模板的形式</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T3</span>,<span class="keyword">class</span> <span class="title class_">T4</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Son1</span> : <span class="keyword">public</span> Base&lt;T3,T4&gt;</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="6-类模板成员函数的类外实现"><a href="#6-类模板成员函数的类外实现" class="headerlink" title="6.类模板成员函数的类外实现"></a>6.类模板成员函数的类外实现</h5><p>如果要把类外成员函数的实现和声明分开写的话：</p>
+<ul>
+<li><p>每个成员函数上一行都得写一次template&lt; &gt;</p>
+</li>
+<li><p>作用域也要加上模板参数列表</p>
+</li>
+</ul>
+<p>如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>,<span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Book</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Book</span>(T1 pages, T2 size);</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fun1</span><span class="params">(<span class="type">void</span>)</span></span>;</span><br><span class="line">    T1 pages;</span><br><span class="line">    T2 size;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line">Book&lt;T1, T2&gt;:: <span class="built_in">Book</span>(T1 pages, T2 size)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">this</span>-&gt;pages = pages;</span><br><span class="line">    <span class="keyword">this</span>-&gt;size = size;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T1</span>, <span class="keyword">class</span> <span class="title class_">T2</span>&gt;</span><br><span class="line"><span class="type">void</span> Book&lt;T1, T2&gt;::<span class="built_in">fun1</span>(<span class="type">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; <span class="keyword">this</span>-&gt;pages &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="keyword">this</span>-&gt;size &lt;&lt; ednl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-类模板的分文件编写"><a href="#7-类模板的分文件编写" class="headerlink" title="7.类模板的分文件编写"></a>7.类模板的分文件编写</h5><p>由于类模板成员函数只有在被实例调用的时候才会被创建，因此像写普通类那样将声明和实现分别放到.h 和 .cpp文件就会在编译时出现<mark>链接错误。</mark></p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li><p>直接 #include “xxx.cpp”，不推荐这样</p>
+</li>
+<li><p>将类模板的声明和实现写到一个文件内，并把后缀改成.hpp(不改写成.h也可以，不过约定俗成是.hpp)，然后再<mark>#inlcude “xxx.hpp”</mark>就行了</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/03-C++/07-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B.html">https://li-ruiqi777.github.io/03-C++/07-%E6%A8%A1%E6%9D%BF%E7%BC%96%E7%A8%8B.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/02-%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.html" title="02 设置环境变量"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">02 设置环境变量</div></div><div class="info-2"><div class="info-item-1">设置环境变量1.环境变量的定义环境变量是在操作系统中一个具有特定名字的对象，它包含了一个或者多个应用程序所将使用到的信息。例如path环境变量，当要求系统运行一个程序而没有告诉它程序所在的完整路径时，系统除了在当前目录下面寻找此程序外，还应到path中指定的路径去找。用户通过设置环境变量，来更好的运行进程。 2. export终端命令 export命令可用于显示或设置环境变量。    export命令的效果仅限于当前终端。    export的语法：export [-fnp] [变量名]=[变量设置值] 参数说明：  -f：代表[变量名称]中为函数名称。 -n：删除指定的变量；实际未删除，只是不会输出到后续指令的执行环境中。 -p：显示所有的shell赋予子程序的环境变量。  3.Linux设置环境变量的方法3.1终端里直接用export命令export...</div></div></div></a><a class="pagination-related  no-desc" href="/03-C++/06-%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD.html" title="06 运算符重载"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">06 运算符重载</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.</span> <span class="toc-text">模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.1.</span> <span class="toc-text">一、函数模板</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-number">1.1.0.0.1.</span> <span class="toc-text">1.语法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E6%B3%A8%E6%84%8F%EF%BC%9A"><span class="toc-number">1.1.0.0.2.</span> <span class="toc-text">2.注意：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.1.0.0.3.</span> <span class="toc-text">3.使用方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.0.0.4.</span> <span class="toc-text">4.函数模板和普通函数的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD%E6%97%B6%E7%9A%84%E8%B0%83%E7%94%A8%E8%A7%84%E5%88%99"><span class="toc-number">1.1.0.0.5.</span> <span class="toc-text">5.函数模板和普通函数重载时的调用规则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-%E6%A8%A1%E6%9D%BF%E5%8F%AF%E4%BB%A5%E9%92%88%E5%AF%B9%E7%89%B9%E5%AE%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E9%87%8D%E8%BD%BD"><span class="toc-number">1.1.0.0.6.</span> <span class="toc-text">6.模板可以针对特定的数据类型重载</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.2.</span> <span class="toc-text">二、类模板</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E8%AF%AD%E6%B3%95%EF%BC%9A-1"><span class="toc-number">1.2.0.0.1.</span> <span class="toc-text">1.语法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%92%8C%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.0.0.2.</span> <span class="toc-text">2.类模板和函数模板的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E4%B8%AD%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E5%88%9B%E5%BB%BA%E6%97%B6%E6%9C%BA"><span class="toc-number">1.2.0.0.3.</span> <span class="toc-text">3.类模板中成员函数的创建时机</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.0.0.4.</span> <span class="toc-text">4.类模板作为函数的参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E5%92%8C%E7%BB%A7%E6%89%BF"><span class="toc-number">1.2.0.0.5.</span> <span class="toc-text">5.类模板和继承</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E7%9A%84%E7%B1%BB%E5%A4%96%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.2.0.0.6.</span> <span class="toc-text">6.类模板成员函数的类外实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-%E7%B1%BB%E6%A8%A1%E6%9D%BF%E7%9A%84%E5%88%86%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99"><span class="toc-number">1.2.0.0.7.</span> <span class="toc-text">7.类模板的分文件编写</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

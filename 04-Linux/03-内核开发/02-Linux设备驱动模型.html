@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>02 Linux设备驱动模型 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="Linux设备驱动模型简介Linux 设备驱动模型是内核中用于统一管理硬件设备、驱动程序和总线关系的核心框架。它通过一系列抽象结构（如struct device、struct driver、struct class、struct bus_type等）构建了一个层次化的设备拓扑，使内核能够动态管理设备的生命周期（如热插拔、电源管理），并为用户空间（通过 &#x2F;sys）提供标准化的设备信息接口。  设备驱">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02 Linux设备驱动模型">
+<meta property="og:url" content="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/02-Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Linux设备驱动模型简介Linux 设备驱动模型是内核中用于统一管理硬件设备、驱动程序和总线关系的核心框架。它通过一系列抽象结构（如struct device、struct driver、struct class、struct bus_type等）构建了一个层次化的设备拓扑，使内核能够动态管理设备的生命周期（如热插拔、电源管理），并为用户空间（通过 &#x2F;sys）提供标准化的设备信息接口。  设备驱">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.542Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/02-Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '02 Linux设备驱动模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">02 Linux设备驱动模型</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">02 Linux设备驱动模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.542Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/">03-内核开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Linux设备驱动模型"><a href="#Linux设备驱动模型" class="headerlink" title="Linux设备驱动模型"></a>Linux设备驱动模型</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Linux 设备驱动模型是内核中用于<strong>统一管理硬件设备、驱动程序和总线关系</strong>的核心框架。它通过一系列抽象结构（如<code>struct device</code>、<code>struct driver</code>、<code>struct class</code>、<code>struct bus_type</code>等）构建了一个层次化的设备拓扑，使内核能够动态管理设备的生命周期（如热插拔、电源管理），并为用户空间（通过 <code>/sys</code>）提供标准化的设备信息接口。</p>
+<blockquote>
+<p>设备驱动框架和设备驱动模型不是一个东西，前者指的是GPIO、Input、Pinctl等子系统，而后者主要是Linux内核对于驱动开发中的一种设计模式</p>
+</blockquote>
+<p>Linux设备驱动模型的核心思想是把我们编写的驱动代码进行分层解耦：</p>
+<ul>
+<li>设备：提供硬件资源</li>
+<li>驱动：使用设备提供的硬件资源进行初始化等操作</li>
+<li>总线：将设备和驱动匹配起来</li>
+</ul>
+<img src="../../assets/image-20250310204259795.png" alt="image-20250310204259795" style="zoom:80%;" />
+
+<p>任何设备都挂在在某个总线上，即使物理上没有总线，也要虚拟出来个总线（platform）</p>
+<h3 id="核心目标"><a href="#核心目标" class="headerlink" title="核心目标"></a>核心目标</h3><ol>
+<li>统一管理硬件：无论设备是 PCI、USB、I2C 还是platform设备，都通过一致的接口管理</li>
+<li>支持动态事件：热插拔、电源状态切换（休眠&#x2F;唤醒）等</li>
+<li>用户空间交互：通过 <code>sysfs</code> 文件系统（<code>/sys</code>）暴露设备属性和配置</li>
+<li>自动匹配驱动：设备与驱动通过总线或类机制自动绑定</li>
+</ol>
+<h2 id="设备驱动模型的核心组件"><a href="#设备驱动模型的核心组件" class="headerlink" title="设备驱动模型的核心组件"></a>设备驱动模型的核心组件</h2><blockquote>
+<p>Linux的设备驱动模型框架中，对于设备、驱动、总线有很多派生类，这里只列出其最原始的基类的代码</p>
+</blockquote>
+<h3 id="kobject"><a href="#kobject" class="headerlink" title="kobject"></a>kobject</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">kobject</span> &#123;</span></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>		*name;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span>	<span class="title">entry</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kobject</span>		*<span class="title">parent</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kset</span>		*<span class="title">kset</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kobj_type</span>	*<span class="title">ktype</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kernfs_node</span>	*<span class="title">sd</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kref</span>		<span class="title">kref</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> CONFIG_DEBUG_KOBJECT_RELEASE</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">delayed_work</span>	<span class="title">release</span>;</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> state_initialized:<span class="number">1</span>;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> state_in_sysfs:<span class="number">1</span>;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> state_add_uevent_sent:<span class="number">1</span>;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> state_remove_uevent_sent:<span class="number">1</span>;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> uevent_suppress:<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<img src="../../assets/image-20250310203354812.png" alt="image-20250310203354812" style="zoom:80%;" />
+
+<p>作用：</p>
+<ul>
+<li><p>是Linux设备驱动模型的根基，所有涉及到的类都继承该类（C语言实际上没继承，它会作为成员变量）</p>
+<ul>
+<li>通过<code>parent</code>指针记录整个设备模型的拓扑关系</li>
+</ul>
+</li>
+<li><p>管理对象的引用计数</p>
+</li>
+<li><p>与<code>sysfs</code>虚拟文件系统配合，每个Kobject会生成一个<strong>目录</strong>，将内核中的设备驱动拓扑关系展示到用户空间</p>
+</li>
+</ul>
+<h3 id="attribute"><a href="#attribute" class="headerlink" title="attribute"></a>attribute</h3><p>总线、设备和驱动中的各个attribute成员变量则直接落实为sysfs中的1个<strong>文件</strong>，attribute会伴随着<code>show()</code>和 <code>store()</code>这两个函数，分别用于读写该attribute对应的sysfs文件</p>
+<h3 id="设备"><a href="#设备" class="headerlink" title="设备"></a>设备</h3><p><code>/sys/devices</code>目录记录了系统中所有设备，此外还有另一个目录<code>/sys/dev</code>记录所有的设备节点， 但实际上都是些链接文件，同样指向了devices目录下的文件</p>
+<ul>
+<li>定义：挂载在某个总线上的具体设备，如I2C传感器、USB设备、platform设备…它包含了一个设备的一些关键属性，比如：设备名、设备号、设备属于的类、总线、父设备…</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">device</span> &#123;</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span> *init_name;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">device</span>           *<span class="title">parent</span>;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">bus_type</span> *<span class="title">bus</span>;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">device_driver</span> *<span class="title">driver</span>;</span></span><br><span class="line">        <span class="type">void</span>            *platform_data;</span><br><span class="line">        <span class="type">void</span>            *driver_data;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">device_node</span>      *<span class="title">of_node</span>;</span></span><br><span class="line">        <span class="type">dev_t</span>                   devt;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="keyword">class</span>            *<span class="keyword">class</span>;</span></span><br><span class="line">		<span class="type">void</span> (*release)(<span class="keyword">struct</span> device *dev);</span><br><span class="line">        <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span> **<span class="title">groups</span>;</span>  <span class="comment">/* optional groups */</span></span><br><span class="line">		<span class="class"><span class="keyword">struct</span> <span class="title">device_private</span>   *<span class="title">p</span>;</span></span><br><span class="line">........</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 内核注册/注销设备(内核源码/driver/base/core.c)</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">device_register</span><span class="params">(<span class="keyword">struct</span> device *dev)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">device_unregister</span><span class="params">(<span class="keyword">struct</span> device *dev)</span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>struct device</code>是所有设备的通用<strong>抽象基类</strong>，Linux内核还提供了许多其他的设备类，比如<code>platform_device</code>、<code>i2c_client</code>等，用于针对特定总线或设备类型进行扩展</p>
+<blockquote>
+<p><code>struct device</code>及其子类与<code>struct cdev</code>不属于同一体系，前者负责对硬件资源的抽象表示，属于Linux设备驱动模型。而后者主要用于提供与用户空间交互的接口。所以驱动代码里，可能会同时出现这2种设备。</p>
+</blockquote>
+<h3 id="驱动"><a href="#驱动" class="headerlink" title="驱动"></a>驱动</h3><p>注册了的驱动记录在<code>/sys/bus/&lt;bus&gt;/drivers</code></p>
+<ul>
+<li>定义：与特定设备相关的软件，负责初始化该设备以及提供一些操作该设备的操作方式</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">device_driver</span> &#123;</span></span><br><span class="line">        <span class="type">const</span> <span class="type">char</span>              *name;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">bus_type</span>         *<span class="title">bus</span>;</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">module</span>           *<span class="title">owner</span>;</span></span><br><span class="line">        <span class="type">const</span> <span class="type">char</span>              *mod_name;      <span class="comment">/* used for built-in modules */</span></span><br><span class="line"></span><br><span class="line">        <span class="type">bool</span> suppress_bind_attrs;       <span class="comment">/* disables bind/unbind via sysfs */</span></span><br><span class="line"></span><br><span class="line">        <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">of_device_id</span>       *<span class="title">of_match_table</span>;</span></span><br><span class="line">        <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">acpi_device_id</span>     *<span class="title">acpi_match_table</span>;</span></span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> (*probe) (<span class="keyword">struct</span> device *dev);</span><br><span class="line">        <span class="type">int</span> (*remove) (<span class="keyword">struct</span> device *dev);</span><br><span class="line"></span><br><span class="line">        <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span> **<span class="title">groups</span>;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">driver_private</span> *<span class="title">p</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">driver_register</span><span class="params">(<span class="keyword">struct</span> device_driver *drv)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">driver_unregister</span><span class="params">(<span class="keyword">struct</span> device_driver *drv)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>内核针对具体的总线，为该类派生了许多子类，比如<code>platform_driver</code>,  <code>i2c_driver</code>…</p>
+<ul>
+<li>关键函数：<ul>
+<li>probe：设备和驱动匹配后，自动调用该函数，用来对设备初始化</li>
+<li>remove：设备被拔出或者重启时被调用</li>
+</ul>
+</li>
+</ul>
+<h3 id="总线"><a href="#总线" class="headerlink" title="总线"></a>总线</h3><p>总线代表着同类设备需要共同遵守的工作时序，是连接处理器和设备之间的桥梁</p>
+<p>注册了的总线位于<code>sys/bus</code>目录下，每个目录中又包含<code>devices</code>和<code>drivers</code>2个目录，分别记录挂载在该总线的设备和驱动</p>
+<img src="../../assets/image-20250310212912162.png" alt="image-20250310212912162" style="zoom:80%;" />
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bus_type</span> &#123;</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>              *name;</span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span> **<span class="title">bus_groups</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span> **<span class="title">dev_groups</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span> **<span class="title">drv_groups</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> (*match)(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> device_driver *drv);</span><br><span class="line">    <span class="type">int</span> (*uevent)(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> kobj_uevent_env *env);</span><br><span class="line">    <span class="type">int</span> (*probe)(<span class="keyword">struct</span> device *dev);</span><br><span class="line">    <span class="type">int</span> (*remove)(<span class="keyword">struct</span> device *dev);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> (*suspend)(<span class="keyword">struct</span> device *dev, <span class="type">pm_message_t</span> state);</span><br><span class="line">    <span class="type">int</span> (*resume)(<span class="keyword">struct</span> device *dev);</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">dev_pm_ops</span> *<span class="title">pm</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">subsys_private</span> *<span class="title">p</span>;</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>struct bus_type</code>是总线的唯一类，具体的总线类型也属于该类，比如<code>platform_bus</code>，<code>i2c_bus</code>，只不过<code>name</code>和那些函数指针不同</p>
+<ul>
+<li>关键函数：<ul>
+<li><code>match()</code>：通过设备名称或设备树兼容性（<code>of_match_table</code>）匹配设备与驱动</li>
+<li><code>probe()</code>：match匹配成功后，会先调用总线的<code>probe</code>完成一些<strong>资源的初始化</strong>，再调用模块注册的<code>probe</code></li>
+<li><code>remove()</code>：设备移除时的资源释放逻辑</li>
+</ul>
+</li>
+</ul>
+<h3 id="类"><a href="#类" class="headerlink" title="类"></a>类</h3><p>同一类的设备在 <code>/sys/class</code> 下有相同接口</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="keyword">class</span> &#123;</span></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>		*name;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">module</span>		*<span class="title">owner</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">class_attribute</span>		*<span class="title">class_attrs</span>;</span></span><br><span class="line">	<span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span>	**<span class="title">dev_groups</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">kobject</span>			*<span class="title">dev_kobj</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> (*dev_uevent)(<span class="keyword">struct</span> device *dev, <span class="keyword">struct</span> kobj_uevent_env *env);</span><br><span class="line">	<span class="type">char</span> *(*devnode)(<span class="keyword">struct</span> device *dev, <span class="type">umode_t</span> *mode);</span><br><span class="line"></span><br><span class="line">	<span class="type">void</span> (*class_release)(<span class="keyword">struct</span> class *class);</span><br><span class="line">	<span class="type">void</span> (*dev_release)(<span class="keyword">struct</span> device *dev);</span><br><span class="line"></span><br><span class="line">	<span class="type">int</span> (*suspend)(<span class="keyword">struct</span> device *dev, <span class="type">pm_message_t</span> state);</span><br><span class="line">	<span class="type">int</span> (*resume)(<span class="keyword">struct</span> device *dev);</span><br><span class="line">...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在/sys/class下创建/销毁类</span></span><br><span class="line"><span class="keyword">extern</span> <span class="class"><span class="keyword">struct</span> <span class="keyword">class</span> *  __<span class="title">class_create</span>(<span class="keyword">struct</span> <span class="title">module</span> *<span class="title">owner</span>,</span></span><br><span class="line"><span class="class">						  <span class="title">const</span> <span class="title">char</span> *<span class="title">name</span>,</span></span><br><span class="line"><span class="class">						  <span class="keyword">struct</span> <span class="title">lock_class_key</span> *<span class="title">key</span>);</span></span><br><span class="line"><span class="keyword">extern</span> <span class="type">void</span> <span class="title function_">class_destroy</span><span class="params">(<span class="keyword">struct</span> class *cls)</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>类是对于设备的一种high level抽象，按照功能可以对设备进行分类（区别于字符设备&#x2F;块设备这种分类法），比如输入设备、LED设备、MISC设备、DRM设备…</li>
+<li>Linux内核引入类，是将其用作具有相同功能的一类设备的容器</li>
+</ul>
+<h2 id="总线-设备-驱动的协作"><a href="#总线-设备-驱动的协作" class="headerlink" title="总线-设备-驱动的协作"></a>总线-设备-驱动的协作</h2><img src="../../assets/image-20250310213928323.png" alt="image-20250310213928323" style="zoom: 80%;" />
+
+<p><img src="../../assets/image-20250310214256435.png" alt="image-20250310214256435"></p>
+<h3 id="匹配的时机"><a href="#匹配的时机" class="headerlink" title="匹配的时机"></a>匹配的时机</h3><p>在总线上管理着两个链表，分别管理着设备和驱动。Linux中设备和驱动的注册的各自独立的，当我们向系统注册一个驱动时，便会向驱动的管理链表插入我们的新驱动， 同样当我们向系统注册一个设备时，便会向设备的管理链表插入我们的新设备。</p>
+<p><strong>在插入的同时</strong>总线会执行一次<code>bus_type</code>结构体中<code>match</code>的方法对新插入的设备&#x2F;驱动<strong>进行匹配</strong>。在匹配成功的时候会调用驱动<code>device_driver</code>结构体中<code>probe</code>方法(通常在probe中获取设备资源，具体的功能可由驱动编写人员自定义)， 并且在移除设备或驱动时，会调用<code>device_driver</code>结构体中<code>remove</code>方法</p>
+<h3 id="匹配的方式"><a href="#匹配的方式" class="headerlink" title="匹配的方式"></a>匹配的方式</h3><p>匹配的方式主要看该总线的<code>match</code>的实现，不同总线的 <code>match()</code> 函数逻辑不同：</p>
+<ul>
+<li>platform总线：比较设备名称（<code>platform_device.name</code>）或设备树兼容性（<code>.of_match_table</code>）</li>
+<li>I2C 总线：匹配设备地址（<code>i2c_client.addr</code>）和驱动支持的地址列表</li>
+<li>PCI 总线：检查 PCI 设备的厂商ID和设备ID是否在驱动的 <code>id_table</code> 中</li>
+</ul>
+<h3 id="设备树触发匹配的流程"><a href="#设备树触发匹配的流程" class="headerlink" title="设备树触发匹配的流程"></a>设备树触发匹配的流程</h3><ol>
+<li>设备树解析：内核启动时解析设备树（<code>.dts</code>），为每个设备节点（Node）生成 <code>struct platform_device</code></li>
+<li>动态注册设备：调用 <code>of_platform_populate()</code> 将设备树节点注册为平台设备</li>
+<li>匹配驱动：通过设备树节点的 <code>compatible</code> 属性与驱动的 <code>.of_match_table</code> 匹配</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/02-Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B.html">https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/02-Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/01-%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E6%A6%82%E8%BF%B0.html" title="01 驱动开发概述"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">01 驱动开发概述</div></div><div class="info-2"><div class="info-item-1">Linux驱动开发概述简介Linux驱动开发是设备驱动模型、驱动子系统、内核基础设施三者的深度整合：  设备驱动模型提供通用框架，实现驱动与设备的匹配 各个子系统实现垂直领域优化（如输入、存储、网络） 内核设施与硬件操作解决并发、内存、中断等底层问题  驱动开发子系统定义 子系统是指针对特定功能领域或硬件类型设计的软件框架。其核心目标是解耦硬件差异，提供统一的API，使得驱动开发者无需直接操作底层寄存器或硬件细节，而是通过标准化API完成功能开发  所有的驱动子系统的实现均遵循分层架构原则  用户接口层：通过sysfs或/dev节点提供控制接口  核心层：实现事件队列、资源分配等通用逻辑  硬件驱动层：厂商实现具体寄存器操作     123456789         用户空间            │            ▼    用户口层（如VFS、sysfs）            │            ▼   子系统核心层（标准API）     ↗       ↖       ↖设备驱动层A  驱动层B  ...</div></div></div></a><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/03-Linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.html" title="03 Linux驱动开发的软件架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">03 Linux驱动开发的软件架构</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">Linux设备驱动模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%9B%AE%E6%A0%87"><span class="toc-number">1.1.1.</span> <span class="toc-text">核心目标</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6"><span class="toc-number">1.2.</span> <span class="toc-text">设备驱动模型的核心组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#kobject"><span class="toc-number">1.2.1.</span> <span class="toc-text">kobject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#attribute"><span class="toc-number">1.2.2.</span> <span class="toc-text">attribute</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87"><span class="toc-number">1.2.3.</span> <span class="toc-text">设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8"><span class="toc-number">1.2.4.</span> <span class="toc-text">驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF"><span class="toc-number">1.2.5.</span> <span class="toc-text">总线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-number">1.2.6.</span> <span class="toc-text">类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF-%E8%AE%BE%E5%A4%87-%E9%A9%B1%E5%8A%A8%E7%9A%84%E5%8D%8F%E4%BD%9C"><span class="toc-number">1.3.</span> <span class="toc-text">总线-设备-驱动的协作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">匹配的时机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">匹配的方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E8%A7%A6%E5%8F%91%E5%8C%B9%E9%85%8D%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.3.</span> <span class="toc-text">设备树触发匹配的流程</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

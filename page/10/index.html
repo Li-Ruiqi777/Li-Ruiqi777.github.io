@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://li-ruiqi777.github.io/page/10/">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/page/10/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a></span><div id="menus"></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/01-FreeRTOS/FreeRTOS_%E7%A7%BB%E6%A4%8D.html" title="FreeRTOS_移植">FreeRTOS_移植</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.652Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/01-FreeRTOS/">01-FreeRTOS</a></span></div><div class="content">FreeRTOS（0）移植1.在文件根目录下创建Freertos文件夹，把源码拷贝 2.在Keil中创建三个文件夹，分别添加.c和.h 其中port.c 如果用的编译器version5，从RVDS文件夹添加。如果用的version 6，从GCC添加 头文件只用选3个文件夹 3.由于命名冲突，注释掉stm32f4xx_it.c中 void SVC_Handler(void) void PendSV_Handler(void)这两个函数 4.修改systic_Handler函数 12345678910111213void SysTick_Handler(void)&#123;  /* USER CODE BEGIN SysTick_IRQn 0 */  /* USER CODE END SysTick_IRQn 0 */  HAL_IncTick();  /* USER CODE BEGIN SysTick_IRQn 1 */   ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/02-STM32/08-STM32.html" title="08 STM32">08 STM32</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.652Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/02-STM32/">02-STM32</a></span></div><div class="content">STM321.系统架构STM32F4系列的系统架构如图所示（来自User Manual）：   可以看到内核通过3条总线连接到AHB(Advanced High-performance Bus)总线矩阵，然后与各个外设、Flash和SRAM连接 Data Sheet里面也有个比较好的架构图：  内核总线ARM Cortex-M系列的CPU都包含以下3条总线：  I-Bus：指令总线，负责在 0x0000_0000 – 0x1FFF_FFFF 之间的取指操作，访问的存储器对象是Flash D-Bus：数据总线，负责在 0x0000_0000 – 0x1FFF_FFFF 之间的数据访问操作，访问的存储器对象是Flash S-Bus：系统总线，负责在 0x2000_0000 – 0xDFFF_FFFF 和 0xE010_0000 – 0xFFFF_FFFF 之间的所有数据传送，取指和数据访问都算上，访问对象是SRAM和外设寄存器   不同内核实际上各个总线能访问的地址范围不一样  参考：  Cortex-M3权威指南第六章 STM32 User Manual  2.内存映射ARM...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/02-STM32/ADC.html" title="ADC">ADC</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.652Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/02-STM32/">02-STM32</a></span></div><div class="content">HAL库ADC1.硬件问题STM32的ADC、DAC的供电电源是VDDA，直接把他连到VDD上就行了，千万别加电阻。 ADC的测量范围是：0~VDDA，如果加了电阻，则VDDA会小于3.3V，那么ADC的量程也将缩小。 2.软件问题ADC和串口一样，每次读取前都得开启一次，不然就只能读一次 12345678910111213uint16_t get_adc(void)&#123;  //开启ADC1  HAL_ADC_Start(&amp;hadc1);	//等待ADC转换完成，超时为100ms  HAL_ADC_PollForConversion(&amp;hadc1,100);	//判断ADC是否转换成功	if(HAL_IS_BIT_SET(HAL_ADC_GetState(&amp;hadc1),HAL_ADC_STATE_REG_EOC))	&#123;		 return HAL_ADC_GetValue(&amp;hadc1);	&#125;	return...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/01-FreeRTOS/%E9%9D%A2%E8%AF%95%E9%A2%98.html" title="面试题">面试题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.652Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/01-FreeRTOS/">01-FreeRTOS</a></span></div><div class="content">...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/%E7%94%B5%E8%B5%9B%E8%B5%9B%E5%90%8E%E6%80%BB%E7%BB%93.html" title="电赛赛后总结">电赛赛后总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.636Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a></span></div><div class="content">电赛赛后总结        本次电赛采用MSP430F5529作为主控，做了2台寻迹小车。最后评测时并没能实现之前已经调好的功能，主要原因我认为是评测场地和学校的场地摩擦力还是差别有点大，导致主车在第三问转到内圈时转不过去。之前从车速度调高了之后老是跑出黑线外，在评测这边却没有出现该问题，导致从车会跟主车的距离过近。 虽然结果一般，但是我还是学到了一些东西： 1.传感器采集数据我之前那种宏定义的方法不太好，会多次重复读取，读取一次把各个传感器的数据放到一个数组里，再把该数组宏定义会更好。 2.寻迹的PID不一定只要P，可以加上D，会加速调整。 3.传感器采集数据可以不放在while1里，而放在一个ms级别的定时器中断内，这样可以保证采样周期一直不变。 4.尽量所有环节都闭环，如果最后那个主车用的是灰度的转弯办法应该就可以到内圈了… </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/%E6%97%85%E6%B8%B8%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%B5%9B%E5%90%8E%E6%80%BB%E7%BB%93.html" title="旅游机器人赛后总结">旅游机器人赛后总结</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.636Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a></span></div><div class="content">旅游机器人赛后总结1.硬件介绍1.主控：STM32F103ZET6 2.用到的传感器：     a.8路灰度传感器     b.光电传感器     c.MPU6050     d.色标传感器 3.小车结构: ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/01-FreeRTOS/FreeRTOS_%E4%BB%BB%E5%8A%A1%E7%8A%B6%E6%80%81.html" title="FreeRTOS_任务状态">FreeRTOS_任务状态</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.636Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/01-FreeRTOS/">01-FreeRTOS</a></span></div><div class="content">FreeRTOS（2）任务状态除了运行状态之外的状态统称为非运行状态。因为 FreeRTOS 是为单CPU设计的系统，在任何时刻最多只能允许一个任务处在运行状态，哪怕看起来好像有多个任务同时在运行——这只是多个任务不停地切换带来的效果。当一个任务从运行状态切换到非运行状态时，执行时的现场——CPU寄存器被保存在任务的私有堆栈中；在重新回到运行状态时，再从堆栈中恢复之间保存的寄存器。这是任务调度的最基本功能。   1.就绪的任务 　　&#x3D;&#x3D;FreeRTOS 任务的就绪状态表示任务目前没有被执行，但随时可以被执行。当下一次任务切换时机到来时，FreeRTOS 将从就绪任务的列表中选择优先级最高的任务，切换成运行状态。&#x3D;&#x3D;　　任务优先级是任务的一个属性，FreeRTOS 用整型数表示优先级，最低优先级为0, 最高为 configMAX_PRIORITIES 宏定义的值减去1. 创建任务的时候需要指定一个优先级，在创建之后也可以再通过 vTaskPrioritySet()...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/01-FreeRTOS/FreeRTOS_%E4%BF%A1%E5%8F%B7%E9%87%8F.html" title="FreeRTOS_信号量">FreeRTOS_信号量</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.636Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/01-FreeRTOS/">01-FreeRTOS</a></span></div><div class="content">FreeRTOS（4）信号量 信号量API函数实际上都是宏，它使用现有的队列机制。这些宏定义在semphr.h文件中。如果使用信号量或者互斥量，需要包含semphr.h头文件。  一、创建信号量 &#x3D;&#x3D;二进制信号量&#x3D;&#x3D;创建实际上是直接使用通用队列创建函数xQueueGenericCreate()。创建二进制信号量API接口实际上是一个宏，定义如下：  123456789#define xSemaphoreCreateBinary()         \       xQueueGenericCreate(              \                ( UBaseType_t ) 1,       \                semSEMAPHORE_QUEUE_ITEM_LENGTH,  \                NULL,              \                NULL,              \               ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/01-FreeRTOS/FreeRTOS_%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99.html" title="FreeRTOS_命名规则">FreeRTOS_命名规则</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.636Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/01-FreeRTOS/">01-FreeRTOS</a></span></div><div class="content">FreeRTOS（1）命名规则1. 命名规则RTOS内核和演示例程源代码使用以下规则： &gt; 变量uint32_t：前缀 ul，u 表示 unsigned，l 表示 long uint16_t：前缀 us，s 表示 short uint8_t：前缀 uc，c 表示 char 非 stdint 类型的变量使用前缀 x，比如基本的 Type_t 和 TickType_t 类型 非 stdint 类型的无符号变量使用前缀 ux，比如 UbaseType_t（unsigned BaseType_t） size_t 类型的变量使用前缀 x 枚举类型变量使用前缀 e 指针类型变量在类型基础上附加前缀 p，比如指向 uint16_t 的指针变量前缀为 pus char 类型变量前缀为 c char * 类型变量前缀为 pc 举例： 12size_t xQueueSizeInBytes;uint8_t * pucQueueStorage;  &gt; 函数在文件作用域范围的函数前缀为 prv（一般定义是 static） API 函数的前缀为它们的返回类型，当返回为空时，前缀为...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E8%BF%9B%E5%88%B6%E9%97%AE%E9%A2%98.html" title="串口通信进制问题">串口通信进制问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.620Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a></span></div><div class="content">串口通信进制问题由于UART一般通信帧是8 bit，所以通常以ASIIC码的形式进行传输，但也可以用一位16进制数来进行传输。 常见的串口助手默认发送的都是字符型比如’5’，或者说ASIIC码的形式，如果要发送16进制数，需要选择16进制发送，比如要发0xFF，串口助手这里发送写成FF就行，但单片机的的if中必须写成0XFF Python发送16进制数先用bytearry打包，然后serial.write就行了 </div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/9/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#content-inner">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/#content-inner">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/11/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            <a class="card-more-btn" href="/categories/" title="View More">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/"><span class="card-category-list-name">01-计算机基础八股</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">02-开发工具</span><span class="card-category-list-count">11</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/"><span class="card-category-list-name">CMake</span><span class="card-category-list-count">7</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/03-C/"><span class="card-category-list-name">03-C++</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/"><span class="card-category-list-name">04-Linux</span><span class="card-category-list-count">39</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"><span class="card-category-list-name">01-Linux基本操作</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/"><span class="card-category-list-name">02-系统移植</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">03-内核开发</span><span class="card-category-list-count">19</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+    <ul class="card-archive-list">
+  
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/06/">
+          <span class="card-archive-list-date">June 2025</span>
+          <span class="card-archive-list-count">179</span>
+        </a>
+      </li>
+    </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">179</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-06-04T08:54:21.676Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

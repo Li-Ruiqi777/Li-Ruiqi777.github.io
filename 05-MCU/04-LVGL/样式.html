@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>样式 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="样式 样式是一个 lv_style_t 变量，它可以保存边框宽度、文本颜色等对象的属性尽管可以用简单的方法Lv_set_xxx()直接修改对象的属性，但是用过样式来该的话可以比较方便的修改更多对象的样式。  可以将样式分配给对象以更改其外观。在赋值过程中，可以指定目标部分（和目标状态   LVGL对象包括如下状态且可以通过|来组合 数字代表了这种状态的优先级，最后选择优先级最高的来显示 1.初始化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="样式">
+<meta property="og:url" content="https://li-ruiqi777.github.io/05-MCU/04-LVGL/%E6%A0%B7%E5%BC%8F.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="样式 样式是一个 lv_style_t 变量，它可以保存边框宽度、文本颜色等对象的属性尽管可以用简单的方法Lv_set_xxx()直接修改对象的属性，但是用过样式来该的话可以比较方便的修改更多对象的样式。  可以将样式分配给对象以更改其外观。在赋值过程中，可以指定目标部分（和目标状态   LVGL对象包括如下状态且可以通过|来组合 数字代表了这种状态的优先级，最后选择优先级最高的来显示 1.初始化">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.699Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/05-MCU/04-LVGL/%E6%A0%B7%E5%BC%8F.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '样式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">样式</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">样式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/05-MCU/04-LVGL/">04-LVGL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h1><ul>
+<li><p>样式是一个 <code>lv_style_t</code> 变量，它可以保存边框宽度、文本颜色等<strong>对象的属性</strong>尽管可以用简单的方法<code>Lv_set_xxx()</code>直接修改对象的属性，但是用过样式来该的话可以比较方便的修改<strong>更多对象</strong>的样式。</p>
+</li>
+<li><p>可以将样式分配给对象以更改其外观。在赋值过程中，可以指定目标部分（和目标状态</p>
+</li>
+</ul>
+<p>LVGL对象包括如下状态且可以通过<code>|</code>来组合</p>
+<p>数字代表了这种状态的优先级，最后选择优先级最高的来显示</p>
+<h4 id="1-初始化样式和设置-获取属性"><a href="#1-初始化样式和设置-获取属性" class="headerlink" title="1.初始化样式和设置&#x2F;获取属性"></a>1.初始化样式和设置&#x2F;获取属性</h4><p>样式存储在 <code>lv_style_t</code> 变量中。样式变量应该是 <code>static</code> 、全局或动态分配的。 换句话说，它们不能是函数中的局部变量，当函数结束时它们会被销毁。 在使用样式之前，它应该用 <code>lv_style_init(&amp;my_style)</code> 进行初始化。 初始化后，可以设置或添加样式属性。<code>lv_style_set_&lt;property_name&gt;(&amp;style, &lt;value&gt;);</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">lv_style_t</span> style_btn_red;</span><br><span class="line">lv_style_init(&amp;style_btn_red);</span><br><span class="line">lv_style_set_bg_color(&amp;style_btn_red, lv_color_red());</span><br><span class="line">lv_style_set_bg_opa(&amp;style_btn_red, LV_OPA_COVER);</span><br></pre></td></tr></table></figure>
+
+<p>删除属性：<code>lv_style_remove_prop(&amp;style, LV_STYLE_BG_COLOR);</code></p>
+<p>获取属性：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">lv_style_value_t</span> v;</span><br><span class="line"><span class="type">lv_res_t</span> res = lv_style_rget_prop(&amp;style, LV_STYLE_BG_COLOR, &amp;v);</span><br><span class="line"><span class="keyword">if</span>(res == LV_RES_OK) &#123;    <span class="comment">/*Found*/</span></span><br><span class="line">    do_something(v.color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>重置样式：<code>lv_style_reset(&amp;style);</code></p>
+<h4 id="2-向对象应用样式"><a href="#2-向对象应用样式" class="headerlink" title="2.向对象应用样式"></a>2.向对象应用样式</h4><p><code>lv_obj_add_style(obj, &amp;style, &lt;selector&gt;)</code>。 <code>&lt;selector&gt;</code> 是应添加样式的部分和状态的值，例如：</p>
+<ul>
+<li><p><code>LV_PART_MAIN | LV_STATE_DEFAULT</code></p>
+</li>
+<li><p><code>LV_STATE_PRESSED</code>：按下状态的主要部分。 <code>LV_PART_MAIN</code> 可以省略</p>
+</li>
+<li><p><code>LV_PART_SCROLLBAR</code>：默认状态下的滚动条部分。 <code>LV_STATE_DEFAULT</code> 可以省略。</p>
+</li>
+<li><p><code>LV_PART_SCROLLBAR | LV_STATE_SCROLLED</code>：对象滚动时的滚动条部分</p>
+</li>
+<li><p><code>0</code> 与 <code>LV_PART_MAIN | 相同LV_STATE_DEFAULT</code>。</p>
+</li>
+<li><p><code>LV_PART_INDICATOR | LV_STATE_PRESSED | LV_STATE_CHECKED</code> 同时按下和检查对象时的指示器部分。</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lv_obj_add_style(btn, &amp;style_btn, <span class="number">0</span>);                        <span class="comment">/*Default button style*/</span></span><br><span class="line">lv_obj_add_style(btn, &amp;btn_red, LV_STATE_PRESSED);  <span class="comment">/*Overwrite only a some colors to red when pressed*/</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-样式中一些常用变量的设置"><a href="#3-样式中一些常用变量的设置" class="headerlink" title="3.样式中一些常用变量的设置"></a>3.样式中一些常用变量的设置</h4><p>(1)字体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">lv_style_set_text_font</span><span class="params">(<span class="type">lv_style_t</span> * style, </span></span><br><span class="line"><span class="params">                            <span class="type">const</span> <span class="type">lv_font_t</span> * value)</span></span><br></pre></td></tr></table></figure>
+
+<p>字体具有 <strong>（每像素位数）</strong> 属性。它显示了使用多少位来描述字体中的像素。为像素存储的值决定了像素的不透明度。 这样，使用更高的 <em>bpp</em>，字母的边缘可以更平滑。可能的 <em>bpp</em> 值为 1、2、4 和 8（值越高表示质量越好）。</p>
+<p><em>bpp</em> 还会影响存储字体所需的内存大小。例如，<em>bpp &#x3D; 4</em> 使字体比 <em>bpp &#x3D; 1</em> 大近 4 倍。</p>
+<p>给对象添加字体：</p>
+<p><code>lv_label_set_text(label1, text);</code></p>
+<p>LVGL中有些宏定义表示一些特殊字符，可以直接在text处使用，不需要加逗号之类的，如<code>lv_label_set_text(label, LV_SYMBOL_OK&quot;Drag me&quot;);</code></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/05-MCU/04-LVGL/%E6%A0%B7%E5%BC%8F.html">https://li-ruiqi777.github.io/05-MCU/04-LVGL/%E6%A0%B7%E5%BC%8F.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/05-MCU/04-LVGL/%E4%BA%8B%E4%BB%B6.html" title="事件"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">事件</div></div><div class="info-2"><div class="info-item-1">事件当LVGL发生某些用户可能感兴趣的事件时，系统做出相应的响应。实际上根据具体情况调用相应的回调函数。STM32的中断也可看成是一种事件 LVGL中的事件包括以下几类：  输入设备事件(Input device events)：对象被按下、滚动、聚焦….  绘图事件(Drawing events)  其他事件(Special events)：对象被删除、样式等被更改…..  特殊事件(Other events)：对象的值被更改（滑块移动）、一个过程完成  自定义事件(Custom events)   具体的看官方文档 1.给对象添加事件1234567static void my_event_cb(lv_event_t * event)&#123;    printf(&quot;Clicked\n&quot;);&#125;lv_obj_t * btn = lv_btn_creae(lv_scr_act());lv_obj_add_event_cb(btn, my_event_cb, LV_EVENT_CLICKED, NULL);   /*Assign an event...</div></div></div></a><a class="pagination-related" href="/05-MCU/04-LVGL/%E4%BD%8D%E7%BD%AE.html" title="位置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">位置</div></div><div class="info-2"><div class="info-item-1">对象的大小和位置1.对象的显示模型一个对象的所有像素包括以下4部分：  边界(bounding)框：元素的宽度&#x2F;高度围起来的区域。  边框(border)宽度：边框的宽度。  填充(padding)：对象两侧与其子对象之间的空间。  内容(content)：如果边界框按边框宽度和填充的大小缩小，则显示其大小的内容区域。   2.改变对象位置的方式(1)直接方式 123lv_obj_set_x(obj, 10);lv_obj_set_y(obj, 20);lv_obj_set_pos(obj, 10, 20);     //Or in one function  (2)百分比 lv_obj_set_x(btn, lv_pct(10)); //x = 10 % of parant content area width (3)设置对齐 123456//与父对象对齐void lv_obj_align(struct _lv_obj_t * obj, lv_align_t align,                     lv_coord_t x_ofs,...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">样式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A0%B7%E5%BC%8F%E5%92%8C%E8%AE%BE%E7%BD%AE-%E8%8E%B7%E5%8F%96%E5%B1%9E%E6%80%A7"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1.初始化样式和设置&#x2F;获取属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%90%91%E5%AF%B9%E8%B1%A1%E5%BA%94%E7%94%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.向对象应用样式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%A0%B7%E5%BC%8F%E4%B8%AD%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E5%8F%98%E9%87%8F%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3.样式中一些常用变量的设置</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

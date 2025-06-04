@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>03 find_package用法 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="find_package()的用法作用主要就是通过库对应的.cmake文件（由库的维护者提供，一般用不着自己写），获得第三方库的头文件以及动&#x2F;静态库文件的路径，方便我们直接添加到我们自己的工程里面  &lt;PackageName&gt;_FOUND ：找到了就是True，没找到就是未设定 &lt;PackageName&gt;_INCLUDE_DIR ：头文件目录 &lt;Packag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03 find_package用法">
+<meta property="og:url" content="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/03-find_package%E7%94%A8%E6%B3%95.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="find_package()的用法作用主要就是通过库对应的.cmake文件（由库的维护者提供，一般用不着自己写），获得第三方库的头文件以及动&#x2F;静态库文件的路径，方便我们直接添加到我们自己的工程里面  &lt;PackageName&gt;_FOUND ：找到了就是True，没找到就是未设定 &lt;PackageName&gt;_INCLUDE_DIR ：头文件目录 &lt;Packag">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.449Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/03-find_package%E7%94%A8%E6%B3%95.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '03 find_package用法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">03 find_package用法</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">03 find_package用法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.449Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">02-开发工具</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/">CMake</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="find-package-的用法"><a href="#find-package-的用法" class="headerlink" title="find_package()的用法"></a>find_package()的用法</h1><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>主要就是通过库对应的<code>.cmake</code>文件（由库的维护者提供，一般用不着自己写），获得第三方库的头文件以及动&#x2F;静态库文件的路径，方便我们直接添加到我们自己的工程里面</p>
+<ul>
+<li><code>&lt;PackageName&gt;_FOUND</code> ：找到了就是True，没找到就是未设定</li>
+<li><code>&lt;PackageName&gt;_INCLUDE_DIR</code> ：头文件目录</li>
+<li><code>&lt;PackageName&gt;_LIBRARY </code>：库文件（只能通过该API找到静态库，动态库还是得放到<code>Path</code>环境变量等地方）</li>
+</ul>
+<h2 id="两种工作模式"><a href="#两种工作模式" class="headerlink" title="两种工作模式"></a>两种工作模式</h2><h3 id="Config模式"><a href="#Config模式" class="headerlink" title="Config模式"></a>Config模式</h3><p>在该模式下，CMake会在其搜索路径下搜索<code>&lt;lowercasePackageName&gt;-config.cmake</code> 或者 <code>&lt;PackageName&gt;Config.cmake</code>这2个文件，通常这2个文件在安装时就会自动被放在了安装目录中的cmake文件夹下。也就是通常由写这个库的官方作者提供。</p>
+<h3 id="Module模式"><a href="#Module模式" class="headerlink" title="Module模式"></a>Module模式</h3><p>在该模式下，CMake会在其搜索路径下搜索<code>Find&lt;PackageName&gt;.cmake</code>文件。一般是在官方没提供config模式的配置文件时，才用这个模式。操作系统，cmake官方都预先为我们提供了许多<code>Module</code>模式的<code>.cmake</code>文件</p>
+<h2 id="配置文件的搜索"><a href="#配置文件的搜索" class="headerlink" title="配置文件的搜索"></a>配置文件的搜索</h2><h3 id="搜索路径"><a href="#搜索路径" class="headerlink" title="搜索路径"></a>搜索路径</h3><p>CMake会在以下一些地方搜索<code>.cmake</code>文件</p>
+<ul>
+<li>Path环境变量 如<code>/usr/local/</code></li>
+</ul>
+<p>当时OpenCV不需要设置搜索路径就是因为存放了它的<code>.cmake</code>文件的那个路径被添加到环境变量之中了。</p>
+<img src="../assets/2023-03-25-14-24-47-image.png" title="" alt="" width="591">
+
+<ul>
+<li><p><code>CMAKE_PREFIX_PATH</code>这个list变量里面存的地址</p>
+</li>
+<li><p><code>CMAKE_MODULE_PATH</code>这个list变量里面存的地址</p>
+</li>
+<li><p><code>&lt;Packname&gt;_ROOT</code>变量存的地址</p>
+</li>
+<li><p><code>&lt;Packenmae&gt;_DIR</code>变量存的地址</p>
+</li>
+</ul>
+<p>除了<code>CMAKE_PREFIX_PATH</code>，其他的得输入完整地址。而<code>CMAKE_PREFIX_PATH</code>只需要写上<code>CMAKE_INSTALL_PREFIX</code>的地址就行了</p>
+<p><img src="../assets/2023-02-20-10-13-04-image.png"></p>
+<p>因为CMake会根据传入的<code>CMAKE_PREFIX_PATH</code>自动创建好几个可能有<code>.cmake</code>文件的路径，依次在里面搜索。如果找不到的话，再把<code>CMAKE_PREFIX_PATH</code>改成具体的路径就行了。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">list</span>(APPEND CMAKE_PREFIX_PATH <span class="string">&quot;E:\\ThirdPart\\YAML_CPP&quot;</span>)</span><br><span class="line"><span class="keyword">find_package</span>(yaml-cpp REQUIRED)</span><br><span class="line"><span class="keyword">list</span>(APPEND CMAKE_PREFIX_PATH <span class="string">&quot;D:\Qt\6.3.1\mingw_64&quot;</span>)</span><br><span class="line"> <span class="comment"># 添加新路径到list之中`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#命令行设置</span></span><br><span class="line">cmake -DCMAKE_PREFIX_PATH=D:\Qt\<span class="number">6.3</span>.<span class="number">1</span>\mingw_64</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ubuntu注意事项"><a href="#Ubuntu注意事项" class="headerlink" title="Ubuntu注意事项"></a>Ubuntu注意事项</h3><p><code>home/lrq</code>这个地址必须用<code>~/</code>表示，不然就会报错</p>
+<p><img src="../assets/2023-02-20-10-50-52-image.png"></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_PREFIX_PATH <span class="string">&quot;~/Desktop/YAML&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="CMake的缓存机制"><a href="#CMake的缓存机制" class="headerlink" title="CMake的缓存机制"></a>CMake的缓存机制</h3><p>但凡CMake成功的<code>find_package()</code>了一次，他会把<code>.cmake</code>文件缓存到本工程中，如果在写代码的过程中，换了第三方库的位置，<mark>一定得清除CMake的缓存然后重新配置</mark>，要不然它只在之前的地方搜索头文件之类的，会一直报错。真TM的Sb</p>
+<h3 id="版本选择"><a href="#版本选择" class="headerlink" title="版本选择"></a>版本选择</h3><p>可以通过在<code>find_package()</code>里添加一个<strong>版本信息</strong>，如果找不到对应版本的，他会显示当前使用<code>.cmake</code>文件的路径</p>
+<h2 id="该API支持哪些包？"><a href="#该API支持哪些包？" class="headerlink" title="该API支持哪些包？"></a>该API支持哪些包？</h2><p>理论上只要符合<code>find_package</code>命令的查找条件，能让该命令识别的包或者库都会被支持。在实际使用时，我们可以把这些包分成三类：</p>
+<p><strong>官方预定义的包</strong><br>为了方便我们查找依赖包，cmake为我们包含了许多默认的依赖包，这些包是cmake发行版的一部分，也就是说可以直接在CMakeLists.txt文件中引用，不需要额外安装。它们的位置通常是在cmake安装目录的Module目录下（比如我的系统内是：&#x2F;usr&#x2F;share&#x2F;cmake-3.17&#x2F;Modules），也可以通过变量CMAKE_MODULE_PATH来指定。<br>cmake预支持的包可以查看cmake-modules</p>
+<p><strong>非官方但支持cmake的包</strong><br>这一类包虽然不在cmake的预支持列表中，但是自行下载使用cmake编译安装后也能被cmake识别，使用方法与官方预定义包一致。比如glog包。</p>
+<p><strong>默认不支持cmake的包</strong><br>最典型的是我们自己编写的库文件，这类文件既不在cmake的官方列表，安装时默认也不会被cmake搜索到，此时就需要我们自行编写相应的配置文件并放到对应的路径中去。</p>
+<h2 id="基本用法​"><a href="#基本用法​" class="headerlink" title="基本用法​"></a>基本用法<a target="_blank" rel="noopener" href="https://chunleili.github.io/cmake/find_package#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95" title="Direct link to heading">​</a></h2><p>我们要搜索一个名为 PackageName 的包。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find_package(PackageName)</span><br></pre></td></tr></table></figure>
+
+<p>因为对于项目来说，有些包是可选的。但有些是必要的。对于必要的，可以指定REQUIRED，这样找不到对应的包就会报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find_package(PackageName REQUIRED)</span><br></pre></td></tr></table></figure>
+
+<p>另外，有些包其中有许多的组件，你可以指定COMPONENTS 来只使用某些组件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find_package(PackageName COMPONENTS xxx)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="常用库的添加方式"><a href="#常用库的添加方式" class="headerlink" title="常用库的添加方式"></a>常用库的添加方式</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(yaml-cpp REQUIRED)</span><br><span class="line"><span class="keyword">if</span>(yaml-cpp_FOUND)</span><br><span class="line">  <span class="keyword">message</span>(<span class="string">&quot;yaml-cpp Package found&quot;</span>)</span><br><span class="line">  <span class="keyword">message</span>(<span class="variable">$&#123;YAML_CPP_INCLUDE_DIR&#125;</span>)</span><br><span class="line">  <span class="keyword">message</span>(<span class="variable">$&#123;YAML_CPP_LIBRARIES&#125;</span>)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span></span><br><span class="line">  <span class="variable">$&#123;YAML_CPP_LIBRARY_DIR&#125;</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="keyword">test</span> yaml-cpp)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_include_directories</span>(<span class="keyword">test</span></span><br><span class="line">PRIVATE <span class="comment">#必须加PRIVATE</span></span><br><span class="line">  <span class="variable">$&#123;YAML_CPP_INCLUDE_DIRS&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">配置pcl库</span><br><span class="line"><span class="keyword">find_package</span>(PCL <span class="number">1.7</span> REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;PCL_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">link_directories</span>(<span class="variable">$&#123;PCL_LIBRARY_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">add_definitions</span>(<span class="variable">$&#123;PCL_DEFINITIONS&#125;</span>)</span><br><span class="line"><span class="keyword">add_executable</span> (node_name source_code)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(node_name <span class="variable">$&#123;PCL_LIBRARIES&#125;</span>)</span><br><span class="line"></span><br><span class="line">配置eigen库</span><br><span class="line"><span class="keyword">find_package</span>(cmake_modules REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(Eigen3 REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;EIGEN3_INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">add_definitions</span>(<span class="variable">$&#123;EIGEN3_DEFINITIONS&#125;</span>)</span><br><span class="line"></span><br><span class="line">配置opencv库</span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(node_name <span class="variable">$&#123;OpenCV_LIBRARIES&#125;</span>)</span><br><span class="line"></span><br><span class="line">配置yaml-cpp库</span><br><span class="line"><span class="keyword">find_package</span>(yaml-cpp REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;YAML_CPP_INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">target_link_libraries</span>(node_name yaml-cpp)</span><br><span class="line"></span><br><span class="line">配置openmp库</span><br><span class="line"><span class="keyword">FIND_PACKAGE</span>( OpenMP REQUIRED)</span><br><span class="line"><span class="keyword">if</span>(OPENMP_FOUND)</span><br><span class="line"><span class="keyword">message</span>(“OPENMP FOUND”)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_C_FLAGS “<span class="variable">$&#123;CMAKE_C_FLAGS&#125;</span> <span class="variable">$&#123;OpenMP_C_FLAGS&#125;</span>”)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS “<span class="variable">$&#123;CMAKE_CXX_FLAGS&#125;</span> <span class="variable">$&#123;OpenMP_CXX_FLAGS&#125;</span>”)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_EXE_LINKER_FLAGS “<span class="variable">$&#123;CMAKE_EXE_LINKER_FLAGS&#125;</span> <span class="variable">$&#123;OpenMP_EXE_LINKER_FLAGS&#125;</span>”)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/03-find_package%E7%94%A8%E6%B3%95.html">https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/03-find_package%E7%94%A8%E6%B3%95.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/02-QMake%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95.html" title="02 QMake的基本用法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">02 QMake的基本用法</div></div><div class="info-2"><div class="info-item-1">QMake的基本用法QMake是和CMake类似的项目组织工具，不过比CMAKE简单不少 官方文档：https://doc.qt.io/qt-5/qmake-manual.html 本地的Qt安装目录也有，和官方文档一致 1.QMake添加源&#x2F;头&#x2F;UI等文件12345678910111213SOURCES += \  $$files(UserAPP/Src/*.cpp) \  $$files(UserAPP/Src/*.c) \#    main.cpp \#    mainwindow.cppHEADERS += \ $$files(UserAPP/Inc/*.h)#    mainwindow.hINCLUDEPATH += UserAPP/Inc/FORMS += \#   ...</div></div></div></a><a class="pagination-related" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/04-install%E7%9A%84%E7%94%A8%E6%B3%95.html" title="04 install的用法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">04 install的用法</div></div><div class="info-2"><div class="info-item-1">install的用法参考链接：  【CMake】cmake的install指令_cmake –install-CSDN博客  作用作用：就是把编译生成的可执行文件、静态库、动态库、头文件等拷贝到指定文件夹($&#123;CMAKE_INSTALL_PREFIX&#125;)中 目的：  使用第三方库时，简化目录结构，install之后就可删掉源码了 自己的代码不想让别人看到源码，就把可执行文件、库、头文件install就行了  如何install1.首先得在CMakeLists中指定install的目标路径（通过$&#123;CMKAE_INSTALL_PREFIX&#125;变量） 对于该变量的设置有多种方式：  在CMakeLists.txt中，通过set()设置 命令行中，cmake -DCMKAE_INSTALL_PREFIX=设置  2.在CMakeLists.txt中指定install规则   举个例子： 123456install(TARGETS lib_sensor lib_common lib_base my_executable        ARCHIVE...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#find-package-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">find_package()的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">两种工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Config%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">Config模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Module%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">Module模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%90%9C%E7%B4%A2"><span class="toc-number">1.3.</span> <span class="toc-text">配置文件的搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">1.3.1.</span> <span class="toc-text">搜索路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.3.2.</span> <span class="toc-text">Ubuntu注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMake%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6"><span class="toc-number">1.3.3.</span> <span class="toc-text">CMake的缓存机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="toc-number">1.3.4.</span> <span class="toc-text">版本选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%A5API%E6%94%AF%E6%8C%81%E5%93%AA%E4%BA%9B%E5%8C%85%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">该API支持哪些包？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95%E2%80%8B"><span class="toc-number">1.5.</span> <span class="toc-text">基本用法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%BA%93%E7%9A%84%E6%B7%BB%E5%8A%A0%E6%96%B9%E5%BC%8F"><span class="toc-number">1.6.</span> <span class="toc-text">常用库的添加方式</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

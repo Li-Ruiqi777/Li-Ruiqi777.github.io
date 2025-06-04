@@ -1,0 +1,485 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>02 计算机体系结构 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="计算机体系结构1.体系结构和组成原理的区别 体系结构：能被程序员看到的计算机系统的属性，即概念性的结构和功能特性（主要是被汇编程序员所看到的属性，包括指令集、数据类型、存储器寻址技术、IO机理等…） 组成原理：指如何实现计算机体系结构所体现的属性，它包含了很多对程序员来说是透明的硬件细节。比如规定一台计算机有哪些属性属于体系结构的问题，但如何通过电路实现这些指令，属于组成原理的问题  123456">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02 计算机体系结构">
+<meta property="og:url" content="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="计算机体系结构1.体系结构和组成原理的区别 体系结构：能被程序员看到的计算机系统的属性，即概念性的结构和功能特性（主要是被汇编程序员所看到的属性，包括指令集、数据类型、存储器寻址技术、IO机理等…） 组成原理：指如何实现计算机体系结构所体现的属性，它包含了很多对程序员来说是透明的硬件细节。比如规定一台计算机有哪些属性属于体系结构的问题，但如何通过电路实现这些指令，属于组成原理的问题  123456">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.402Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '02 计算机体系结构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">02 计算机体系结构</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">02 计算机体系结构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="计算机体系结构"><a href="#计算机体系结构" class="headerlink" title="计算机体系结构"></a>计算机体系结构</h1><h2 id="1-体系结构和组成原理的区别"><a href="#1-体系结构和组成原理的区别" class="headerlink" title="1.体系结构和组成原理的区别"></a>1.体系结构和组成原理的区别</h2><ul>
+<li>体系结构：能被程序员看到的计算机系统的属性，即概念性的结构和功能特性（主要是被汇编程序员所看到的属性，包括指令集、数据类型、存储器寻址技术、IO机理等…）</li>
+<li>组成原理：指<strong>如何实现</strong>计算机体系结构所体现的属性，它包含了很多对程序员来说是透明的硬件细节。比如规定一台计算机有哪些属性属于体系结构的问题，但如何通过电路实现这些指令，属于组成原理的问题</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">计算机系统</span><br><span class="line">├── 计算机体系结构（抽象规范）</span><br><span class="line">│   ├── CPU 子系统 → ISA（指令集）</span><br><span class="line">│   ├── 内存子系统 → 一致性协议</span><br><span class="line">│   └── I/O 子系统 → 中断/DMA 机制</span><br><span class="line">└── 计算机组成原理（具体实现）</span><br><span class="line">    ├── CPU 实现 → 微架构（如流水线）</span><br><span class="line">    ├── 内存实现 → DRAM 控制器电路</span><br><span class="line">    └── I/O 实现 → USB 控制器芯片</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/626219916/answer/3250815167">计算机组成与计算机体系结构有什么区别？ - 知乎</a></li>
+</ul>
+<h2 id="2-基本概念"><a href="#2-基本概念" class="headerlink" title="2.基本概念"></a>2.基本概念</h2><h3 id="体系结构"><a href="#体系结构" class="headerlink" title="体系结构"></a>体系结构</h3><ul>
+<li><p>定义：通常指<strong>硬件系统级的抽象设计</strong>，涵盖 CPU、内存、I&#x2F;O 等子系统的交互规范</p>
+</li>
+<li><p>示例：</p>
+<ul>
+<li>冯诺依曼架构</li>
+</ul>
+</li>
+<li><p>哈佛架构</p>
+</li>
+<li><p>核心内容：</p>
+<ul>
+<li><p>多核协同：一致性协议（如 MESI）、互联总线（如 AMBA ACE）</p>
+</li>
+<li><p>内存子系统：NUMA 支持、内存控制器设计</p>
+</li>
+<li><p>外设与扩展：PCIe、USB 控制器、加速器（如 NPU）的集成</p>
+</li>
+<li><p>安全与虚拟化：TrustZone、IOMMU、虚拟化扩展（如 ARM SMMU）</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="指令集架构"><a href="#指令集架构" class="headerlink" title="指令集架构"></a>指令集架构</h3><ul>
+<li>定义：规定了CPU对程序员可见的功能和行为，包含指令集、寄存器组织、内存模型、寻址方式、异常或中断的处理方式、软硬件接口、特权模式等的完整规范，是&#x3D;&#x3D;CPU&#x3D;&#x3D;设计的<strong>抽象类</strong>，可以理解为他就是个文档，且不包括具体的电路实现</li>
+<li>核心内容：<ul>
+<li>指令集：定义支持的指令（如 <code>ADD</code>、<code>MOV</code>）、编码格式、操作数类型</li>
+<li>寄存器集：通用寄存器、状态寄存器（如 <code>x86</code> 的 <code>EFLAGS</code>、<code>ARM</code> 的 <code>CPSR</code>）</li>
+<li>内存模型：地址空间、对齐要求、内存访问语义</li>
+<li>异常与中断：异常类型（如缺页、非法指令）、触发条件、处理流程</li>
+<li>特权级别：定义特权模式（如 <code>x86</code> 的 <code>Ring 0-3</code>、<code>ARM</code> 的 <code>EL0-EL3</code>）</li>
+<li>虚拟化支持…</li>
+</ul>
+</li>
+</ul>
+<p>不同ISA包含的内容不完全一样：</p>
+<img src="../assets/image-20250503155818886.png" alt="image-20250503155818886" style="zoom:50%;" />
+
+<blockquote>
+<p>RISC-V、ARM其实都是ISA的统称，具体的ISA应该是RV32IA、ARMv7-M这样的</p>
+</blockquote>
+<ul>
+<li>实例：<ul>
+<li><p>RISC-V：开源指令集架构，可扩展性强（RISC-V其实也是<strong>统称</strong>，它有很多具体版本比如RV32I）</p>
+</li>
+<li><p>ARMv8-A：支持64位计算，定义AArch64执行状态和异常模型</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="指令集"><a href="#指令集" class="headerlink" title="指令集"></a>指令集</h3><ul>
+<li><p>定义：CPU能够执行的所有机器指令的集合，是软件与硬件交互的基础规范。例如：x86支持复杂指令（如MMX、AVX），ARM支持精简指令（Thumb-2）</p>
+</li>
+<li><p>分类：</p>
+<ul>
+<li><p>CISC（复杂指令集）：针对每一种功能都实现特定的指令，导致指令的数量较多，但生成的程序长度较短</p>
+</li>
+<li><p>RISC（精简指令集）：只实现基本的指令，复杂的指令由基本指令组成，这导致指令的数目较少，但生成的程序长度较长</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="CPU内核-微架构"><a href="#CPU内核-微架构" class="headerlink" title="CPU内核&#x2F;微架构"></a>CPU内核&#x2F;微架构</h3><ul>
+<li><p>英文：CPU Core&#x2F;Microarchitecture</p>
+</li>
+<li><p>定义：CPU内核是对ISA的&#x3D;&#x3D;具体实现&#x3D;&#x3D;，并关注性能、功耗、面积等优化。一般以IP核的形式提供给SOC厂商，IP核又分为<strong>软核</strong>（提供RTL级实现）和<strong>硬核</strong>（提供电路布局级实现）。如果有了软核，可以直接将RTL映射至FPGA，即可用FPGA进行物理时序的验证</p>
+</li>
+<li><p>核心内容：</p>
+<ul>
+<li>流水线设计：级数、乱序执行（如 Intel 的 <code>Out-of-Order</code>）、分支预测策略</li>
+<li>缓存层次：各级Cache的大小、替换算法（如 LRU）</li>
+<li>并行计算单元：超标量（Superscalar）、SIMD（如 NEON&#x2F;AVX）</li>
+<li>功耗管理：动态电压频率调整（DVFS）、时钟门控</li>
+<li>物理设计：晶体管布局、时序优化</li>
+</ul>
+</li>
+<li><p>实例:</p>
+<ul>
+<li>Cortex-A77 是 基于ARMv8-A 的一种CPU内核，采用 4 宽解码、128 ROB（重排序缓冲区）</li>
+<li>Apple M1 基于 ARMv8.5-A ISA，但使用自研 Firestorm&#x2F;Icestorm 微架构</li>
+<li>玄铁C906是RISCV64GCBV ISA的CPU内核</li>
+</ul>
+</li>
+</ul>
+<img src="../assets/image-20250510203628233.png" alt="image-20250510203628233" style="zoom:80%;" />
+
+
+
+
+<p>关系与对比</p>
+<table>
+<thead>
+<tr>
+<th align="center">层级</th>
+<th align="center">定义范围</th>
+<th align="center">稳定性</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ISA</td>
+<td align="center">指令、寄存器、内存模型</td>
+<td align="center">长期稳定</td>
+<td align="center">ARMv8-A、RISC-V</td>
+</tr>
+<tr>
+<td align="center">Microarchitecture</td>
+<td align="center">流水线、缓存、功耗优化</td>
+<td align="center">厂商私有，频繁迭代</td>
+<td align="center">Cortex-A78、Apple M2</td>
+</tr>
+<tr>
+<td align="center">Architecture</td>
+<td align="center">多核、总线、外设集成</td>
+<td align="center">依赖生态需求</td>
+<td align="center">AMBA 总线、Intel Hybrid 架构</td>
+</tr>
+</tbody></table>
+<h3 id="MMU不同层级的内容"><a href="#MMU不同层级的内容" class="headerlink" title="MMU不同层级的内容"></a>MMU不同层级的内容</h3><p>1.ISA层级：规定 MMU 的行为规范，但不涉及具体硬件实现</p>
+<ul>
+<li><p>地址转换机制：规定是否支持分页（如 ARMv8-A 的 4KB&#x2F;64KB 页）、页表格式（如 ARM 的 <code>Descriptor Table</code>）</p>
+</li>
+<li><p>特权控制：定义哪些指令&#x2F;模式可访问页表（如 <code>x86</code> 的 <code>CR3</code> 寄存器、<code>ARM</code> 的 <code>TTBR0</code>）</p>
+</li>
+<li><p>异常类型：触发缺页异常（Page Fault）的条件（如权限错误、非法地址）</p>
+</li>
+<li><p>示例：</p>
+<ul>
+<li>ARMv8-A 要求 MMU 支持 48 位虚拟地址和 4 级页表</li>
+<li>RISC-V 的 <code>Sv39</code> 模式定义三级页表结构</li>
+</ul>
+</li>
+</ul>
+<p>2.微架构层级：决定 MMU 具体实现与优化，是厂商优化的重点</p>
+<ul>
+<li>TLB（快表）设计：容量方式（全关联&#x2F;组相联）、替换策略（LRU&#x2F;Random）</li>
+<li>多级页表缓存：硬件预取页表项（如 ARM 的 <code>Walk Cache</code>）</li>
+<li>并行查表：支持多级页表并行访问以降低延迟</li>
+<li>物理实现：与流水线的协同（如 MMU 与 Load&#x2F;Store 单元的交互）</li>
+<li>示例：<ul>
+<li>Intel Skylake 的 MMU 采用 多级 TLB（L1&#x2F;L2）和 硬件页表遍历器</li>
+<li>Cortex-A72 的 MMU 支持 2MB 大页缓存以减少 TLB 缺失</li>
+</ul>
+</li>
+</ul>
+<p>3.体系结构层级：关注 MMU 在系统中的角色，而非具体电路设计</p>
+<ul>
+<li>总线协议：MMU 如何与系统总线（如 AMBA AXI）交互</li>
+<li>多核一致性：MMU 在 Cache 一致性中的作用（如 ARM 的 <code>SCU</code> 监听控制）</li>
+<li>安全扩展：MMU 如何支持 TrustZone 或虚拟化（如第二阶段地址转换）</li>
+</ul>
+<h3 id="机器指令、汇编、编程语言的区别"><a href="#机器指令、汇编、编程语言的区别" class="headerlink" title="机器指令、汇编、编程语言的区别"></a>机器指令、汇编、编程语言的区别</h3><ul>
+<li><p>指令集：**一个CPU真正支持的所有操作的&#x3D;&#x3D;集合&#x3D;&#x3D;**。它定义了 CPU 能够执行的指令类型、每条指令的操作码及其格式、操作数类型等。不同架构的CPU（x86、ARM、MIPS等）的主要区别之一就是指令集不同</p>
+</li>
+<li><p>机器指令：机器指令是CPU可以直接运行的二进制代码，一条机器指令就是指令集中的一条元素，对应CPU支持的特定操作，例如数据传送、算术运算、逻辑操作、控制流等</p>
+</li>
+<li><p>汇编语言：汇编语言是对机器指令的一种封装，使得用户可读（机器指令是二进制的，用户不可读），汇编是个动词，指的是将汇编语言转成CPU可以运行的机器指令。汇编这个过程类似编译，也需要一个程序（汇编程序）来完成，汇编相较于编译更为简单，通常只涉及将汇编指令映射为机器码。</p>
+</li>
+</ul>
+<blockquote>
+<p>由此可见汇编不具有跨平台的特性，在X86架构的CPU写的汇编，拿到ARM架构的CPU大概率不可用，因为指令集都不一样</p>
+</blockquote>
+<h3 id="汇编中指令和伪指令的区别"><a href="#汇编中指令和伪指令的区别" class="headerlink" title="汇编中指令和伪指令的区别"></a>汇编中指令和伪指令的区别</h3><ul>
+<li>指令：对应于CPU支持的机器指令，汇编时直接映射为机器码</li>
+<li>伪指令：辅助汇编程序编写和组织代码的数据定义和控制指令，不对应于CPU支持的机器指令，汇编时被转换为几条机器码</li>
+</ul>
+<h2 id="3-CPU-SoC-MCU-MPU等的区别"><a href="#3-CPU-SoC-MCU-MPU等的区别" class="headerlink" title="3.CPU&#x2F;SoC&#x2F;MCU&#x2F;MPU等的区别"></a>3.CPU&#x2F;SoC&#x2F;MCU&#x2F;MPU等的区别</h2><ul>
+<li><p>CPU就是上面提到的CPU内核，包括运算器、控制器、寄存器、Cache等</p>
+</li>
+<li><p>SoC是将一个完整的系统整合到<strong>单一芯片</strong>上的集成电路，包括 CPU、GPU、内存控制器、输入&#x2F;输出接口、通信模块、GPU&#x2F;NPU之类的加速芯片等</p>
+</li>
+<li><p>MCU是一种集成了CPU、内存（如闪存、RAM）、以及多种外设（如ADC、DAC、串行通信接口、定时器等）于一体的芯片，可以看成<strong>简易版的SoC</strong></p>
+</li>
+<li><p>MPU：CPU的一种封装，不带各种外设，并不是MCU的复杂版</p>
+</li>
+</ul>
+<p>x86架构的电脑通常会有个主板，将CPU和各个外设通过总线连接，而嵌入式系统的SOC&#x2F;MCU是把CPU和各个外设都集成到了一个芯片里，这是他们很大的一个区别</p>
+<p><img src="../assets/image-20241211101851896.png" alt="image-20241211101851896" style="zoom:50%;" /><img src="../assets/image-20241211101903102.png" alt="image-20241211101903102" style="zoom: 50%;" /><img src="../assets/image-20241211101954770.png" alt="image-20241211101954770" style="zoom: 50%;" /></p>
+<p>MCU和SoC的区别主要体现在：</p>
+<ul>
+<li>处理能力</li>
+<li>应用场景</li>
+<li>功耗</li>
+<li>集成度：MCU集成的资源有限，主要用于控制任务，而非复杂计算；而SOC通常是一个完整的系统集成在一块芯片上，集成度更高，比如有MCU上没有的屏幕驱动部分、GPU等</li>
+</ul>
+<img src="../assets/image-20240901211121011.png" alt="image-20240901211121011" style="zoom:67%;" />
+
+<p>由于SOC中集成了很多模块，那么软硬件工程师的工作量也会减少，如果用裸CPU，那么什么RAM、FLASH的电路都得自己画，但是如果SOC自带了，那么就不需要了啊</p>
+<h3 id="怎么理解ARM授权"><a href="#怎么理解ARM授权" class="headerlink" title="怎么理解ARM授权"></a>怎么理解ARM授权</h3><p>ARM公司其实是CPU内核的设计厂商，只做CPU内核的设计，并不制造</p>
+<p>而其他半导体厂商，比如ST、华为之类的，要生产的SOC肯定里面要用到CPU内核，那么就得向ARM公司买他们设计好的内核（可以理解为ARM只卖DNF装备的设计图）</p>
+<p>授权又分为多种：</p>
+<ul>
+<li>架构层级授权：可以对ARM内核进行大幅度改造，甚至可以修改指令集，总而得到一个新的架构（苹果的Swift架构）</li>
+<li>内核层级授权：可以以ARM内核为基础再加上自己的外设，最后形成一个MCU或SOC（TI、ST公司）</li>
+<li>使用层级授权：只能把定义好的IP核拿来用，不能修改或再封装自己的产品</li>
+</ul>
+<img src="../assets/image-20240901212713201.png" alt="image-20240901212713201" style="zoom:50%;" />
+
+
+
+<h2 id="4-指令集架构-ISA"><a href="#4-指令集架构-ISA" class="headerlink" title="4.指令集架构(ISA)"></a>4.指令集架构(ISA)</h2><img src="../assets/image-20241209115112416.png" alt="image-20241209115112416" style="zoom:50%;" />
+
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>指令集架构（Instruction Set Architecture，ISA）是底层硬件电路面向上层软件提供的一层<strong>接口规范</strong>，包括：</p>
+<ul>
+<li>基本数据类型：byte、word、half word</li>
+<li>寄存器</li>
+<li>指令</li>
+<li>寻址类型</li>
+<li>异常或中断的处理方式</li>
+<li>支持的特权模式，如Machine Mode、User Mode、Supervisor Mode…</li>
+<li>…</li>
+</ul>
+<blockquote>
+<p>指令集架构只是一种规范和约束，让编程者无需关心底层的硬件电路。</p>
+<ul>
+<li>可以理解为指令集(架构)相当于抽象类，硬件电路为子类具体的实现</li>
+</ul>
+<p>我们常说的CPU的架构其实就是指的是CPU的指令集架构（ISA），比如x86_64、ARMv7a、ARMv7m…</p>
+</blockquote>
+<h3 id="ISA的宽度"><a href="#ISA的宽度" class="headerlink" title="ISA的宽度"></a>ISA的宽度</h3><p>定义：指的是CPU中通用寄存器的宽度（二进制的位数），这决定了寻址范围的大小，以及数据运算的能力。这与指令的宽度不同，比如RISCV架构CPU有32位也有64位，但指令的宽度都是32位。</p>
+<h3 id="ISA的具体实现"><a href="#ISA的具体实现" class="headerlink" title="ISA的具体实现"></a>ISA的具体实现</h3><p>前面提到了ISA层只是给出了一些接口规范，但具体实现是需要各个厂家通过具体的硬件电路来做，这属于ISA层之下的MicroArchtecture层。</p>
+<p>比如常见的ISA的实现有x86、ARM、RISC-V、MIPS…，但是ISA的实现也只是给出了一些规范和接口，后面就是通过硬件电路实现这些接口：Intel、AMD、华为、高通、ST…</p>
+<blockquote>
+<p>这种 “规范 + 实现” 的方式在其他领域也可以看见！</p>
+</blockquote>
+<img src="../assets/image-20241209120423829.png" alt="image-20241209120423829" style="zoom:50%;" />
+
+<h2 id="5-ARMv7A-ISA"><a href="#5-ARMv7A-ISA" class="headerlink" title="5.ARMv7A ISA"></a>5.ARMv7A ISA</h2><p>之前用的ARM Cortex A7的CPU内核的指令集架构是ARMv7A，现在对该ISA进行分析</p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p><img src="../assets/image-20240904171832275.png" alt="image-20240904171832275"></p>
+<blockquote>
+<p>上面带三角的寄存器，在CPU不同的模式有不同的作用</p>
+</blockquote>
+<p>ARMv7A规范中共有40个寄存器，33个通用寄存器，7个状态寄存器</p>
+<ul>
+<li><p>通用寄存器（R0~R15），通用寄存器可以分为以下三类：</p>
+<ul>
+<li><strong>未分组寄存器</strong>（R0~R7）<ul>
+<li>在CPU的所有模式下都指向同一个物理寄存器，未被用于特殊用途，一般就用来暂存数据、传递函数参数、返回值、返回地址等</li>
+<li>发生函数跳转时，会造成此类寄存器数据的破坏，因此需要保存当前的数据到栈空间中，即&#x3D;&#x3D;保存上下文&#x3D;&#x3D;，实际上就是在进程的栈区里创建一个<strong>栈帧</strong>保存当前各个寄存器的值</li>
+</ul>
+</li>
+<li><strong>分组寄存器</strong>（R8~R14）<ul>
+<li>CPU每次到底访问哪个分组寄存器，与当前的运行模式有关</li>
+<li>R8~R12：一共2组，一组用于fiq模式，一组用于其他所有模式</li>
+<li>R13、R14：一共7组，一组用于user模式和system模式；其他所有模式各一个</li>
+<li>R13(SP)：堆栈指针寄存器，由于CPU每个模式都有自己的SP指针（&#x3D;&#x3D;即不同模式的栈是独立的&#x3D;&#x3D;），故在上电初始化时，需要给各SP指针分配好栈空间</li>
+<li>R14(LR)：链接寄存器，在发生程序跳转时（函数调用、异常…），LR会备份PC的值，用于在跳转后的部分执行完毕时，继续执行当前的代码</li>
+</ul>
+</li>
+<li><strong>程序计数器</strong> ：R15（PC指针）</li>
+</ul>
+</li>
+<li><p>程序状态寄存器</p>
+<ul>
+<li>CPSR：当前程序状态寄存器</li>
+</ul>
+<p><img src="../assets/image-20240904195137643.png" alt="image-20240904195137643"></p>
+<blockquote>
+<p>注意：ARMv7A同时支持Thumb指令集和ARM指令集，且可以通过T位动态切换</p>
+</blockquote>
+<ul>
+<li>SPSR：备份的程序状态寄存器，CPU各模式的该寄存器是独立的，当发生模式切换时，会在目标模式的SPSR寄存器里备份CPSR的值</li>
+</ul>
+</li>
+</ul>
+<h3 id="处理器模式"><a href="#处理器模式" class="headerlink" title="处理器模式"></a>处理器模式</h3><p>ARMv7A系列主要包含8种处理器模式（他们分处于2种<strong>特权等级</strong>）：</p>
+<img src="../assets/image-20240903163524904.png" alt="image-20240903163524904" style="zoom: 80%;" />
+
+<blockquote>
+<p>重点掌握：用户模式、一般中断模式、管理模式</p>
+</blockquote>
+<h4 id="用户模式"><a href="#用户模式" class="headerlink" title="用户模式"></a>用户模式</h4><ul>
+<li>用户程序的工作模式，运行在操作系统的<strong>用户态</strong></li>
+<li>没有权限操作硬件资源</li>
+<li>无法直接切换到别的模式，如果想要访问硬件或者切换到别的模式，只能通过<strong>软中断</strong>（SWI指令）或者<strong>异常</strong></li>
+</ul>
+<blockquote>
+<p>我们写的大部分应用程序都工作在用户模式，只有需要访问硬件时，比如<code>printf</code>时，会进入别的模式</p>
+</blockquote>
+<h4 id="一般中断模式"><a href="#一般中断模式" class="headerlink" title="一般中断模式"></a>一般中断模式</h4><ul>
+<li>也叫普通中断模式，用于处理一般的中断请求</li>
+<li>在硬件产生中断信号后，自动进入该模式</li>
+<li>属于特权模式，可以自由访问硬件资源</li>
+</ul>
+<h4 id="管理模式-SVC"><a href="#管理模式-SVC" class="headerlink" title="管理模式(SVC)"></a>管理模式(SVC)</h4><ul>
+<li>CPU上电时进入的默认模式，主要用于硬件的初始化</li>
+<li>用户模式的应用程序要访问硬件时，需要通过软中断（SWI）进入特权模式，则会进入该模式</li>
+</ul>
+<blockquote>
+<p>之前所学习的进入内核态的<code>syscall</code>指令（它是汇编中的一个助记符），其实就是对SWI的包装</p>
+</blockquote>
+<h3 id="ARMv7A的异常"><a href="#ARMv7A的异常" class="headerlink" title="ARMv7A的异常"></a>ARMv7A的异常</h3><p>异常的概念：由CPU<strong>执行指令</strong>所导致的原来运行的程序的终止</p>
+<p>ARMv7A的异常源：</p>
+<img src="../assets/image-20240903165408184.png" alt="image-20240903165408184" style="zoom:67%;" />
+
+<blockquote>
+<p>不同的异常源会使CPU进入不同的工作模式</p>
+</blockquote>
+<img src="../assets/image-20240903170758683.png" alt="image-20240903170758683" style="zoom:80%;" />
+
+<h4 id="ARMv7A异常处理流程"><a href="#ARMv7A异常处理流程" class="headerlink" title="ARMv7A异常处理流程"></a>ARMv7A异常处理流程</h4><p><strong>一、硬件阶段：四大步、三小步</strong></p>
+<p>1.保存当前CPU的状态：将CPSR寄存器的值复制到目标模式的SPSR寄存器中</p>
+<p>2.模式切换：</p>
+<ul>
+<li>设置CPSR寄存器的模式位与目标模式一致</li>
+<li>处理器切换到ARM指令集模式</li>
+<li>禁用所有IRQ中断或FIQ中断，防止中断嵌套</li>
+</ul>
+<p>3.保存返回地址：将被打断程序的下一条指令的地址保存到目标模式的LR寄存器</p>
+<p>4.跳入异常向量表：将PC指针的值强制设为当前异常对应的固定的内存地址（看异常向量表）</p>
+<p><img src="../assets/image-20240905102604071.png" alt="image-20240905102604071"></p>
+<p>STM32的中断向量表代码里长这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__Vectors       DCD     __initial_sp               ; Top of Stack</span><br><span class="line">                DCD     Reset_Handler              ; Reset Handler</span><br><span class="line">                DCD     NMI_Handler                ; NMI Handler</span><br><span class="line">                DCD     HardFault_Handler          ; Hard Fault Handler</span><br><span class="line">                DCD     MemManage_Handler          ; MPU Fault Handler</span><br><span class="line">                DCD     BusFault_Handler           ; Bus Fault Handler</span><br><span class="line">                DCD     UsageFault_Handler         ; Usage Fault Handler</span><br></pre></td></tr></table></figure>
+
+<p><code>__initial_sp</code>、<code>xxx_Handler</code>就是各个异常的处理函数，DCD是一个伪指令，但也能完成跳转</p>
+<p><strong>二、异常处理</strong></p>
+<p>1.保存现场：将R0~R12、LR寄存器的值保存到对应异常模式的栈空间中</p>
+<p>2.对异常进行处理</p>
+<p><strong>三、返回</strong></p>
+<p>1.恢复被打断程序的R0等寄存器</p>
+<p>2.恢复被打断程序的CPSR寄存器</p>
+<p>3.修正进入异常时保存到LR寄存器的值，返回被打断程序继续执行</p>
+<img src="../assets/image-20240905104912888.png" alt="image-20240905104912888" style="zoom: 80%;" />
+
+<h4 id="软中断"><a href="#软中断" class="headerlink" title="软中断"></a>软中断</h4><p>SWI指令的格式为：SWI{条件} 24位的立即数</p>
+<p>SWI指令会产生“软件中断”这种异常，OS会在软件中断的异常处理函数中提供相应的<strong>系统服务</strong>，这其实就是&#x3D;&#x3D;系统调用的过程&#x3D;&#x3D;！</p>
+<p>指令中的24位立即数指定了调用哪个系统调用，如果缺省的话则由R0寄存器决定</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html">https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.html" title="文件系统"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">文件系统</div></div><div class="info-2"><div class="info-item-1">文件系统基本概念 文件系统是负责管理和存储文件信息的软件，它是在存储介质中建立的一种组织结构，这些结构包含操作系统引导区，目录，文件（STM32上的Fatfs是包括这几个，别的文件系统就不一定了）  这样看这个概念可能比较晦涩难懂，说了跟没说一样，下面举个例子： 之前在使用W25Q64这个Flash芯片的时候，由于没有使用文件系统，它有一下这些缺点：  往里写数据、读数据的时候都得指定Flash上的具体的地址 有效数据的位置不方便记录，如果想使用存进去的数据，还得额外手记什么数据存到哪个地址里了 并且数据都是以page(256...</div></div></div></a><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="03 计算机组成原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">03 计算机组成原理</div></div><div class="info-2"><div class="info-item-1">计算机组成原理参考链接 计算机组成原理 - 知乎  1.计算机的组成计算机通常包括以下几部分：  输入设备 输出设备 CPU：运算器 + 控制器 + 寄存器 + Cache + MMU + TLB… 总线：数据总线 + 地址总线 +...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">计算机体系结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%92%8C%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.1.</span> <span class="toc-text">1.体系结构和组成原理的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.</span> <span class="toc-text">2.基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.1.</span> <span class="toc-text">体系结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.2.</span> <span class="toc-text">指令集架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="toc-number">1.2.3.</span> <span class="toc-text">指令集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU%E5%86%85%E6%A0%B8-%E5%BE%AE%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.4.</span> <span class="toc-text">CPU内核&#x2F;微架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU%E4%B8%8D%E5%90%8C%E5%B1%82%E7%BA%A7%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.5.</span> <span class="toc-text">MMU不同层级的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E6%8C%87%E4%BB%A4%E3%80%81%E6%B1%87%E7%BC%96%E3%80%81%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.6.</span> <span class="toc-text">机器指令、汇编、编程语言的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E4%B8%AD%E6%8C%87%E4%BB%A4%E5%92%8C%E4%BC%AA%E6%8C%87%E4%BB%A4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.7.</span> <span class="toc-text">汇编中指令和伪指令的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-CPU-SoC-MCU-MPU%E7%AD%89%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.3.</span> <span class="toc-text">3.CPU&#x2F;SoC&#x2F;MCU&#x2F;MPU等的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3ARM%E6%8E%88%E6%9D%83"><span class="toc-number">1.3.1.</span> <span class="toc-text">怎么理解ARM授权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84-ISA"><span class="toc-number">1.4.</span> <span class="toc-text">4.指令集架构(ISA)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA%E7%9A%84%E5%AE%BD%E5%BA%A6"><span class="toc-number">1.4.2.</span> <span class="toc-text">ISA的宽度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.4.3.</span> <span class="toc-text">ISA的具体实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-ARMv7A-ISA"><span class="toc-number">1.5.</span> <span class="toc-text">5.ARMv7A ISA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.5.1.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.5.2.</span> <span class="toc-text">处理器模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">用户模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E4%B8%AD%E6%96%AD%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">一般中断模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E6%A8%A1%E5%BC%8F-SVC"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">管理模式(SVC)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARMv7A%E7%9A%84%E5%BC%82%E5%B8%B8"><span class="toc-number">1.5.3.</span> <span class="toc-text">ARMv7A的异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ARMv7A%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">1.5.3.1.</span> <span class="toc-text">ARMv7A异常处理流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%B8%AD%E6%96%AD"><span class="toc-number">1.5.3.2.</span> <span class="toc-text">软中断</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

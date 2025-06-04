@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>MPU6050 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="深入学习MPU6050自初次接触这个芯片已经过去接近2年了，之前对这个芯片一直不是很了解，只是会用用别人封装好的API，对其怎么实现的、涉及到的寄存器、初始化流程都完全不了解，这就导致如果在使用中出现了问题，我是没办法分析问题来源的。因此，如果想要自如地使用某芯片，一定要学会看芯片的使用手册、寄存器手册等等 1.一些常见问题：0.MPU6050测的是3轴加速度和角速度，不是角加速度。。。 1.MP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MPU6050">
+<meta property="og:url" content="https://li-ruiqi777.github.io/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/MPU6050.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="深入学习MPU6050自初次接触这个芯片已经过去接近2年了，之前对这个芯片一直不是很了解，只是会用用别人封装好的API，对其怎么实现的、涉及到的寄存器、初始化流程都完全不了解，这就导致如果在使用中出现了问题，我是没办法分析问题来源的。因此，如果想要自如地使用某芯片，一定要学会看芯片的使用手册、寄存器手册等等 1.一些常见问题：0.MPU6050测的是3轴加速度和角速度，不是角加速度。。。 1.MP">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.699Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/MPU6050.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MPU6050',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">MPU6050</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">MPU6050</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/">06-嵌入式硬件</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="深入学习MPU6050"><a href="#深入学习MPU6050" class="headerlink" title="深入学习MPU6050"></a>深入学习MPU6050</h1><p>自初次接触这个芯片已经过去接近2年了，之前对这个芯片一直不是很了解，只是会用用别人封装好的API，对其<strong>怎么实现</strong>的、涉及到的寄存器、初始化流程都完全不了解，这就导致如果在使用中出现了问题，我是没办法分析问题来源的。因此，如果想要自如地使用某芯片，<strong>一定要学会看芯片的使用手册、寄存器手册等等</strong></p>
+<h4 id="1-一些常见问题："><a href="#1-一些常见问题：" class="headerlink" title="1.一些常见问题："></a>1.一些常见问题：</h4><p>0.MPU6050测的是3轴加速度和角速度，不是角加速度。。。</p>
+<p>1.MPU6050的SDK由2部分组成，自底向上是<code>inv_mpu6050</code>、<code>dmp_motion_driver</code>，前者偏向于底层，主要是器件本身的初始化；后者是应用层，主要是对传感器的姿态解算的相关设置和计算</p>
+<p>2.DMP库里面FIFO的长度只设置了32，而官方文档该寄存器(不该称为寄存器啊)容量是1024字节的，是不是它FIFO的容量没有用满呢？</p>
+<p>nonono，这个FIFO不是你设置它的容量的，他只是一次从里面读32个数据，我看错了。而且那个读写寄存器的意思是从FIFO的尾部读取一个字节的数据，而不是这个寄存器就是FIFO。相当于对FIFO进行一次<code>.pop()</code>拿出尾部的数据，并且FIFO的长度以及里面每一个字节的数据是什么都由代码决定。</p>
+<p>3.MPU6050的DMP也有很多寄存器，但是地址没有直接写在6050的寄存器手册上。但是SDK中有使用到了的DMP的寄存器的地址。</p>
+<p>4.虽然6050寄存器手册上写了FIFO中可以存放任何传感器的数据比如：温度、角加速度等等。但是如果用了DMP的话，FIFO中可以存放的数据一般只有四元数、角(加)速度，具体FIFO存什么是由<code>dmp_enable_feature()</code>这个函数决定的，DMP会根据这个函数的参数来决定把什么数据输入FIFO。也就是说FIFO中的数据不是6050本身采集到的数据然寄存器序号直接丢进去，而是由DMP来控制了。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dmp.packet_length = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (mask &amp; DMP_FEATURE_SEND_RAW_ACCEL)</span><br><span class="line">    dmp.packet_length += <span class="number">6</span>;</span><br><span class="line"><span class="keyword">if</span> (mask &amp; DMP_FEATURE_SEND_ANY_GYRO)</span><br><span class="line">    dmp.packet_length += <span class="number">6</span>;</span><br><span class="line"><span class="keyword">if</span> (mask &amp; (DMP_FEATURE_LP_QUAT | DMP_FEATURE_6X_LP_QUAT))</span><br><span class="line">    dmp.packet_length += <span class="number">16</span>;</span><br><span class="line"><span class="keyword">if</span> (mask &amp; (DMP_FEATURE_TAP | DMP_FEATURE_ANDROID_ORIENT))</span><br><span class="line">    dmp.packet_length += <span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+
+<p>最后每次从FIFO中读取<code>dmp.packet_length</code>长度的数据</p>
+<h4 id="2-如何自己选择要从DMP中获取什么数据？"><a href="#2-如何自己选择要从DMP中获取什么数据？" class="headerlink" title="2.如何自己选择要从DMP中获取什么数据？"></a>2.如何自己选择要从DMP中获取什么数据？</h4><p>先看看DMP的SDK中定义的一些结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">dmp_s</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">void</span> (*tap_cb)(<span class="type">unsigned</span> <span class="type">char</span> count, <span class="type">unsigned</span> <span class="type">char</span> direction);</span><br><span class="line">    <span class="type">void</span> (*android_orient_cb)(<span class="type">unsigned</span> <span class="type">char</span> orientation);</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> orient;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> feature_mask;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> fifo_rate;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> packet_length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>这个结构体里的<code>feature_mask</code>变量是告诉DMP获取什么数据 的关键。在6050的初始化中，会由这个函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dmp_enable_feature(DMP_FEATURE_6X_LP_QUAT | DMP_FEATURE_TAP | <span class="comment">// 设置dmp功能</span></span><br><span class="line">DMP_FEATURE_ANDROID_ORIENT | DMP_FEATURE_SEND_RAW_ACCEL | DMP_FEATURE_SEND_CAL_GYRO |</span><br><span class="line">DMP_FEATURE_GYRO_CAL);</span><br></pre></td></tr></table></figure>
+
+<p>来设置dmp的<code>feature_mask</code>和<code>packet_length</code>这2个参数。后者就是调用一次<code>dmp_read_fifo()</code>从FIFO中拿出的字节长度。</p>
+<p>进行设置完后，每次只要用<code>dmp_read_fifo()</code>这个API就可以得到4元数、acc、gyro等数据(如果你设置了相应的feature_mask的话)，根据4元数我们可以转换成对应的rpy角</p>
+<h4 id="3-MPU6050的中断系统"><a href="#3-MPU6050的中断系统" class="headerlink" title="3.MPU6050的中断系统"></a>3.MPU6050的中断系统</h4><p>DMP库中开启了这个寄存器的最低位，也就是DATA_Ready_EN，每当所有传感器数据写入FIFO时，就会触发中断。为了避免FIFO溢出，最好的方法就是在这个中断里面把数据从FIFO读出来，如果是在定时器中断里面以一定的周期读数据，那么总是会发生FIFO溢出的。除非读取频率要高于采样率。</p>
+<h4 id="4-数据的读取"><a href="#4-数据的读取" class="headerlink" title="4.数据的读取"></a>4.数据的读取</h4><p>从MPU6050读取数据有2种方式：</p>
+<ul>
+<li><p>直接从数据寄存器里读</p>
+</li>
+<li><p>从FIFO里面读</p>
+</li>
+</ul>
+<p>如果不打算用DMP库的话，可以直接从数据寄存器里面读数据</p>
+<h5 id="4-1原始数据的处理"><a href="#4-1原始数据的处理" class="headerlink" title="4.1原始数据的处理"></a>4.1原始数据的处理</h5><p>从6050读出acc和gyro都是内部16bit的传感器采集的模拟量经过ADC输出的值。所以不能直接用，需要转换一下。设读出的原始数据为<code>ADCx</code></p>
+<p><strong>法1：实际值 &#x3D; ADCx*量程&#x2F;32768</strong></p>
+<p>32768是2的15次方，因为内部ADC是16位且有符号，所以除以这个。</p>
+<p>ADCx的单位实际上是LSB，因此也可以这样计算实际值</p>
+<p><strong>法2：实际值 &#x3D; ADCx &#x2F; 灵敏度</strong>，比如量程是16g，那么灵敏度就是2048，量程越小越精确</p>
+<p>DMP库的量程设置在<code>int mpu_init(void)</code>这个函数中，它的设置：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*  Gyro FSR: +/- <span class="number">2000</span>DPS\n</span><br><span class="line">*  Accel FSR +/- <span class="number">2</span>G\n</span><br><span class="line">*  DLPF: <span class="number">42</span>Hz\n</span><br><span class="line">*  FIFO rate: <span class="number">50</span>Hz\n</span><br></pre></td></tr></table></figure>
+
+<p>经单位换算后，可以发现MPU6050的<mark>角速度、加速度是比较准的</mark>，不向4元数那么飘</p>
+<h5 id="4-2读取数据的时间"><a href="#4-2读取数据的时间" class="headerlink" title="4.2读取数据的时间"></a>4.2读取数据的时间</h5><p>刚才也提到了，可以利用数据就绪中断或者定时器的方式来读数据，经测试<code>数据就绪中断</code>的频率和采样率不同，会低于采样率，且其频率一直在变，因此用定时器中断读取数据更好</p>
+<h4 id="5-姿态解算"><a href="#5-姿态解算" class="headerlink" title="5.姿态解算"></a>5.姿态解算</h4><p>姿态解算的实际上就是根据旋转变换矩阵R，求出对应的R、P、Y角。由于解这几个角涉及到了很多三角运算，<mark>为了简化运算</mark>，采用了四元数表示。</p>
+<p><mark>求出旋转变换矩阵R是姿态解算的关键</mark>，R可以看成是关于运行时间t的一个微分方程，它和陀螺仪w有关。一般求R是通过积分的方法求得。<br>这里Q就是旋转矩阵R的四元数形式。</p>
+<p>姿态解算中，通过迭代的方式求解Q</p>
+<p>这就是根据时间更新R的公式，q一般取初值(1,0,0,0)</p>
+<p>由上式可以看出，<mark>姿态解算准确的关键就是陀螺仪的数据w准确</mark></p>
+<h4 id="6-滤波"><a href="#6-滤波" class="headerlink" title="6.滤波"></a>6.滤波</h4></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/MPU6050.html">https://li-ruiqi777.github.io/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/MPU6050.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/ESP8266.html" title="ESP8266"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">ESP8266</div></div><div class="info-2"><div class="info-item-1">ESP82661.ESP8266的工作模式ESP8266为一个WiFi透传模块，和蓝牙透传模块具有主从两种工作模式一样，也具有两种工作模式：STA模式（Station）和AP模式（Access Point），一般WiFi模块还会有一个STA+AP模式，即可以在两种模式下切换的状态。(1)AP模式下，相当于无线局域网中的基站。WiFi模块产生热点，提供无线接入服务，允许其它无线设备接入，提供数据访问，一般的无线路由&#x2F;网桥工作在该模式下。该模式对应TCP传输协议中的服务端（TCP Server）。(2)STA模式下，相当于无线局域网中的移动站。WiFi模块为连接到无线网络的终端（站点），可以连接到AP，一般无线网卡工作在STA模式下。该模式对应TCP传输协议中的客户端（TCP...</div></div></div></a><a class="pagination-related" href="/05-MCU/04-LVGL/LVGL%E5%9F%BA%E7%A1%80.html" title="LVGL基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">LVGL基础</div></div><div class="info-2"><div class="info-item-1">LVGL基础1.对象(1)概述在 LVGL 中，用户界面的基本构建块是对象，也称为 Widgets。 例如 button、label、image。lsit….. 所有的对象都使用lv_obj_t这个类型的指针作为句柄(类似于C++中的Base)，通过该指针来获取对象的各种信息 (2)对象的属性对象的属性包括：基本属性、特定属性 所有对象类型共享一些基本属性：  位置  尺寸  parent  样式  事件处理程序  等等   您可以使用 lv_obj_set_... 和 lv_obj_get_... 函数设置&#x2F;获取这些属性 对象类型也有特殊的属性。例如，一个滑块有  最小值和最大值  当前值   对于这些特殊的属性，每个对象类型都可能有唯一的 API 函数。例如对于滑块 lv_slider_set_range(slider1, 0, 100); (3)工作机制父对象可以被视为其子对象的容器。每个对象只有一个父对象（屏幕除外），但一个父对象可以有任意数量的子对象。 如果父节点的位置发生变化，子节点将与父节点一起移动。...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0MPU6050"><span class="toc-number">1.</span> <span class="toc-text">深入学习MPU6050</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%80%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">1.一些常见问题：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%A6%82%E4%BD%95%E8%87%AA%E5%B7%B1%E9%80%89%E6%8B%A9%E8%A6%81%E4%BB%8EDMP%E4%B8%AD%E8%8E%B7%E5%8F%96%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%EF%BC%9F"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">2.如何自己选择要从DMP中获取什么数据？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-MPU6050%E7%9A%84%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">3.MPU6050的中断系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%95%B0%E6%8D%AE%E7%9A%84%E8%AF%BB%E5%8F%96"><span class="toc-number">1.0.0.4.</span> <span class="toc-text">4.数据的读取</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%9A%84%E5%A4%84%E7%90%86"><span class="toc-number">1.0.0.4.1.</span> <span class="toc-text">4.1原始数据的处理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E6%97%B6%E9%97%B4"><span class="toc-number">1.0.0.4.2.</span> <span class="toc-text">4.2读取数据的时间</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%A7%BF%E6%80%81%E8%A7%A3%E7%AE%97"><span class="toc-number">1.0.0.5.</span> <span class="toc-text">5.姿态解算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%BB%A4%E6%B3%A2"><span class="toc-number">1.0.0.6.</span> <span class="toc-text">6.滤波</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

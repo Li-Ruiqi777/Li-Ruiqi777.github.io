@@ -1,0 +1,261 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>005 机器人建模 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="机器人建模URDF为了在仿真软件里面加载机器人本体，我们通常需要对机器人进行建模。而ROS及一些仿真软件通常使用URDF（Unified Robot Description Format）格式的文件来对机器人建模 URDF是一种基于XML的机器人模型描述格式，主要用于定义机器人的连杆（links）、关节（joints）、几何形状和物理属性 基本结构URDF文件以&lt;robot&gt;为根标签，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="005 机器人建模">
+<meta property="og:url" content="https://li-ruiqi777.github.io/09-ROS/005-%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BB%BA%E6%A8%A1.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="机器人建模URDF为了在仿真软件里面加载机器人本体，我们通常需要对机器人进行建模。而ROS及一些仿真软件通常使用URDF（Unified Robot Description Format）格式的文件来对机器人建模 URDF是一种基于XML的机器人模型描述格式，主要用于定义机器人的连杆（links）、关节（joints）、几何形状和物理属性 基本结构URDF文件以&lt;robot&gt;为根标签，">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.792Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/09-ROS/005-%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BB%BA%E6%A8%A1.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '005 机器人建模',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">005 机器人建模</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">005 机器人建模</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.792Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/09-ROS/">09-ROS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="机器人建模"><a href="#机器人建模" class="headerlink" title="机器人建模"></a>机器人建模</h1><h2 id="URDF"><a href="#URDF" class="headerlink" title="URDF"></a>URDF</h2><p>为了在仿真软件里面加载机器人本体，我们通常需要对机器人进行建模。而ROS及一些仿真软件通常使用URDF（Unified Robot Description Format）格式的文件来对机器人建模</p>
+<p>URDF是一种基于XML的机器人模型描述格式，主要用于定义机器人的连杆（links）、关节（joints）、几何形状和物理属性</p>
+<h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><p>URDF文件以<code>&lt;robot&gt;</code>为根标签，包含<code>&lt;link&gt;</code>（描述刚体）和<code>&lt;joint&gt;</code>（描述连接关系）两类核心标签</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">robot</span> <span class="attr">name</span>=<span class="string">&quot;my_robot&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 定义连杆 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">name</span>=<span class="string">&quot;base_link&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">link</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 定义关节 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">&quot;joint_1&quot;</span> <span class="attr">type</span>=<span class="string">&quot;revolute&quot;</span>&gt;</span>...<span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">robot</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常用标签"><a href="#常用标签" class="headerlink" title="常用标签"></a>常用标签</h3><blockquote>
+<p>在进行运动学和动力学仿真时，所需要的子标签不完全相同。如果仅进行运动学仿真，则不需要碰撞、摩擦、质量等子标签</p>
+</blockquote>
+<h4 id="robot"><a href="#robot" class="headerlink" title="robot"></a>robot</h4><p>作为一个urdf的根标签，全局只有一个</p>
+<h4 id="link"><a href="#link" class="headerlink" title="link"></a>link</h4><p>描述机器人的一个刚体部件（如底座、轮子、传感器等）</p>
+<table>
+<thead>
+<tr>
+<th align="center">子标签</th>
+<th align="center">作用</th>
+<th align="center">关键属性&#x2F;子标签</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>&lt;visual&gt;</code></td>
+<td align="center">定义部件的可视化外观（形状、颜色、材质等）</td>
+<td align="center">- <code>&lt;geometry&gt;</code>：形状（<code>&lt;box&gt;</code>、<code>&lt;cylinder&gt;</code>、<code>&lt;sphere&gt;</code>、<code>&lt;mesh&gt;</code>） - <code>&lt;origin&gt;</code>：偏移和旋转（<code>xyz</code>、<code>rpy</code>） - <code>&lt;material&gt;</code>：颜色（<code>rgba</code>）</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;collision&gt;</code></td>
+<td align="center">定义部件的碰撞几何体（用于物理仿真）</td>
+<td align="center">与<code>&lt;visual&gt;</code>类似，但通常更简化以提高性能</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;inertial&gt;</code></td>
+<td align="center">定义部件的质量、质心和惯性矩阵（动力学仿真必需）</td>
+<td align="center">- <code>&lt;mass&gt;</code>：质量（<code>value</code>） - <code>&lt;inertia&gt;</code>：惯性矩阵（<code>ixx</code>、<code>ixy</code>等） - <code>&lt;origin&gt;</code>：质心位置</td>
+</tr>
+</tbody></table>
+<h4 id="joint"><a href="#joint" class="headerlink" title="joint"></a>joint</h4><p>描述2个连杆间的连接关系</p>
+<table>
+<thead>
+<tr>
+<th align="center">子标签</th>
+<th align="center">作用</th>
+<th align="center">关键属性&#x2F;子标签</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>&lt;parent&gt;</code></td>
+<td align="center">指定父<code>&lt;link&gt;</code>的名称（必需）</td>
+<td align="center"><code>link</code>：父链接名称</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;child&gt;</code></td>
+<td align="center">指定子<code>&lt;link&gt;</code>的名称（必需）</td>
+<td align="center"><code>link</code>：子链接名称</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;origin&gt;</code></td>
+<td align="center">定义关节坐标系相对于父&#x2F;子链接的偏移和旋转</td>
+<td align="center"><code>xyz</code>：平移偏移 <code>rpy</code>：旋转角度（弧度）</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;axis&gt;</code></td>
+<td align="center">定义关节的运动轴（如旋转轴或平移方向）</td>
+<td align="center"><code>xyz</code>：轴方向向量（如 <code>&quot;1 0 0&quot;</code> 表示绕X轴旋转）</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;limit&gt;</code></td>
+<td align="center">设置关节的运动限制（如角度、速度、力矩）</td>
+<td align="center"><code>lower</code>&#x2F;<code>upper</code>：位置限制 <code>effort</code>：最大力矩 <code>velocity</code>：最大速度</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;dynamics&gt;</code></td>
+<td align="center">定义关节的物理特性（如阻尼、摩擦）</td>
+<td align="center"><code>damping</code>：阻尼系数 <code>friction</code>：静摩擦系数</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;safety_controller&gt;</code></td>
+<td align="center">设置安全控制器参数（防止关节超限）</td>
+<td align="center"><code>soft_lower_limit</code>&#x2F;<code>soft_upper_limit</code>：软限制边界</td>
+</tr>
+<tr>
+<td align="center"><code>&lt;mimic&gt;</code></td>
+<td align="center">使当前关节模仿另一个关节的运动（如机械臂的联动）</td>
+<td align="center"><code>joint</code>：被模仿的关节名 <code>multiplier</code>：运动比例。</td>
+</tr>
+</tbody></table>
+<h3 id="合法性检查"><a href="#合法性检查" class="headerlink" title="合法性检查"></a>合法性检查</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">check_urdf xxxx.urdf</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="rviz可视化"><a href="#rviz可视化" class="headerlink" title="rviz可视化"></a>rviz可视化</h3><p>在使用URDF文件定义好了机器人后，需要通过一些node间的通信机制把信息发给rviz节点，然后rviz在收到对应的信息后，就可以显示机器人了</p>
+<p>URDF定义的机器人模型是静态的，如果要控制其移动，也需要发送某些预定的<code>topic</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">用途</th>
+<th align="center">预定话题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">(rviz)获取机器人 URDF 模型描述</td>
+<td align="center"><code>/robot_description</code>（存储 URDF&#x2F;Xacro 的 XML 字符串）</td>
+</tr>
+<tr>
+<td align="center">(rviz)实时获取各连杆（<code>&lt;link&gt;</code>）的坐标系变换关系</td>
+<td align="center"><code>/tf</code> 和 <code>/tf_static</code>（发布父子坐标系间的位姿）</td>
+</tr>
+<tr>
+<td align="center">(rviz)获取关节（<code>&lt;joint&gt;</code>）的实时角度&#x2F;位置</td>
+<td align="center"><code>/joint_states</code>（由 <code>joint_state_publisher</code> 或控制器发布）</td>
+</tr>
+</tbody></table>
+<p><img src="../assets/image-20250529192157705.png" alt="image-20250529192157705"></p>
+<p><img src="../assets/image-20250529191756893.png" alt="image-20250529191756893"></p>
+<p>可以看到，rviz如果要显示机器人，主要依靠的是<code>/robot_description</code>话题，他是由<code>robot_state_publisher</code>功能包中的同名node发送的，所以我们要启动这个node才行</p>
+<h2 id="xacro"><a href="#xacro" class="headerlink" title="xacro"></a>xacro</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/09-ROS/005-%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BB%BA%E6%A8%A1.html">https://li-ruiqi777.github.io/09-ROS/005-%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BB%BA%E6%A8%A1.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/09-ROS/004-%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7.html" title="004 常用工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">004 常用工具</div></div><div class="info-2"><div class="info-item-1">常用工具Launch作用：通过Launch工具，我们可以同时启动多个节点，并且给节点传递参数 开发方式有3种开发方式，分别是用python、xml和yaml文件 使用方式参考：1.启动管理工具-Launch编写脚本 1ros2 launch &lt;pkg&gt; xxx.py    colconcolcon就是ros2中用来编译功能包的工具（ros1中是catkin）简单来说，colcon是cmake的更高级的封装：  程序在cmake编译是这样的流程：cmake指令依据你的CMakeLists.txt 文件,生成makefiles文件，make再依据此makefiles文件编译链接生成可执行文件  colcon是将cmake与make的编译方式做了一个封装的指令工具, 规范了工作路径与生成文件路径，它会自动生成install和build和log文件夹   123456789# 在一个CMake项目里  mkdir build  cd build  cmake ..  make  make install  # # 使用colconcolcon build ...</div></div></div></a><a class="pagination-related" href="/09-ROS/006-%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BB%BF%E7%9C%9F.html" title="006 机器人仿真"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">006 机器人仿真</div></div><div class="info-2"><div class="info-item-1">机器人仿真常见仿真软件目前市面上有许多机器人仿真软件，这些仿真软件其实是独立于ROS的，他们是通过一些物理引擎做的。通过一些插件，可以让这些仿真软件和ROS2结合。下面的笔记全是基于Gazebo的 所需参数仿真时URDF文件必须定义一些子标签：  碰撞（collison标签） 内参：包括物体质量（mass标签）、旋转惯量（inertia标签）、摩擦力（gazebo扩展的一些标签）  Gazebo的使用Gazebo本身是个与ROS无关的软件，必须通过一些插件，才能让它和ROS2结合 启动直接启动Gazebo的话，不会启动对应的ROS2 node，这样的话就无法和ROS2联动了。所以启动Gazebo的时候必须指定ROS2插件 1gazebo --verbose -s libgazebo_ros_init.so -s libgazebo_ros_factory.so   此时会创建一个叫/gazebo的ROS节点，该节点创建了一些service，让我们可以与其交互（gazeo里面本身也有一些GUI操作工具，但是无法直接加载urdf文件） 1234567891011121314ros2...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%BB%BA%E6%A8%A1"><span class="toc-number">1.</span> <span class="toc-text">机器人建模</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#URDF"><span class="toc-number">1.1.</span> <span class="toc-text">URDF</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%A0%87%E7%AD%BE"><span class="toc-number">1.1.2.</span> <span class="toc-text">常用标签</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#robot"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">robot</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#link"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#joint"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">joint</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E6%B3%95%E6%80%A7%E6%A3%80%E6%9F%A5"><span class="toc-number">1.1.3.</span> <span class="toc-text">合法性检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rviz%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">1.1.4.</span> <span class="toc-text">rviz可视化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xacro"><span class="toc-number">1.2.</span> <span class="toc-text">xacro</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>查看模型结构的方法 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="查看模型结构的方法1.直接print()123456net &#x3D; nn.Sequential(    nn.Linear(1,10),    nn.ReLU(),    nn.Linear(10,2),)print(net)  输出如下： 12345Sequential(  (0): Linear(in_features&#x3D;1, out_features&#x3D;10, bias&#x3D;True)  (1): Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查看模型结构的方法">
+<meta property="og:url" content="https://li-ruiqi777.github.io/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9A%84%E6%96%B9%E6%B3%95.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="查看模型结构的方法1.直接print()123456net &#x3D; nn.Sequential(    nn.Linear(1,10),    nn.ReLU(),    nn.Linear(10,2),)print(net)  输出如下： 12345Sequential(  (0): Linear(in_features&#x3D;1, out_features&#x3D;10, bias&#x3D;True)  (1): Re">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.917Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:38.816Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9A%84%E6%96%B9%E6%B3%95.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '查看模型结构的方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">查看模型结构的方法</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">查看模型结构的方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.917Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:38.816Z" title="Updated 2025-06-04 16:29:38">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">11-深度学习</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/">Pytorch</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="查看模型结构的方法"><a href="#查看模型结构的方法" class="headerlink" title="查看模型结构的方法"></a>查看模型结构的方法</h1><h3 id="1-直接print"><a href="#1-直接print" class="headerlink" title="1.直接print()"></a>1.直接print()</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">net = nn.Sequential(</span><br><span class="line">    nn.Linear(<span class="number">1</span>,<span class="number">10</span>),</span><br><span class="line">    nn.ReLU(),</span><br><span class="line">    nn.Linear(<span class="number">10</span>,<span class="number">2</span>),</span><br><span class="line">)</span><br><span class="line"><span class="built_in">print</span>(net)</span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sequential(</span><br><span class="line">  (0): Linear(in_features=1, out_features=10, bias=True)</span><br><span class="line">  (1): ReLU()</span><br><span class="line">  (2): Linear(in_features=10, out_features=2, bias=True)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>该方法的优缺点：</p>
+<ul>
+<li>优点：比较简单</li>
+<li>缺点：只是输出了模型各层的结构，如果模型结构本身有错，无法识别出来</li>
+</ul>
+<h3 id="2-使用torchsummary库"><a href="#2-使用torchsummary库" class="headerlink" title="2.使用torchsummary库"></a>2.使用torchsummary库</h3><blockquote>
+<p>这个库不随pytorch一起被安装，需要自己手动安装</p>
+</blockquote>
+<h4 id="2-1函数介绍："><a href="#2-1函数介绍：" class="headerlink" title="2.1函数介绍："></a>2.1函数介绍：</h4><p>作用 ： 通过指定输入尺寸，来查看网络每一层的输出尺寸 和 每一层的参数数量。 只需指定 <strong>input_size</strong> 即可，不需要实际的输入数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torchsummary.summary(model, input_size=(<span class="number">3</span>, <span class="number">224</span>, <span class="number">224</span>))</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<ul>
+<li><p><code>model</code> ：要查看的网络</p>
+</li>
+<li><p><code>input_size</code> ：指定网络输入尺寸，可以指定四个维度:（B, C, H, W），也可以只指定三个维度:（C, H, W）</p>
+<p>如果仅指定三个维度的尺寸（不指定batch_size），那么每一层的输出尺寸 <code>output shape</code> 都显示为 -1</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torchsummary <span class="keyword">import</span> summary</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"></span><br><span class="line">net = torchvision.models.AlexNet()</span><br><span class="line">net = net.cuda()</span><br><span class="line">summary(model=net, input_size=(<span class="number">3</span>,<span class="number">224</span>,<span class="number">224</span>)) <span class="comment">#不指定batchsize</span></span><br><span class="line"><span class="comment">#summary(model=net, input_size=(3,224,224),batchsize=10) # 指定batchsize</span></span><br></pre></td></tr></table></figure>
+
+<p>输出如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">----------------------------------------------------------------</span><br><span class="line">        Layer (type)               Output Shape         Param #</span><br><span class="line">================================================================</span><br><span class="line">            Conv2d-1           [-1, 64, 55, 55]          23,296</span><br><span class="line">              ReLU-2           [-1, 64, 55, 55]               0</span><br><span class="line">         MaxPool2d-3           [-1, 64, 27, 27]               0</span><br><span class="line">            Conv2d-4          [-1, 192, 27, 27]         307,392</span><br><span class="line">              ReLU-5          [-1, 192, 27, 27]               0</span><br><span class="line">         MaxPool2d-6          [-1, 192, 13, 13]               0</span><br><span class="line">            Conv2d-7          [-1, 384, 13, 13]         663,936</span><br><span class="line">              ReLU-8          [-1, 384, 13, 13]               0</span><br><span class="line">            Conv2d-9          [-1, 256, 13, 13]         884,992</span><br><span class="line">             ReLU-10          [-1, 256, 13, 13]               0</span><br><span class="line">           Conv2d-11          [-1, 256, 13, 13]         590,080</span><br><span class="line">             ReLU-12          [-1, 256, 13, 13]               0</span><br><span class="line">        MaxPool2d-13            [-1, 256, 6, 6]               0</span><br><span class="line">AdaptiveAvgPool2d-14            [-1, 256, 6, 6]               0</span><br><span class="line">          Dropout-15                 [-1, 9216]               0</span><br><span class="line">           Linear-16                 [-1, 4096]      37,752,832</span><br><span class="line">             ReLU-17                 [-1, 4096]               0</span><br><span class="line">          Dropout-18                 [-1, 4096]               0</span><br><span class="line">           Linear-19                 [-1, 4096]      16,781,312</span><br><span class="line">             ReLU-20                 [-1, 4096]               0</span><br><span class="line">           Linear-21                 [-1, 1000]       4,097,000</span><br><span class="line">================================================================</span><br><span class="line">...</span><br><span class="line">Forward/backward pass size (MB): 8.38</span><br><span class="line">Params size (MB): 233.08</span><br><span class="line">Estimated Total Size (MB): 242.03</span><br><span class="line">----------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用该方法时，如果<strong>输入不符合模型的输入</strong>或<strong>模型本身有问题</strong>，会报错，因此可以对模型做一个检查。</p>
+</blockquote>
+<h3 id="3-使用netron软件"><a href="#3-使用netron软件" class="headerlink" title="3.使用netron软件"></a>3.使用netron软件</h3><h3 id="3-1支持格式"><a href="#3-1支持格式" class="headerlink" title="3.1支持格式"></a>3.1支持格式</h3><p><img src="../../assets/image-20231021164544295.png" alt="image-20231021164544295"></p>
+<p>该软件目前对于pytorch的<code>.pt</code>格式支持不是很好，一般需要转成<code>onnx</code>再进行查看</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> onnx </span><br><span class="line"><span class="keyword">from</span> onnx <span class="keyword">import</span> shape_inference</span><br><span class="line"></span><br><span class="line">net = torchvision.models.AlexNet()</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span> = torch.rand((<span class="number">1</span>,<span class="number">3</span>,<span class="number">224</span>,<span class="number">224</span>)) <span class="comment">#NCHW</span></span><br><span class="line">torch.onnx.export(model=net,args=<span class="built_in">input</span>,f=<span class="string">&#x27;alexnet.onnx&#x27;</span>,input_names=[<span class="string">&#x27;input&#x27;</span>],output_names=[<span class="string">&#x27;output&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用上面这种方法导出的onnx打开是没有办法查看<strong>中间数据</strong>的维度的</p>
+</blockquote>
+<p><img src="../../assets/image-20231021164859376.png" alt="image-20231021164859376"></p>
+<p>如果想查看中间数据的维度，使用<code>onnx</code>提供的API，以某个输入前馈计算一次并记录所有中间层的维度</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onnx.save(onnx.shape_inference.infer_shapes(onnx.load(<span class="string">&#x27;alexnet.onnx&#x27;</span>)),<span class="string">&#x27;alexnet_.onnx&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img src="../../assets/image-20231021164824250.png" alt="image-20231021164824250"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9A%84%E6%96%B9%E6%B3%95.html">https://li-ruiqi777.github.io/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9A%84%E6%96%B9%E6%B3%95.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.html" title="基本概念"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">基本概念</div></div><div class="info-2"><div class="info-item-1">1.基本概念机器学习的分类：监督学习、无监督学习、强化学习、半监督学习、主动学习 1.监督学习监督学习是从&lt;x,...</div></div></div></a><a class="pagination-related" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/Pytorch/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%92%8C%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD.html" title="梯度下降和反向传播"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">梯度下降和反向传播</div></div><div class="info-2"><div class="info-item-1">梯度下降和反向传播1.损失函数(Loss Function)损失函数是用来衡量预测值和实际值的差的，一般为 (y预测 - y实际)^2 MSE：预测值和实际值的差的平方和的均值 2.梯度下降 梯度下降的目的：借助损失函数的梯度(偏导)，通过不断迭代求解某个回归问题的权重w  梯度下降可以分为 （1）批量梯度下降(BGD)：每轮更新w时，通过所有样本的损失函数(cost)的均值来计算梯度，cost其实就是MSE。计算快、w收敛慢 优点：    一次迭代是对所有样本进行计算，此时利用矩阵进行操作，实现了并行。    由全数据集确定的方向能够更好地代表样本总体，从而更准确地朝向极值所在的方向。当目标函数为凸函数时，BGD一定能够得到全局最优。   缺点：    当样本数目 m 很大时，每迭代一步都需要对所有样本计算，训练过程会很慢  从迭代的次数上来看，BGD迭代的次数相对较少。   （2）随机梯度下降(SGD)：每次迭代w只用一个样本的损失函数(loss)来计算梯度，使得训练速度加快。计算慢、w收敛快 优点： ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">查看模型结构的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%9B%B4%E6%8E%A5print"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.直接print()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BD%BF%E7%94%A8torchsummary%E5%BA%93"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.使用torchsummary库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1%E5%87%BD%E6%95%B0%E4%BB%8B%E7%BB%8D%EF%BC%9A"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">2.1函数介绍：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8netron%E8%BD%AF%E4%BB%B6"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.使用netron软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1%E6%94%AF%E6%8C%81%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.0.4.</span> <span class="toc-text">3.1支持格式</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>01 编译与调试 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="编译与调试编译的流程将一个.c程序编译成一个可执行文件通常包含4步：  预处理：将各种宏定义翻译成C&#x2F;C++语言 编译：将C&#x2F;C++代码编译成汇编语言 汇编：对汇编代码进行处理，翻译成机器指令 链接：将用到的库文件和自己的机器指令汇总到一起（合并不同文件的同类内容，如.text节区）       从上图可以知道，只要加了-g其实就可以调试代码了，不一定非要使用debug模式编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 编译与调试">
+<meta property="og:url" content="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/01-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%B0%83%E8%AF%95.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="编译与调试编译的流程将一个.c程序编译成一个可执行文件通常包含4步：  预处理：将各种宏定义翻译成C&#x2F;C++语言 编译：将C&#x2F;C++代码编译成汇编语言 汇编：对汇编代码进行处理，翻译成机器指令 链接：将用到的库文件和自己的机器指令汇总到一起（合并不同文件的同类内容，如.text节区）       从上图可以知道，只要加了-g其实就可以调试代码了，不一定非要使用debug模式编译">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.402Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/01-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%B0%83%E8%AF%95.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '01 编译与调试',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">01 编译与调试</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">01 编译与调试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="编译与调试"><a href="#编译与调试" class="headerlink" title="编译与调试"></a>编译与调试</h1><h2 id="编译的流程"><a href="#编译的流程" class="headerlink" title="编译的流程"></a>编译的流程</h2><p>将一个<code>.c</code>程序编译成一个可执行文件通常包含4步：</p>
+<ul>
+<li>预处理：将各种宏定义翻译成C&#x2F;C++语言</li>
+<li>编译：将C&#x2F;C++代码编译成汇编语言</li>
+<li>汇编：对汇编代码进行处理，翻译成机器指令</li>
+<li>链接：将用到的库文件和自己的机器指令汇总到一起（合并不同文件的同类内容，如<code>.text</code>节区）</li>
+</ul>
+<img src="../assets/image-20241209151423164.png" alt="image-20241209151423164" style="zoom:50%;" />
+
+<img src="../assets/image-20241209151440154.png" alt="image-20241209151440154" style="zoom:67%;" />
+
+<blockquote>
+<p>从上图可以知道，只要加了<code>-g</code>其实就可以调试代码了，不一定非要使用debug模式编译才行</p>
+</blockquote>
+<h2 id="动态-静态链接"><a href="#动态-静态链接" class="headerlink" title="动态&#x2F;静态链接"></a>动态&#x2F;静态链接</h2><h2 id="内部-外部链接"><a href="#内部-外部链接" class="headerlink" title="内部&#x2F;外部链接"></a>内部&#x2F;外部链接</h2><h2 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h2><p>定义：ELF（Excutable Linkable Format）是一种Unix-Like系统上<strong>二进制文件</strong>的标准，符合ELF标准的ELF文件可以分为4类：</p>
+<img src="../assets/image-20241209151726668.png" alt="image-20241209151726668" style="zoom: 80%;" />
+
+<blockquote>
+<p>不是所有Linux下的二进制文件都是ELF文件，必须符合一定的格式才行！</p>
+</blockquote>
+<p>ELF文件都遵循以下的格式：</p>
+<img src="../assets/image-20241209152118385.png" alt="image-20241209152118385" style="zoom:67%;" />
+
+<img src="../assets/image-20250408193010846.png" alt="image-20250408193010846" style="zoom:50%;" />
+
+<p>ELF 文件的作用有两个，一是用于<strong>程序链接</strong>（为了生成程序）；二是用于<strong>程序执行</strong>。</p>
+<p>针对这两种情况，可以从不同的视角来看待同一个目标文件。当它分别被用于链接和用于执行的时候，其特性必然是不一样的，我们所关注的内容也不一样。从链接和运行的角度，可以将 ELF 文件的组成部分划分为<strong>链接视图</strong>和<strong>运行视图</strong>这两种格式，重要组成部分如下：</p>
+<ul>
+<li>ELF Header：位于文件开始处，包含整个ELF文件的信息</li>
+<li>Section（节区）：供链接器或调试工具使用，以静态视角描述一个文件的逻辑组成。在每个节中包含有指令数据、符号数据、重定位数据等等，例如.text、.data、.bss节…</li>
+<li>Section Header Table：描述文件中各段的信息（如代码段、数据段等），通常用于链接阶段</li>
+<li>Segment（段）：供OS的加载器使用，以动态的视角描述一个文件如何加载到内存，包含多个节区</li>
+<li>Program Header Table：用于描述加载程序（如内核或动态链接器）如何将文件的各<strong>段</strong>加载到内存</li>
+</ul>
+<p>对于可执行程序，<code>Program Header</code>是必须的，描述了不同的段即<code>Segment</code>，<code>Section Header</code>是可选的</p>
+<p>对于链接程序，<code>Program Header</code>是可选的，<code>Section Header</code>是必须的，描述了不同的<code>section</code></p>
+<h3 id="如何定义段和节区"><a href="#如何定义段和节区" class="headerlink" title="如何定义段和节区"></a>如何定义段和节区</h3><ul>
+<li>法1.由<strong>链接脚本</strong>指定：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">SECTIONS &#123;</span><br><span class="line">    . = 0x80000000;          /* 内核启动地址 */</span><br><span class="line">    .text : &#123;                /* 代码段 */</span><br><span class="line">        *(.text.head)</span><br><span class="line">        *(.text .text.*)</span><br><span class="line">    &#125;</span><br><span class="line">    .rodata : &#123; /* 只读数据 */ &#125;</span><br><span class="line">    .data : &#123;   /* 读写数据 */ &#125;</span><br><span class="line">    .bss : &#123;    /* 未初始化数据 */ &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>比如链接脚本代码就定义了一个段，里面包含了4个节区</p>
+<ul>
+<li>法2.由gcc的一些指令在代码中定义新的节区</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __attribute__((section(<span class="string">&quot;.profile&quot;</span>)))</span><br></pre></td></tr></table></figure>
+
+<p>如果要精确控制新节区在内存中的位置，也要在链接脚本里写一下</p>
+<h3 id="ELF文件解析"><a href="#ELF文件解析" class="headerlink" title="ELF文件解析"></a>ELF文件解析</h3><p>虽然所有ELF文件都是按照这个格式排布的，但是不能直接通过查看一个二进制文件来分析（因为可读性太差），通常需要使用一些工具（比如binutils）来分析ELF文件</p>
+<img src="../assets/image-20241209152719197.png" alt="image-20241209152719197" style="zoom:50%;" />
+
+<p>下面举一些例子来说明如何查看一个ELF文件：</p>
+<ul>
+<li>ELF Header：<code>readelf -h</code></li>
+<li>Program Header Table：<code>readelf -l</code></li>
+<li>Section Header Table：<code>readelf -S</code></li>
+<li>符号表：<code>readelf -s</code></li>
+</ul>
+<h2 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h2><p>1.符号表的定义</p>
+<p>符号表是ELF文件中的一个节区&#x3D;&#x3D;（.symtab 或 .dynsym）&#x3D;&#x3D;，存储了程序中所有符号（包括定义的、引用的、导出的）的名称、类型、地址等信息</p>
+<p>符号可以是：</p>
+<ul>
+<li>函数名（如 <code>main</code>、<code>printf</code>）</li>
+<li>全局变量（如 <code>int global_var;</code>）</li>
+<li>静态变量（如 <code>static int local_var;</code>）</li>
+</ul>
+<p>2.符号表的作用</p>
+<ul>
+<li>链接阶段：帮助链接器找到符号的定义和引用关系</li>
+<li>调试阶段：提供符号名到地址的映射（如 <code>gdb</code> 调试时显示函数名）</li>
+<li>动态链接：支持运行时符号解析（如共享库中的函数）</li>
+</ul>
+<p>3.符号表的引用：指的是使用代码中未定义的符号。<strong>编译</strong>阶段，如果遇到未定义的符号，会标成UDN，在<strong>链接</strong>的时候被绑定</p>
+<p>4.符号导出：将符号标记为 <strong>可被其他模块访问</strong> 的过程。例如：</p>
+<ul>
+<li>在库中导出函数供外部调用</li>
+<li>在内核模块中导出符号供其他模块使用</li>
+</ul>
+<p>实现方式</p>
+<ul>
+<li>C 语言：使用 <code>extern</code> 或 <code>__attribute__((visibility(&quot;default&quot;)))</code></li>
+<li>Linux 内核：通过 <code>EXPORT_SYMBOL()</code> 宏导出符号</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">概念</th>
+<th align="center">描述</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">符号表</td>
+<td align="center">存储符号名称、类型和地址的 ELF 节区。</td>
+<td align="center"><code>.symtab</code>, <code>.dynsym</code></td>
+</tr>
+<tr>
+<td align="center">符号引用</td>
+<td align="center">代码中使用的未定义符号，需链接器解析。</td>
+<td align="center"><code>extern int x;</code></td>
+</tr>
+<tr>
+<td align="center">符号解析</td>
+<td align="center">将引用绑定到定义的链接过程。</td>
+<td align="center">将 <code>printf</code> 绑定到 <code>libc.so</code></td>
+</tr>
+<tr>
+<td align="center">符号导出</td>
+<td align="center">显式标记符号为外部可见。</td>
+<td align="center"><code>EXPORT_SYMBOL()</code></td>
+</tr>
+</tbody></table>
+<p>5.为什么Linux内核模块中大部分函数要加<code>static</code>关键字?</p>
+<ul>
+<li>早期Linux中，如果全局变量或函数不加static，会被注册到Linux运行时维护的全局的符号表中，那么很可能发生命名冲突之类的</li>
+<li>现代Linux中，全局变量或函数即使不加static，默认也不会被注册到Linux运行时维护的全局的符号表中，只有显式导出时才会。所以一般的函数、变量不加<code>static</code>也行</li>
+</ul>
+<p>6.如何看内核的符号表</p>
+<ul>
+<li>使用<code>readelf</code>或<code>nm</code>分析vminux文件：它是未压缩的内核的ELF文件。包含所有符号（包括未加<code>static</code>的函数和变量），无论是否导出</li>
+<li>查看内核运行时动态的符号表：该符号表不包含没被导出的符号</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/kallsyms | grep <span class="string">&quot;函数名&quot;</span>  <span class="comment"># 按符号名查找</span></span><br><span class="line"><span class="built_in">cat</span> /proc/kallsyms | grep <span class="string">&quot;地址&quot;</span>    <span class="comment"># 按地址查找</span></span><br><span class="line"></span><br><span class="line">grep <span class="string">&quot;函数名&quot;</span> /boot/System.map-$(<span class="built_in">uname</span> -r)  <span class="comment"># 按符号名查找</span></span><br><span class="line">grep <span class="string">&quot;地址&quot;</span> /boot/System.map-$(<span class="built_in">uname</span> -r)    <span class="comment"># 按地址查找</span></span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/01-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%B0%83%E8%AF%95.html">https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/01-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%B0%83%E8%AF%95.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="03 计算机组成原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">03 计算机组成原理</div></div><div class="info-2"><div class="info-item-1">计算机组成原理参考链接 计算机组成原理 - 知乎  1.计算机的组成计算机通常包括以下几部分：  输入设备 输出设备 CPU：运算器 + 控制器 + 寄存器 + Cache + MMU + TLB… 总线：数据总线 + 地址总线 +...</div></div></div></a><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/04-%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE.html" title="04 总线协议"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">04 总线协议</div></div><div class="info-2"><div class="info-item-1">总线协议对比UART总线面试题1.串行通信和并行通信的区别？    特性 串行通信 并行通信    数据传输方式 数据按位依次传输（单条线路） 数据多位同时传输（多条线路）   线路复杂度 简单（线路少，成本低） 复杂（线路多，成本高）   抗干扰能力 较强（时序控制严格） 较弱（多线路同步难，易受干扰）   传输距离 较远（如USB、以太网） 较短（如打印机电缆）   速度 现代高速串行（如PCIe）可超越并行 传统并行更快，但高频时同步困难   典型应用 USB、RS-232、SATA、网络通信 旧式打印机、IDE硬盘接口、PCI总线   2.串行通信如何保证数据同步？ （1）同步串行通信  时钟信号同步： 发送方和接收方共享同一时钟（如SPI、I2C），或通过编码将时钟嵌入数据（如曼彻斯特编码）。 例如：SPI协议通过SCLK信号同步每一位数据。   数据帧结构： 使用起始位、停止位、同步字符（如UART的0x55）标识数据边界。 例如：I2C协议以起始条件（Start Condition）和停止条件（Stop...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E4%B8%8E%E8%B0%83%E8%AF%95"><span class="toc-number">1.</span> <span class="toc-text">编译与调试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text">编译的流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81-%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="toc-number">1.2.</span> <span class="toc-text">动态&#x2F;静态链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E9%83%A8-%E5%A4%96%E9%83%A8%E9%93%BE%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">内部&#x2F;外部链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.</span> <span class="toc-text">ELF文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E6%AE%B5%E5%92%8C%E8%8A%82%E5%8C%BA"><span class="toc-number">1.4.1.</span> <span class="toc-text">如何定义段和节区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E8%A7%A3%E6%9E%90"><span class="toc-number">1.4.2.</span> <span class="toc-text">ELF文件解析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-number">1.5.</span> <span class="toc-text">符号表</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

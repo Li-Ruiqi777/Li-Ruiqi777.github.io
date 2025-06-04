@@ -1,0 +1,195 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>几何变换矩阵 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="几何变换矩阵一、几何变换的分类1.刚体变换：它是保持欧式距离的变换，这意味着图像之间只有2D旋转和2D平移运动。**它只有3个自由度(自由度即不定的参数)*。刚体变换表示如下：其中R是个22的旋转矩阵，t是2维列向量，0T是为0的二维行向量。 特点：  点和点变换前后距离不变  角度变换前后不变   2.相似变换：相比刚体变换增加了均匀的缩放。均匀的意思是各个方向的缩放比例相同。尺度变换增加了一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="几何变换矩阵">
+<meta property="og:url" content="https://li-ruiqi777.github.io/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="几何变换矩阵一、几何变换的分类1.刚体变换：它是保持欧式距离的变换，这意味着图像之间只有2D旋转和2D平移运动。**它只有3个自由度(自由度即不定的参数)*。刚体变换表示如下：其中R是个22的旋转矩阵，t是2维列向量，0T是为0的二维行向量。 特点：  点和点变换前后距离不变  角度变换前后不变   2.相似变换：相比刚体变换增加了均匀的缩放。均匀的意思是各个方向的缩放比例相同。尺度变换增加了一个">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.808Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '几何变换矩阵',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">几何变换矩阵</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">几何变换矩阵</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.808Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/">10-传统图像处理</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="几何变换矩阵"><a href="#几何变换矩阵" class="headerlink" title="几何变换矩阵"></a>几何变换矩阵</h1><h4 id="一、几何变换的分类"><a href="#一、几何变换的分类" class="headerlink" title="一、几何变换的分类"></a>一、几何变换的分类</h4><h5 id="1-刚体变换："><a href="#1-刚体变换：" class="headerlink" title="1.刚体变换："></a>1.刚体变换：</h5><p>它是保持欧式距离的变换，这意味着图像之间<mark>只有2D旋转和2D平移运动</mark>。**它只有3个自由度(自由度即不定的参数)*<em>。刚体变换表示如下：其中R是个2</em>2的旋转矩阵，t是2维列向量，0T是为0的二维行向量。</p>
+<p>特点：</p>
+<ul>
+<li><p>点和点变换前后距离不变</p>
+</li>
+<li><p>角度变换前后不变</p>
+</li>
+</ul>
+<h5 id="2-相似变换："><a href="#2-相似变换：" class="headerlink" title="2.相似变换："></a>2.相似变换：</h5><p>相比刚体变换增加了<strong>均匀的缩放</strong>。均匀的意思是<mark>各个方向的缩放比例相同</mark>。尺度变换增加了一个自由度，所以<strong>自由度为4</strong>。s是缩放尺度。</p>
+<ul>
+<li><p>点之间的距离不再保持不变，但距离比保持不变</p>
+</li>
+<li><p>角度不变</p>
+</li>
+</ul>
+<h5 id="3-仿射变换："><a href="#3-仿射变换：" class="headerlink" title="3.仿射变换："></a>3.仿射变换：</h5><p>仿射变换和相似变换近似，不同之处在于：相似变换具有单一旋转因子和单一的缩放因子，而仿射变换是<mark>两个旋转因子和两个缩放因子的组合</mark>。所以它又多了两个自由度，<strong>共6个自由度</strong>。和相似变换不同，它<strong>不具有保角性和保持距离比</strong>的性质。仿射变换表示如下：</p>
+<ul>
+<li>原图平行的线仍平行</li>
+</ul>
+<h5 id="4-投影变换："><a href="#4-投影变换：" class="headerlink" title="4.投影变换："></a>4.投影变换：</h5><p>或者叫做<mark>单应变换</mark>。投影变换是齐次坐标下非奇异的线性变换。然而在非齐次坐标系下却是非线性的，这说明齐次坐标的发明是很有价值的。投影变换比仿射变换多2个自由度，<strong>具有8个自由度</strong>。<strong>上面提到的仿射变换具有的“不变”性质，在投影变换中已不复存在了</strong>。尽管如此，它还是有一项不变性，那就是在<strong>原图中保持共线的点，变换后仍旧共线</strong>。投影变换表示如下</p>
+<ul>
+<li>原图中共线的点，变换后仍共线</li>
+</ul>
+<p>仿射变换和投影变换不同的关键点在于向量VT，在仿射变换中它是空的。这个向量在投影变换中施加非线性的影响。在仿射中，A中的缩放因子对平面每处的影响是相同的（虽然有两个方向）。然而在投影变换中，缩放比例随着位置而变化。类似的地方在于，变换后的直线的方向取决于原直线的方向，这个性质两者都有。</p>
+<p>将投影变换矩阵分解为以上提到的变换的链:</p>
+<p>其中，HS是一个相似变换，HA是一个仿射变换，HP是一个投影变换，A&#x3D;sRU+tVTA&#x3D;sRU+tVT，U是一个上三角矩阵，而且经过归一化det(U)&#x3D;det(U)&#x3D;1。vv是非零的。如果s被选为一个正数，那么这个分解是唯一的。</p>
+<h5 id="5-透视变换"><a href="#5-透视变换" class="headerlink" title="5.透视变换"></a>5.透视变换</h5><p>它描述了将<mark>空间3D点投影成2D点</mark>的变换。这种投影发生于这种情形：相机拍摄真实世界多幅图像，然后将结果显示在一副图像平面上。</p>
+<p>在齐次坐标下，透视投影被表示为一个3*4的相机矩阵P，如下：</p>
+<p>其中x是一个图像点，被表示为齐次的3维向量。X是真实世界中的点，被表示为齐次的4维向量。</p>
+<p>相机矩阵P有11个自由度，3*4矩阵有12个元素，最后一个元素值的缩放，不改变变换本身。这些自由度，或者叫参数，可分为两类：5个内参和6个外参。这5个相机参数经常被表示为矩阵K。</p>
+<p>总结：</p>
+<h4 id="二、单应矩阵"><a href="#二、单应矩阵" class="headerlink" title="二、单应矩阵"></a>二、单应矩阵</h4><h5 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h5><p>单应矩阵可以理解为：从不同视角拍摄<mark>同一的平面</mark>，该平面在不同坐标系下坐标的转换关系。比如：</p>
+<ul>
+<li><p>地面 在像素坐标系 和 世界坐标系之间的转换关系</p>
+</li>
+<li><p>桌面 在像素坐标系 和 机器人坐标系之间的转换关系</p>
+</li>
+<li><p>同一个平面在像素系1 和 像素系2之间的转换关系</p>
+</li>
+</ul>
+<p><em>世界&#x2F;机器人坐标系可以理解为用不同相机，不同视角拍同一个平面</em></p>
+<p><img src="https://pic3.zhimg.com/80/v2-75d5a3d1f42c58091aee60865e1984d6_720w.webp"></p>
+<h5 id="2-构成"><a href="#2-构成" class="headerlink" title="2.构成"></a>2.构成</h5><p>对于2D平面间的单应矩阵H，通常有8个自由度，一般添加约束<code>h33=1</code>，求解的话至少要4组点。</p>
+<p>若已知单应矩阵H，可通过下式具体计算</p>
+<p>但是，对于3D-2D的<mark>透视投影变换</mark>，单应矩阵通常是3x4的矩阵，有11个自由度。且该<strong>单应矩阵等于 相机内参*外参</strong></p>
+<p>虽然维度增多了，但是H仍只能描述2个平面间的关系，但是，3x4的单应矩阵可以由该平面内已知一点P1(X1,Y1,0)，计算其正上方某点P2(X1,Y1,Z2)的高度</p>
+<p>对于普通的2D-2D的(透视)投影变换(感觉不该被称为“透视”)，其用OpenCV<code>getperspective()</code>计算的透视投影变换矩阵，和用<code>findhomogenous()</code>计算出的结果都一样，这也说明了本质上两个2D坐标间的变换都可以称为单应(投影)变换。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5.html">https://li-ruiqi777.github.io/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/09-ROS/007-%E5%AF%BC%E8%88%AA.html" title="007 导航"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">007 导航</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86.html" title="传统图像处理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">传统图像处理</div></div><div class="info-2"><div class="info-item-1">传统图像处理1.卷积1.1卷积的作用2维卷积在图像处理中非常常见，它的主要作用有：  提取图像的特征：比如CNN中的各个卷积层；通过卷积也可以提取出原图的边缘信息等等  对图像进行操作：通过特定的卷积核，比如高斯核(权重服从2维高斯分布)、平均滤波核、中值滤波核等等  对图像求导   1.2二维卷积的分解可以通过将2维卷积分解成2个一维卷积来减少计算量以及参数   2.噪声和滤波2.1常见的噪声 椒盐噪声、脉冲噪声、高斯噪声…..  2.2常见滤波方法 高斯滤波、均值滤波、中值滤波….  3.边缘检测图像的边缘指的是亮度发生突变的区域。该线条的X方向就有2个边缘点。  可以通过对图像求偏导来判断亮度是否发生了突变，进而判断该区域是否是指定方向的边缘。 3.1通过一阶偏导检测边缘 由于图像是2D的数字信号，因此可以采用这种差分来代替求导。同时，又可以用一维的卷积来替代对X或Y来求偏导。  X：，结果：（显示出了Y方向的边缘）  Y：，结果：（显示出了X方向的边缘）   对X，Y方向偏导的结果求平方根即可得到整个图像的边缘 注意...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5"><span class="toc-number">1.</span> <span class="toc-text">几何变换矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">一、几何变换的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%88%9A%E4%BD%93%E5%8F%98%E6%8D%A2%EF%BC%9A"><span class="toc-number">1.0.0.1.1.</span> <span class="toc-text">1.刚体变换：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%9B%B8%E4%BC%BC%E5%8F%98%E6%8D%A2%EF%BC%9A"><span class="toc-number">1.0.0.1.2.</span> <span class="toc-text">2.相似变换：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2%EF%BC%9A"><span class="toc-number">1.0.0.1.3.</span> <span class="toc-text">3.仿射变换：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E6%8A%95%E5%BD%B1%E5%8F%98%E6%8D%A2%EF%BC%9A"><span class="toc-number">1.0.0.1.4.</span> <span class="toc-text">4.投影变换：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-%E9%80%8F%E8%A7%86%E5%8F%98%E6%8D%A2"><span class="toc-number">1.0.0.1.5.</span> <span class="toc-text">5.透视变换</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%8D%95%E5%BA%94%E7%9F%A9%E9%98%B5"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">二、单应矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.0.0.2.1.</span> <span class="toc-text">1.基本概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E6%9E%84%E6%88%90"><span class="toc-number">1.0.0.2.2.</span> <span class="toc-text">2.构成</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

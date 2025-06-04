@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>007 导航 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="导航导航其实是个综合的任务，他包含了定位、全局路径规划、局部路径规划等工作 与SLAM的区别和联系SLAM只负责建图和定位，而导航一般是在建图完毕的基础上进行的（建图完毕后有个.pgm格式的地图，在构建全局代价地图时，需要这个地图）。在导航的过程中，其实也是离不开SLAM的（还需要使用SLAM的定位服务） Navigation框架ROS集成了开源的导航框架，其中比较常见的就是Navigation框">
+<meta property="og:type" content="article">
+<meta property="og:title" content="007 导航">
+<meta property="og:url" content="https://li-ruiqi777.github.io/09-ROS/007-%E5%AF%BC%E8%88%AA.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="导航导航其实是个综合的任务，他包含了定位、全局路径规划、局部路径规划等工作 与SLAM的区别和联系SLAM只负责建图和定位，而导航一般是在建图完毕的基础上进行的（建图完毕后有个.pgm格式的地图，在构建全局代价地图时，需要这个地图）。在导航的过程中，其实也是离不开SLAM的（还需要使用SLAM的定位服务） Navigation框架ROS集成了开源的导航框架，其中比较常见的就是Navigation框">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.808Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:38.801Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/09-ROS/007-%E5%AF%BC%E8%88%AA.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '007 导航',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">007 导航</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">007 导航</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.808Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:38.801Z" title="Updated 2025-06-04 16:29:38">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/09-ROS/">09-ROS</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="导航"><a href="#导航" class="headerlink" title="导航"></a>导航</h1><p>导航其实是个综合的任务，他包含了定位、全局路径规划、局部路径规划等工作</p>
+<h2 id="与SLAM的区别和联系"><a href="#与SLAM的区别和联系" class="headerlink" title="与SLAM的区别和联系"></a>与SLAM的区别和联系</h2><p>SLAM只负责<strong>建图</strong>和<strong>定位</strong>，而导航一般是在建图完毕的基础上进行的（建图完毕后有个<code>.pgm</code>格式的地图，在构建全局代价地图时，需要这个地图）。在导航的过程中，其实也是离不开SLAM的（还需要使用SLAM的定位服务）</p>
+<h2 id="Navigation框架"><a href="#Navigation框架" class="headerlink" title="Navigation框架"></a>Navigation框架</h2><p>ROS集成了开源的导航框架，其中比较常见的就是Navigation框架，它的架构如下：</p>
+<p>Navigation2：</p>
+<p><img src="https://foruda.gitee.com/images/1712474874051834217/cee98894_506465.png" alt="输入图片说明"></p>
+<hr>
+<p>Navigation1：</p>
+<p><img src="https://foruda.gitee.com/images/1712475012792956283/b793ad47_506465.png" alt="输入图片说明"></p>
+<p>从图中可以看到：</p>
+<ul>
+<li>导航任务的输入包括：目标点、各种传感器的数据、地图、各种坐标系的TF变换关系、里程计</li>
+<li>导航任务的输出包括：给电机的控制指令</li>
+</ul>
+<h3 id="关键组件"><a href="#关键组件" class="headerlink" title="关键组件"></a>关键组件</h3><h4 id="代价地图"><a href="#代价地图" class="headerlink" title="代价地图"></a>代价地图</h4><p>代价地图是机器人导航和路径规划中的核心概念，主要用于表示环境中不同区域的”通行成本”或”危险程度”。它是将环境信息量化为数值网格的一种表示方法</p>
+<p>特点：</p>
+<ul>
+<li>网格结构：将环境划分为规则的网格单元（如5cm×5cm）</li>
+<li>代价值：每个网格单元包含一个数值(通常0-255)，表示通过该区域的代价</li>
+<li>多层结构：通常包含静态层(固定障碍物)、动态层(移动物体)等</li>
+</ul>
+<p>代价地图的分类：</p>
+<ul>
+<li>全局代价地图：基于已知环境地图，用于<strong>全局</strong>路径规划</li>
+<li>局部代价地图：基于传感器实时数据，用于<strong>局部</strong>路径中的规划避障和局部调整</li>
+</ul>
+<p>代价地图的组成：</p>
+<p>不管是全局还是局部的代价地图，都是由多个图层<strong>叠加</strong>出来的，不同图层负责处理不同类型的障碍物或代价信息</p>
+<ul>
+<li>全局代价地图：<ul>
+<li>Static Map Layer：静态地图层，加载预先构建的静态地图（如SLAM生成的栅格地图），表示环境中固定的障碍物（如墙壁、家具等），通常<strong>不会动态更新</strong>，除非手动重新加载地图</li>
+<li>Obstacle Map Layer：障碍地图层，基于实时传感器数据（如激光雷达、深度相机）检测动态或临时障碍物（如行人、移动物体），<strong>高频更新</strong></li>
+<li>Inflation Layer：膨胀层，在以上两层地图上进行膨胀（向外扩张），以避免机器人的外壳会撞上障碍物</li>
+</ul>
+</li>
+<li>局部代价地图：<ul>
+<li>Obstacle Map Layer：障碍地图层</li>
+<li>Inflation Layer：膨胀层</li>
+</ul>
+</li>
+</ul>
+<h4 id="行为树"><a href="#行为树" class="headerlink" title="行为树"></a>行为树</h4><p>Nav2引入的组建，负责机器人各种功能的调度，比如什么时候执行全局规划，什么时候局部规划…</p>
+<h4 id="规划器"><a href="#规划器" class="headerlink" title="规划器"></a>规划器</h4><p>规划器模块主要负责的是<strong>全局</strong>路径规划，用于<em>计算从当前位姿到达目标位姿的一个有效且可能是最佳的路径</em></p>
+<p>它是基于静态地图和其实时刻传感器数据生成的从当前位置到目标位置的完整路线</p>
+<h4 id="控制器"><a href="#控制器" class="headerlink" title="控制器"></a>控制器</h4><p>控制器模块其实也是路径规划，不过负责的是<strong>局部</strong>路径规划。它没有全局地图信息，并将全局规划器输出的全局完整路线分成<strong>若干段</strong>，分别进行规划。并且在局部规划时，实时考虑当前时刻的传感器的数据，对动态的障碍进行规避。它的输出就是路径规划的真正输出：&#x3D;&#x3D;对底盘的控制信号&#x3D;&#x3D;</p>
+<h4 id="恢复器"><a href="#恢复器" class="headerlink" title="恢复器"></a>恢复器</h4><p>恢复器的目标是处理系统的未知状况或故障状况并自主处理这些状况。例子包括感知系统中会导致环境表达充满假障碍物的故障。这样就会触发清除成本地图恢复以允许机器人移动</p>
+<p>另一个例子就是机器人由于动态障碍物或控制不佳而卡住。在允许的情况下，倒退或原地旋转会允许机器人从卡住的位置移动到可以成功进行导航的自由空间中</p>
+<h4 id="全局定位"><a href="#全局定位" class="headerlink" title="全局定位"></a>全局定位</h4><p>全局定位系统 (GPS、SLAM、运动捕捉) 的工作是至少提供 <code>map</code> -&gt; <code>odom</code> 的坐标转换。Nav2项目提供的 <code>amcl</code> 是一种基于粒子过滤器的自适应蒙特卡罗定位技术，用于静态地图的定位。Nav2还提供用于定位和生成静态映射的SLAM工具箱作为默认的SLAM算法</p>
+<h4 id="里程计"><a href="#里程计" class="headerlink" title="里程计"></a>里程计</h4><p>里程计系统的作用是提供 <code>odom</code> -&gt; <code>base_link</code> 的坐标转换。里程计可以来自许多数据源，包括激光雷达、车轮编码器、VIO和IMU。里程计的目标是提供基于机器人运动的平滑和连续的局部坐标系。全局定位系统会相对全局坐标的坐标变换进行更新，以解决里程计的漂移问题</p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://gitee.com/gwmunan/ros2/wikis/%E5%AF%BC%E8%88%AA%E6%95%99%E7%A8%8B/%E8%AE%A4%E8%AF%86Navigation2">认识Navigation2 - Wiki - Gitee.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://fishros.com/d2lros2/#/humble/chapt11/get_started/1.Nav2%E5%AF%BC%E8%88%AA%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D">1.Nav2导航框架介绍</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/09-ROS/007-%E5%AF%BC%E8%88%AA.html">https://li-ruiqi777.github.io/09-ROS/007-%E5%AF%BC%E8%88%AA.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E7%9B%B8%E6%9C%BA%E7%9B%B8%E5%85%B3%E7%A1%AC%E4%BB%B6%E7%9F%A5%E8%AF%86.html" title="相机相关硬件知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">相机相关硬件知识</div></div><div class="info-2"><div class="info-item-1">相机相关硬件知识1.图像传感器在使用相机的时候，首先我们要获取图像，这个过程本质上就是将**图像(光信号)转为数字信号(电信号)**，类似于之前循迹小车使用的灰度传感器。 常见的图像传感器有：CCD和CMOS传感器 这些传感器可以看成是一个由若干光敏元件组成的一个阵列，其中每个光敏元件对应一个像素  所谓100万像素的相机，其实就是指它的图像传感器有100万个光敏元件，也就是获得的图像的分辨率为100万 1.1像元尺寸 定义：每个光敏元件的尺寸  在知道图像的分辨率（也就是像元个数）和像元尺寸后，就可以通过这2者的乘积计算出图像传感器的尺寸了 1.2摄像头(图像传感器)的精度摄像头的精度指的就是图像传感器（CMOS&#x2F;CCD）的精度，单位是**(pix&#x2F;mm)**，即一个光敏传感器(像素)对应世界坐标系下的长度  工业中常有检测指标xxx (mm)，指的就是要能够检测到xxx (mm)小的物体。那么数值上，所使用的图像传感器的精度应该得小于xxx...</div></div></div></a><a class="pagination-related" href="/10-%E4%BC%A0%E7%BB%9F%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%87%A0%E4%BD%95%E5%8F%98%E6%8D%A2%E7%9F%A9%E9%98%B5.html" title="几何变换矩阵"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">几何变换矩阵</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%BC%E8%88%AA"><span class="toc-number">1.</span> <span class="toc-text">导航</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8ESLAM%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="toc-number">1.1.</span> <span class="toc-text">与SLAM的区别和联系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigation%E6%A1%86%E6%9E%B6"><span class="toc-number">1.2.</span> <span class="toc-text">Navigation框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%BB%84%E4%BB%B6"><span class="toc-number">1.2.1.</span> <span class="toc-text">关键组件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E4%BB%B7%E5%9C%B0%E5%9B%BE"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">代价地图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E6%A0%91"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">行为树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%92%E5%99%A8"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">规划器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">控制器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%99%A8"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">恢复器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.2.1.6.</span> <span class="toc-text">全局定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8C%E7%A8%8B%E8%AE%A1"><span class="toc-number">1.2.1.7.</span> <span class="toc-text">里程计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.2.2.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

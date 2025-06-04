@@ -1,0 +1,290 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>01 CMake的基本用法 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="CMake基本用法1.CmakeListsCmakeLists.txt是 cmake 的构建定义文件，如果工程存在多个目录，需要确保每个要管理的目录都存在一个CMakeLists.txt 2.CMake的语法 现代CMake和之前CMake的区别： 现代CMake是面向Tartget的，什么添加头文件、库的路径都是针对某个Target添加而不是对整个目录都添加进去。   cmake_minimum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01 CMake的基本用法">
+<meta property="og:url" content="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/01-CMake%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CMake基本用法1.CmakeListsCmakeLists.txt是 cmake 的构建定义文件，如果工程存在多个目录，需要确保每个要管理的目录都存在一个CMakeLists.txt 2.CMake的语法 现代CMake和之前CMake的区别： 现代CMake是面向Tartget的，什么添加头文件、库的路径都是针对某个Target添加而不是对整个目录都添加进去。   cmake_minimum">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.433Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/01-CMake%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '01 CMake的基本用法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">01 CMake的基本用法</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">01 CMake的基本用法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.433Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">02-开发工具</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/">CMake</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="CMake基本用法"><a href="#CMake基本用法" class="headerlink" title="CMake基本用法"></a>CMake基本用法</h1><h2 id="1-CmakeLists"><a href="#1-CmakeLists" class="headerlink" title="1.CmakeLists"></a>1.CmakeLists</h2><p><code>CmakeLists.txt</code>是 cmake 的<strong>构建定义</strong>文件，如果工程存在多个目录，需要确保每个要管理的目录都存在一个<code>CMakeLists.txt</code></p>
+<h2 id="2-CMake的语法"><a href="#2-CMake的语法" class="headerlink" title="2.CMake的语法"></a>2.CMake的语法</h2><blockquote>
+<p>现代CMake和之前CMake的区别：</p>
+<p>现代CMake是面向<code>Tartget</code>的，什么添加头文件、库的路径都是针对某个<code>Target</code>添加而不是对整个目录都添加进去。</p>
+</blockquote>
+<ul>
+<li><code>cmake_minimum_required()</code></li>
+</ul>
+<p>添加CMake编译的最低版本</p>
+<ul>
+<li><code>project()</code></li>
+</ul>
+<p>命名该CMake工程</p>
+<ul>
+<li><code>add_executable(&lt;name&gt; [source1] [source2 ...])</code></li>
+</ul>
+<p>指定该工程编译将生成<code>.exe</code>的可执行文件</p>
+<ul>
+<li><code>add_library(&lt;name&gt; [STATIC|SHARED|MODULE] [source1] [source2 ...])</code></li>
+</ul>
+<p>指定该工程编译生成静态&#x2F;动态库</p>
+<ul>
+<li><code>aux_source_directory(dir VAR)</code></li>
+</ul>
+<p>查找dir目录下的所有cpp文件并存入变量VAR中</p>
+<ul>
+<li><code>include_directories([dir1] [dir2])</code></li>
+</ul>
+<p>设置整个工程<strong>头文件</strong>的搜索目录</p>
+<ul>
+<li><code>link_directories([dir1] [dir2])</code></li>
+</ul>
+<p>设置整个工程<strong>库文件</strong>的搜索目录，很少用，用了这个还是得<code>link_library</code>。只不过用了这个接口后，<code>link_library</code>可以不用<strong>绝对路径</strong></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_link_directories</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/ThirdPart/lib/</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  slib</span><br><span class="line">  dlib</span><br><span class="line">)</span><br><span class="line">///////////////////////等价于////////////////////////////////</span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/ThirdPart/lib/slib.lib</span><br><span class="line">  <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/ThirdPart/lib/dlib.lib</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><code>target_sources(&lt;target&gt; &lt;INTERFACE|PUBLIC|PRIVATE&gt; [items1...]..])</code></li>
+</ul>
+<p> 指定编译某<code>target</code>时，使用的源文件(.cpp)</p>
+<ul>
+<li><code>target_link_libraries(&lt;target&gt; ... &lt;item&gt;... ...)</code></li>
+</ul>
+<p>指定编译某<code>target</code>时，使用的库文件，item必须是具体的库文件（不用写后缀，写文件名就行了）</p>
+<ul>
+<li><code>target_include_directories([dir1] [dir2])</code></li>
+</ul>
+<p>指定编译某<code>target</code>时，搜索的头文件路径(.h)</p>
+<ul>
+<li><code>message(变量/字符串)</code></li>
+</ul>
+<p>打印信息</p>
+<ul>
+<li><code>add_subdirectory (source_dir [binary_dir] [EXCLUDE_FROM_ALL])</code></li>
+</ul>
+<p>添加一个子目录并构建该子目录，子目录必须有CMakeLists。<strong>子模块会继承其父CMakeLists里面的依赖</strong>。比如一个项目里你又想生成.exe又想生成链接库，则应该分别写多个subdirectory。如果要用该接口，那么你子目录里必须得有<code>target</code>才行</p>
+<p><code>source_dir</code><br><strong>必选参数</strong>。该参数指定一个子目录，子目录下应该包含<code>CMakeLists.txt</code>文件和源文件。子目录可以是相对路径也可以是绝对路径，如果是相对路径，则是相对当前目录的一个相对路径。</p>
+<p><code>binary_dir</code><br><strong>可选参数</strong>。该参数指定一个目录，用于存放输出文件。可以是相对路径也可以是绝对路径，如果是相对路径，则是相对当前输出目录的一个相对路径。如果该参数没有指定，则默认的输出目录使用<code>source_dir</code>。</p>
+<p><code>EXCLUDE_FROM_ALL</code><br><strong>可选参数</strong>。当指定了该参数，则子目录下的目标不会被父目录下的目标文件包含进去，父目录的<code>CMakeLists.txt</code>不会构建子目录的目标文件，必须在子目录下显式去构建。</p>
+<p>例外情况：当父目录的目标依赖于子目录的目标，则子目录的目标仍然会被构建出来以满足依赖关系（例如使用了target_link_libraries）</p>
+<ul>
+<li><code>install()</code></li>
+</ul>
+<p>    把相应的编译后的<code>.exe、.lib、.dll</code>拷贝到指定的文件夹</p>
+<ul>
+<li><code>Option()</code></li>
+</ul>
+<p>CMake中的option用于<mark>控制编译流程</mark>，相当于C语言中的宏条件编译。在CMake-GUI中看到的可勾选的选项就是通过<code>option</code>生成的</p>
+<img src="../assets/2023-02-18-18-49-19-image.png" title="" alt="" width="470">
+
+<p>格式<code>option(&lt;variable&gt; &quot;&lt;help_text&gt;&quot; [value])</code></p>
+<ul>
+<li><p>variable：定义选项名称</p>
+</li>
+<li><p>help_text：说明选项的含义</p>
+</li>
+<li><p>value:定义选项默认状态，一般是OFF或者ON，除去ON之外，其他所有值都为认为是OFF。</p>
+</li>
+</ul>
+<p><strong>可以在执行CMake时，在命令里面直接改选项值</strong>,CMake执行完后，选项的值会保存到CMakeCache.txt中。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake  .. -D&lt;variable&gt;=OFF</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><code>add_definitions</code>(-Dxxx)</li>
+</ul>
+<p>该命令可以往源代码中添加宏定义，有这句话就相当于在.c的代码中加了<code>#define xxx</code></p>
+<p>该命令也可以在执行CMake时，通过命令行输入，此时会给宏定义添加具体值</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake .. -DXXX = XXX</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><code>set</code></li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(&lt;variable&gt; &lt;value&gt;... [PARENT_SCOPE]) <span class="comment">#设置普通变量</span></span><br><span class="line"><span class="keyword">set</span>(&lt;variable&gt; &lt;value&gt;... CACHE &lt;type&gt; &lt;docstring&gt; [FORCE]) <span class="comment">#设置缓存条目</span></span><br><span class="line"><span class="keyword">set</span>(ENV&#123;&lt;variable&gt;&#125; [&lt;value&gt;]) <span class="comment">#设置环境变量</span></span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><code>file(GLOB xxx 目录/**.cpp*)</code></li>
+</ul>
+<p>将该目录下的所有<code>.cpp</code>文件添加到变量xxx内，可供<code>target_source()</code>等命令使用。除了<code>.cpp</code>也可添加其他格式的文件。</p>
+<p>file里的<code>GLOB_RECURSE</code>意思是对该目录下的所有子文件进行递归添加。而<code>GLOB</code>则不进行递归，只在当前文件夹下查找。可以根据需求选择用哪种。<code>*.*</code>为通配符，意为添加文件夹下的所有文件。</p>
+<h2 id="3-CMake系统变量"><a href="#3-CMake系统变量" class="headerlink" title="3.CMake系统变量"></a>3.CMake系统变量</h2><p><img src="../assets/2023-02-01-18-17-04-image.png"></p>
+<h2 id="4-CMake添加动态库-以Opencv为例"><a href="#4-CMake添加动态库-以Opencv为例" class="headerlink" title="4.CMake添加动态库(以Opencv为例)"></a>4.CMake添加动态库(以Opencv为例)</h2><p>动态库的链接需要3大件：<code>.h</code>、<code>.lib/.a</code>、<code>.dll/.so</code></p>
+<ul>
+<li><mark>方法一</mark>：</li>
+</ul>
+<p>(1)在CMakeLists里面需要引入头文件的路径以及.lib文件</p>
+<p><code>.lib</code>文件又称动态库导入文件，只有使用MSVC编译器时，才需要在用动态库的时候使用<code>.lib</code>文件，如果是用的MingGW编译器，那么只需要<code>.dll</code>就行了</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_include_directories</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  D:/opencv/build/<span class="keyword">include</span>/opencv2 <span class="comment">#头文件路径</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  D:/opencv/build/x64/vc15/lib/opencv_world450d.lib <span class="comment">#.lib文件</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>(2)把<code>.dll</code>文件放到指定的路径下，有2种选择</p>
+<ul>
+<li><p>将<code>.dll</code>放到该<code>target</code>生成的<code>.exe</code>同目录下</p>
+</li>
+<li><p>将<code>.dll</code>放到系统的环境变量目录</p>
+</li>
+</ul>
+<p>只需要这两步，然后就可以愉快的写代码了。因为是给<code>target</code>添加的库，所以<strong>只要是这个<code>target</code>下的</strong>，其他的源文件也能使用这个库。</p>
+<ul>
+<li><mark>方法二</mark>：</li>
+</ul>
+<p>对于<strong>被install的库</strong>，可以<mark>不需要把动态库（.so或.dll）给放到可执行文件同目录</mark>。使用find_package()添加就行了。</p>
+<h3 id="DLL文件搜索路径"><a href="#DLL文件搜索路径" class="headerlink" title="DLL文件搜索路径"></a>DLL文件搜索路径</h3><p>1.编译目标代码时指定的动态库搜索路径;</p>
+<p>2.环境变量LD_LIBRARY_PATH指定的动态库搜索路径；</p>
+<p>3.配置文件&#x2F;etc&#x2F;ld.so.conf中指定的动态库搜索路径；</p>
+<p>4.默认的动态库搜索路径<code>usr/local/lib</code>。</p>
+<h2 id="5-CMake添加静态库"><a href="#5-CMake添加静态库" class="headerlink" title="5.CMake添加静态库"></a>5.CMake添加静态库</h2><p>动态库的链接需要2大件：<code>.h</code>、<code>.lib</code></p>
+<p>添加静态库和动态库类似，但它只需要在CMakeLists里写一下就行了</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_include_directories</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/ThirdPart/<span class="keyword">include</span> <span class="comment">#头文件</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(demo</span><br><span class="line">PRIVATE</span><br><span class="line">  <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span>/ThirdPart/lib/slib.lib <span class="comment">#静态库</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-静态库和动态库的区别"><a href="#6-静态库和动态库的区别" class="headerlink" title="6.静态库和动态库的区别"></a>6.静态库和动态库的区别</h2><p>最大的区别就是：生成<code>.exe</code>文件时，静态库是把整个<code>.lib</code>文件都链接进去了，所以生成<code>.exe</code>文件后，你把<code>.lib</code>删了，程序还是能正常运行。</p>
+<p>但是使用动态库时，它被链接进<code>.exe</code>的<code>.lib</code>文件只写了接口的一些储存信息（所以又被称为<strong>导入库</strong>文件），程序运行时会根据该信息到<code>.dll</code>文件里动态加载出你要的函数，所以如果<code>.dll</code>文件被删了的话，编译得到的<code>.exe</code>就不能运行了。但是，由于<code>.dll</code>是动态加载的，所以只改动<code>.dll</code>就可以完成对程序的更新，而不需要对整个工程重新编译一遍。</p>
+<h2 id="7-添加在GUI中可修改的变量"><a href="#7-添加在GUI中可修改的变量" class="headerlink" title="7.添加在GUI中可修改的变量"></a>7.添加在GUI中可修改的变量</h2><p>如果想在CMake-GUI添加那种可以通过GUI直接修改值的变量，必须写成这样</p>
+<p><code>SET(PADDLE_DIR &quot;&quot; CACHE PATH &quot;Location of libraries&quot;)</code></p>
+<p>主要必须有<code>CACHE PATH</code>这个关键字</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/01-CMake%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95.html">https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/01-CMake%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/gdb.html" title="gdb"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">gdb</div></div><div class="info-2"><div class="info-item-1">gdbgdb是gcc工具链中的调试器，本身是个命令行的可执行程序，以往我们用vscode、Qt Creator调试程序的时候，底层用的都是gdb工具，不过这些IDE把他的数据给可视化了 1.gdb中常见指令启动与连接   命令 说明    gdb &lt;executable&gt; 启动GDB并加载可执行文件   gdb -p &lt;pid&gt; 附加到正在运行的进程   target remote :&lt;port&gt; 连接远程gdbserver（常用于嵌入式调试）   target remote /dev/ttyUSB0 通过串口连接目标板（如ARM开发板）   断点与观察点   命令 说明    break &lt;function&gt; 在函数入口设断点（如 break main）   break *&lt;address&gt; 在内存地址设断点（如 break *0x8000）   break &lt;file:line&gt; 在指定文件的某一行设断点（如 break driver.c:42）   watch...</div></div></div></a><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/IP%E5%9C%B0%E5%9D%80.html" title="IP地址"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">IP地址</div></div><div class="info-2"><div class="info-item-1">IP地址1.IP地址：IP地址就是给每个连接在Internet上的主机分配的一个32bit地址。通常用点分十进制表示法。 2.子网掩码：子网掩码就是判断两个IP地址，是不是在同一个网段(或称子网)，在同一网段的两个地址，可以直接通信。 它指明一个IP地址的哪些位标识的是主机所在的子网以及哪些位标识的是主机的位掩码。 子网掩码不能单独存在，它必须结合IP地址一起使用。子网掩码只有一个作用，就是将某个IP地址划分成网络地址和主机地址两部分。  3.网关网关(Gateway)又称网间连接器、协议转换器。网关就是一个网络连接到另一个网络的“关口”。也就是网络关卡。所有网络都有一个边界，限制与直接连接到它的设备的通信。因此，如果网络想要与该边界之外的设备，节点或网络通信，则它们需要网关的功能。网关通常被表征为路由器和调制解调器的组合。        路由：是指分组从源到目的地时，决定端到端路径的网络范围的进程 ...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#CMake%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">CMake基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-CmakeLists"><span class="toc-number">1.1.</span> <span class="toc-text">1.CmakeLists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-CMake%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">2.CMake的语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-CMake%E7%B3%BB%E7%BB%9F%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">3.CMake系统变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-CMake%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E5%BA%93-%E4%BB%A5Opencv%E4%B8%BA%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">4.CMake添加动态库(以Opencv为例)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DLL%E6%96%87%E4%BB%B6%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="toc-number">1.4.1.</span> <span class="toc-text">DLL文件搜索路径</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-CMake%E6%B7%BB%E5%8A%A0%E9%9D%99%E6%80%81%E5%BA%93"><span class="toc-number">1.5.</span> <span class="toc-text">5.CMake添加静态库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E9%9D%99%E6%80%81%E5%BA%93%E5%92%8C%E5%8A%A8%E6%80%81%E5%BA%93%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.6.</span> <span class="toc-text">6.静态库和动态库的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%B7%BB%E5%8A%A0%E5%9C%A8GUI%E4%B8%AD%E5%8F%AF%E4%BF%AE%E6%94%B9%E7%9A%84%E5%8F%98%E9%87%8F"><span class="toc-number">1.7.</span> <span class="toc-text">7.添加在GUI中可修改的变量</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

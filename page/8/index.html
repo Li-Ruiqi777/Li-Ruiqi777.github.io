@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://li-ruiqi777.github.io/page/8/">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/page/8/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a></span><div id="menus"></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/%E7%94%B5%E6%9C%BA%E9%A9%B1%E5%8A%A8.html" title="电机驱动">电机驱动</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.714Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/">06-嵌入式硬件</a></span></div><div class="content">电机驱动直流电机一般是通过H桥电路来驱动的，市面上的电机驱动模块可以分为2种:  基于集成电机驱动芯片(内部自带H桥电路)的电机驱动：TB6612、L298n  这种电机驱动的电路比较简单，但由于H桥集成在了芯片内部，所以支持的电机最大电流较小   栅极驱动IC +...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/%E8%93%9D%E7%89%99.html" title="蓝牙">蓝牙</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.714Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/">06-嵌入式硬件</a></span></div><div class="content">...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/ESP8266.html" title="ESP8266">ESP8266</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/">06-嵌入式硬件</a></span></div><div class="content">ESP82661.ESP8266的工作模式ESP8266为一个WiFi透传模块，和蓝牙透传模块具有主从两种工作模式一样，也具有两种工作模式：STA模式（Station）和AP模式（Access Point），一般WiFi模块还会有一个STA+AP模式，即可以在两种模式下切换的状态。(1)AP模式下，相当于无线局域网中的基站。WiFi模块产生热点，提供无线接入服务，允许其它无线设备接入，提供数据访问，一般的无线路由&#x2F;网桥工作在该模式下。该模式对应TCP传输协议中的服务端（TCP Server）。(2)STA模式下，相当于无线局域网中的移动站。WiFi模块为连接到无线网络的终端（站点），可以连接到AP，一般无线网卡工作在STA模式下。该模式对应TCP传输协议中的客户端（TCP...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/MPU6050.html" title="MPU6050">MPU6050</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/">06-嵌入式硬件</a></span></div><div class="content">...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/04-LVGL/LVGL%E5%9F%BA%E7%A1%80.html" title="LVGL基础">LVGL基础</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/04-LVGL/">04-LVGL</a></span></div><div class="content">LVGL基础1.对象(1)概述在 LVGL 中，用户界面的基本构建块是对象，也称为 Widgets。 例如 button、label、image。lsit….. 所有的对象都使用lv_obj_t这个类型的指针作为句柄(类似于C++中的Base)，通过该指针来获取对象的各种信息 (2)对象的属性对象的属性包括：基本属性、特定属性 所有对象类型共享一些基本属性：  位置  尺寸  parent  样式  事件处理程序  等等   您可以使用 lv_obj_set_... 和 lv_obj_get_... 函数设置&#x2F;获取这些属性 对象类型也有特殊的属性。例如，一个滑块有  最小值和最大值  当前值   对于这些特殊的属性，每个对象类型都可能有唯一的 API 函数。例如对于滑块 lv_slider_set_range(slider1, 0, 100); (3)工作机制父对象可以被视为其子对象的容器。每个对象只有一个父对象（屏幕除外），但一个父对象可以有任意数量的子对象。 如果父节点的位置发生变化，子节点将与父节点一起移动。...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/04-LVGL/%E4%BA%8B%E4%BB%B6.html" title="事件">事件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/04-LVGL/">04-LVGL</a></span></div><div class="content">事件当LVGL发生某些用户可能感兴趣的事件时，系统做出相应的响应。实际上根据具体情况调用相应的回调函数。STM32的中断也可看成是一种事件 LVGL中的事件包括以下几类：  输入设备事件(Input device events)：对象被按下、滚动、聚焦….  绘图事件(Drawing events)  其他事件(Special events)：对象被删除、样式等被更改…..  特殊事件(Other events)：对象的值被更改（滑块移动）、一个过程完成  自定义事件(Custom events)   具体的看官方文档 1.给对象添加事件1234567static void my_event_cb(lv_event_t * event)&#123;    printf(&quot;Clicked\n&quot;);&#125;lv_obj_t * btn = lv_btn_creae(lv_scr_act());lv_obj_add_event_cb(btn, my_event_cb, LV_EVENT_CLICKED, NULL);   /*Assign an event...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/04-LVGL/%E6%A0%B7%E5%BC%8F.html" title="样式">样式</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/04-LVGL/">04-LVGL</a></span></div><div class="content">样式 样式是一个 lv_style_t 变量，它可以保存边框宽度、文本颜色等对象的属性尽管可以用简单的方法Lv_set_xxx()直接修改对象的属性，但是用过样式来该的话可以比较方便的修改更多对象的样式。  可以将样式分配给对象以更改其外观。在赋值过程中，可以指定目标部分（和目标状态   LVGL对象包括如下状态且可以通过|来组合 数字代表了这种状态的优先级，最后选择优先级最高的来显示 1.初始化样式和设置&#x2F;获取属性样式存储在 lv_style_t 变量中。样式变量应该是 static 、全局或动态分配的。 换句话说，它们不能是函数中的局部变量，当函数结束时它们会被销毁。 在使用样式之前，它应该用 lv_style_init(&amp;my_style) 进行初始化。 初始化后，可以设置或添加样式属性。lv_style_set_&lt;property_name&gt;(&amp;style, &lt;value&gt;); 1234static lv_style_t...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/04-LVGL/%E4%BD%8D%E7%BD%AE.html" title="位置">位置</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.699Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/04-LVGL/">04-LVGL</a></span></div><div class="content">对象的大小和位置1.对象的显示模型一个对象的所有像素包括以下4部分：  边界(bounding)框：元素的宽度&#x2F;高度围起来的区域。  边框(border)宽度：边框的宽度。  填充(padding)：对象两侧与其子对象之间的空间。  内容(content)：如果边界框按边框宽度和填充的大小缩小，则显示其大小的内容区域。   2.改变对象位置的方式(1)直接方式 123lv_obj_set_x(obj, 10);lv_obj_set_y(obj, 20);lv_obj_set_pos(obj, 10, 20);     //Or in one function  (2)百分比 lv_obj_set_x(btn, lv_pct(10)); //x = 10 % of parant content area width (3)设置对齐 123456//与父对象对齐void lv_obj_align(struct _lv_obj_t * obj, lv_align_t align,                     lv_coord_t x_ofs,...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/03-MSP430/(%E4%B8%80)GPIO.html" title="(一)GPIO">(一)GPIO</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.683Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/03-MSP430/">03-MSP430</a></span></div><div class="content">（一）GPIO一、MSP430单片机端口概述 (1)端口P1和P2        P1和P2端口具有中断能力。从P1和P2端口的各个I&#x2F;O引脚引入的中断可以独立地被使能，并且被设置为上升沿或者下降沿触发中断。所有P1端口的I&#x2F;O引脚的中断都来源于同一个中断向量PORT1_VECTOR。同理，P2端口的中断源都来源于另一个中断向量PORT2_VECTOR。       ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/05-MCU/03-MSP430/(%E4%BA%8C)%E5%A4%96%E9%83%A8%E4%B8%AD%E6%96%AD.html" title="(二)外部中断">(二)外部中断</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.683Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/05-MCU/03-MSP430/">03-MSP430</a></span></div><div class="content">(二)外部中断1.中断概述MSP430单片机的中断优先级是固定的，由硬件确定，用户不能更改。当多个中断同时发生中断请求时，CPU按照中断优先级的高低顺序依次响应。MSP430单片机包含3类中断源：系统复位中断源、不可屏蔽中断源和可屏蔽中断源。 可屏蔽中断源是具有中断功能的片上外设所产生的。由状态寄存器SR的GIE位控制，当GIE&#x3D;0时，所有中断使能。当GIE&#x3D;1时，所有中断使能 以下是MSP430所有中断 在使用外部中断时，由于其是可屏蔽中断，所以必须要置位GIE 可以通过 123_EINT();//开启_DINT();//关闭  或者 12__bis_SR_register(GIE);//开启__bic_SR_register(GIE);//关闭  开启或关闭。 2.中断写法1234567891011121314151617#pragma vector = PORT2_VECTOR   // P2口中断源__interrupt void Port_2 (void)        // 声明一个中断服务程序，名为Port_2()&#123; ...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/7/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/#content-inner">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/#content-inner">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#content-inner">18</a><a class="extend next" rel="next" href="/page/9/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            <a class="card-more-btn" href="/categories/" title="View More">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/"><span class="card-category-list-name">01-计算机基础八股</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">02-开发工具</span><span class="card-category-list-count">11</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/"><span class="card-category-list-name">CMake</span><span class="card-category-list-count">7</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/03-C/"><span class="card-category-list-name">03-C++</span><span class="card-category-list-count">15</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/"><span class="card-category-list-name">04-Linux</span><span class="card-category-list-count">39</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"><span class="card-category-list-name">01-Linux基本操作</span><span class="card-category-list-count">6</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/"><span class="card-category-list-name">02-系统移植</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">03-内核开发</span><span class="card-category-list-count">19</span></a></li></ul></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+    <ul class="card-archive-list">
+  
+      <li class="card-archive-list-item">
+        <a class="card-archive-list-link" href="/archives/2025/06/">
+          <span class="card-archive-list-date">June 2025</span>
+          <span class="card-archive-list-count">179</span>
+        </a>
+      </li>
+    </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">179</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-06-04T08:54:21.676Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>rtt | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="1.描述适配RT-Thread与调度相关的主要的API有哪些？这些API在哪些场景会使用？  移植RT-Thread新的内核的过程中，为了能让各个线程正常地调度，需要对于该内核重写&#x2F;libcpu中定义的以下API： (1)上下文切换函数： 12345678&#x2F;&#x2F;没有来源线程的上下文切换，在调度器启动第一个线程的时候调用，以及在 signal 里面会调用void rt_hw_context_swit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rtt">
+<meta property="og:url" content="https://li-ruiqi777.github.io/05-MCU/rtt.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.描述适配RT-Thread与调度相关的主要的API有哪些？这些API在哪些场景会使用？  移植RT-Thread新的内核的过程中，为了能让各个线程正常地调度，需要对于该内核重写&#x2F;libcpu中定义的以下API： (1)上下文切换函数： 12345678&#x2F;&#x2F;没有来源线程的上下文切换，在调度器启动第一个线程的时候调用，以及在 signal 里面会调用void rt_hw_context_swit">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.620Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/05-MCU/rtt.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'rtt',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">rtt</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">rtt</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.620Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/05-MCU/">05-MCU</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p>1.描述适配RT-Thread与调度相关的主要的API有哪些？这些API在哪些场景会使用？</p>
+</blockquote>
+<p>移植RT-Thread新的内核的过程中，为了能让各个线程正常地调度，需要对于该内核重写<code>/libcpu</code>中定义的以下API：</p>
+<p>(1)上下文切换函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//没有来源线程的上下文切换，在调度器启动第一个线程的时候调用，以及在 signal 里面会调用</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">rt_hw_context_switch_to</span><span class="params">(<span class="type">rt_uint32_t</span> to)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用于线程和线程之间的切换，从 from 线程切换到 to 线程</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">rt_hw_context_switch</span><span class="params">(<span class="type">rt_uint32_t</span> from, <span class="type">rt_uint32_t</span> to)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用于中断里面进行切换的时候使用，从 from 线程切换到 to 线程</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">rt_hw_context_switch_interrupt</span><span class="params">(<span class="type">rt_uint32_t</span> from, <span class="type">rt_uint32_t</span> to)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(2)全局中断控制：调度器依赖全局中断的开关来保证临界区的安全，需实现以下API：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//关闭全局中断</span></span><br><span class="line"><span class="type">rt_base_t</span> <span class="title function_">rt_hw_interrupt_disable</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开全局中断 </span></span><br><span class="line"><span class="type">void</span> <span class="title function_">rt_hw_interrupt_enable</span><span class="params">(<span class="type">rt_base_t</span> level)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>(3)线程栈初始化：初始化线程栈结构，构造首次运行的上下文（如入口函数地址、参数、返回地址等），在创建&#x2F;初始化一个线程时使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">rt_uint8_t</span> *<span class="title function_">rt_hw_stack_init</span><span class="params">(<span class="type">void</span> *tentry, <span class="type">void</span> *parameter, <span class="type">rt_uint8_t</span> *stack_addr, <span class="type">void</span> *texit)</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>2.描述上下文切换的过程？以RISC-V为例。</p>
+</blockquote>
+<p>上下文的切换可以分为：线程与线程之间的上下文切换与中断与线程之间的上下文切换两类，它们的切换过程有一定的区别：</p>
+<p>(1)线程与线程之间的上下文切换过程：</p>
+<p>在线程上下文中，如果调用<code>rt_hw_context_switch()</code>，则将发生上下文的切换，其具体步骤如下（以单核RV32E架构的CPU为例分析）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"># libcpu/risc-v/common/context_gcc.S</span><br><span class="line">rt_hw_context_switch:</span><br><span class="line">    /* saved from thread context</span><br><span class="line">     *     x1/ra       -&gt; sp(0)</span><br><span class="line">     *     x1/ra       -&gt; sp(1)</span><br><span class="line">     *     mstatus.mie -&gt; sp(2)</span><br><span class="line">     *     x(i)        -&gt; sp(i-4)</span><br><span class="line">     */</span><br><span class="line">    addi  sp,  sp, -16 * REGBYTES</span><br><span class="line">    </span><br><span class="line">    STORE sp,  (a0)</span><br><span class="line"></span><br><span class="line">    STORE x1,   0 * REGBYTES(sp)</span><br><span class="line">    STORE x1,   1 * REGBYTES(sp)</span><br><span class="line"></span><br><span class="line">    csrr a0, mstatus</span><br><span class="line">    andi a0, a0, 8</span><br><span class="line">    beqz a0, save_mpie</span><br><span class="line">    li   a0, 0x80</span><br><span class="line">save_mpie:</span><br><span class="line">    STORE a0,   2 * REGBYTES(sp)</span><br><span class="line"></span><br><span class="line">    STORE x4,   4 * REGBYTES(sp)</span><br><span class="line">    STORE x5,   5 * REGBYTES(sp)</span><br><span class="line">    STORE x6,   6 * REGBYTES(sp)</span><br><span class="line">    STORE x7,   7 * REGBYTES(sp)</span><br><span class="line">    STORE x8,   8 * REGBYTES(sp)</span><br><span class="line">    STORE x9,   9 * REGBYTES(sp)</span><br><span class="line">    STORE x10, 10 * REGBYTES(sp)</span><br><span class="line">    STORE x11, 11 * REGBYTES(sp)</span><br><span class="line">    STORE x12, 12 * REGBYTES(sp)</span><br><span class="line">    STORE x13, 13 * REGBYTES(sp)</span><br><span class="line">    STORE x14, 14 * REGBYTES(sp)</span><br><span class="line">    STORE x15, 15 * REGBYTES(sp)</span><br><span class="line">    /* restore to thread context</span><br><span class="line">     * sp(0) -&gt; epc;</span><br><span class="line">     * sp(1) -&gt; ra;</span><br><span class="line">     * sp(i) -&gt; x(i+2)</span><br><span class="line">     */</span><br><span class="line">    LOAD sp,  (a1)</span><br><span class="line"></span><br><span class="line">    j rt_hw_context_switch_exit</span><br><span class="line">    </span><br><span class="line">rt_hw_context_switch_exit:</span><br><span class="line">    /* resw ra to mepc */</span><br><span class="line">    LOAD a0,   0 * REGBYTES(sp)</span><br><span class="line">    csrw mepc, a0</span><br><span class="line"></span><br><span class="line">    LOAD x1,   1 * REGBYTES(sp)</span><br><span class="line">    li    t0, 0x1800</span><br><span class="line"></span><br><span class="line">    csrw  mstatus, t0</span><br><span class="line">    LOAD a0,   2 * REGBYTES(sp)</span><br><span class="line">    csrs mstatus, a0</span><br><span class="line"></span><br><span class="line">    LOAD x4,   4 * REGBYTES(sp)</span><br><span class="line">    LOAD x5,   5 * REGBYTES(sp)</span><br><span class="line">    LOAD x6,   6 * REGBYTES(sp)</span><br><span class="line">    LOAD x7,   7 * REGBYTES(sp)</span><br><span class="line">    LOAD x8,   8 * REGBYTES(sp)</span><br><span class="line">    LOAD x9,   9 * REGBYTES(sp)</span><br><span class="line">    LOAD x10, 10 * REGBYTES(sp)</span><br><span class="line">    LOAD x11, 11 * REGBYTES(sp)</span><br><span class="line">    LOAD x12, 12 * REGBYTES(sp)</span><br><span class="line">    LOAD x13, 13 * REGBYTES(sp)</span><br><span class="line">    LOAD x14, 14 * REGBYTES(sp)</span><br><span class="line">    LOAD x15, 15 * REGBYTES(sp)</span><br><span class="line"></span><br><span class="line">    addi sp,  sp, 16 * REGBYTES</span><br><span class="line">    </span><br><span class="line">    mret</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>当前线程上下文的保存：</p>
+<ul>
+<li><p>为当前线程的线程栈分配空间，并更新当前线程的TCB的<code>sp</code>指针</p>
+</li>
+<li><p>将当前线程的<code>ra</code>寄存器的值保存到此线程的线程栈中</p>
+</li>
+<li><p>读取<code>mstatus</code>寄存器的MIE位，检查中断的开启状态</p>
+<ul>
+<li>如果开了中断（mstatus.MIE&#x3D;1），则把立即数0x80加载到a0寄存器</li>
+<li>没开中断的话直接继续往下运行</li>
+</ul>
+</li>
+<li><p>将<code>mstatus</code>寄存器的MIE位和剩余通用寄存器压入线程栈</p>
+</li>
+</ul>
+</li>
+<li><p>恢复目标线程上下文</p>
+<ul>
+<li>切换CPU的<code>sp</code>指针指向目标线程的线程栈</li>
+<li>恢复<code>mepc</code>和<code>ra</code>寄存器的值</li>
+<li>设置<code>mstatus</code>寄存器的值，其中MPP位为11，即返回时特权等级为M-mode</li>
+<li>恢复通用寄存器</li>
+<li>释放当前线程栈的部分空间</li>
+<li>通过<code>mret</code>返回，根据MPP恢复特权等级，跳转到<code>mpec</code>继续执行</li>
+</ul>
+</li>
+</ul>
+<p>(2)中断与线程之间的上下文切换过程：</p>
+<ul>
+<li>在中断上下文中，调用<code>rt_hw_context_switch_interrupt()</code>来触发上下文的切换，在其内部设置好<code>rt_interrupt_from_thread</code>和<code>rt_interrupt_to_thread</code>以及<code>rt_thread_switch_interrupt_flag</code>，然后通过<code>rt_trigger_software_interrupt</code>触发软中断</li>
+<li>当当前中断结束后，在软中断的中断处理函数<code>SW_handler</code>中，如果上下文切换的标志位<code>rt_thread_switch_interrupt_flag</code>为1，则进行上下文的切换：<ul>
+<li>保存<code>mepc</code>寄存器到当前线程的线程栈中</li>
+<li>将CPU的<code>sp</code>切换到目标线程的线程栈</li>
+<li>从目标线程的线程栈中恢复<code>mpec</code>、<code>ra</code>以及各个通用寄存器</li>
+<li>设置<code>mstatus</code>来指定<code>mret</code>后的特权等级</li>
+<li>通过<code>mret</code>返回，根据MPP恢复特权等级，跳转到<code>mpec</code>继续执行</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>3.描述使用Kconfig的目的？</p>
+</blockquote>
+<p>Kconfig文件通常用于构建大型项目（比如RT-Thread、Linux内核、BuildRoot…）时对其进行裁剪</p>
+<p>Kconfig文件一般以树状形式分布在源码的各级目录，并结合配置UI界面（比如<code>menuconfig</code>）一起使用</p>
+<p>在配置UI界面中完成项目的编译配置后，会得到一个<code>.config</code>文件，保存当前的配置选择，在RT-Thread中还会根据此文件生成一个<code>rtconfig.h</code>的文件，后续编译的时候，根据用户配置来进行条件编译或宏展开，从而达到项目裁剪的目的</p>
+<blockquote>
+<p>4.描述Scons构建工具的作用？RT-Thread是如何使用的？</p>
+</blockquote>
+<p>SCons是一个类似于Make的代码构建工具，它通过解析Python脚本（<code>SConstruct</code>、<code>SConscript</code>）来进行用户指定的构建行为</p>
+<p>RT-Thread对于每个BSP项目，通过以下3类文件进行编译配置：</p>
+<ul>
+<li><code>SConstruct</code>：一个BSP项目只有一个，它是SCons的入口脚本，初始化了SCons构建RT-Thread所需的必要环境</li>
+<li><code>SConscript</code>：一个BSP项目的中会有多个，通常每级子目录都会有一个，控制当前级别下的源码构建行为</li>
+<li><code>rtconfig.py</code>：控制SCons构建的配置文件，存放了如工具链，构建参数等配置</li>
+</ul>
+<blockquote>
+<p>5.玄铁的内核有哪几类？是否使用过玄铁的RISC-V内核的芯片或者其他RISC-V内核的芯片？</p>
+</blockquote>
+<p>玄铁的内核有3大类，它们主要使用RISC-V ISA或玄铁自制的C-SKY ISA</p>
+<ul>
+<li>C系列：面向高性能计算场景，支持AI加速和复杂任务处理</li>
+<li>E系列：面向嵌入式MCU场景，低功耗、高能效</li>
+<li>R系列：面向工控、车载等高性能、高可靠性场景</li>
+</ul>
+<p>之前没有使用过RISC-V内核的芯片。但查了下资料，了解到现在有不少SoC厂商使用了玄铁设计的RISC-V内核，比如全志的D1用了玄铁C906内核、酷芯的AR8032S使用了玄铁E906…</p>
+<p>除了玄铁，现在市面上也有一些别的CPU内核是RISC-V ISA的，比如GD32所使用的bumblebee、CH32使用的青稞…</p>
+<blockquote>
+<p>6.尝试编译RT-Thread现有支持的一款RISC-V内核的BSP(能运行更佳&#x2F;或使用QEMU运行)，基于上述谈谈自己对适配一款新内核至RT-Thread的的想法？</p>
+</blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://github.com/RT-Thread/rt-thread/blob/master/bsp/qemu-virt64-riscv/README_cn.md">rt-thread&#x2F;bsp&#x2F;qemu-virt64-riscv&#x2F;README_cn.md at master · RT-Thread&#x2F;rt-thread</a>在qemu-virt64-riscv平台上成功运行了RT-Thread</p>
+<img src="../assets/image-20250510200656853.png" alt="image-20250510200656853" style="zoom: 80%;" />
+
+<p>适配RT-Thread至一款新的CPU内核，我的想法如下：</p>
+<ul>
+<li>首先硬件上得有一款用了该内核的SoC&#x2F;MCU以及对应开发板，或者有个用了该内核的qemu，针对此开发板或qemu（在玄铁的github上找到了它们针对玄铁内核的<a target="_blank" rel="noopener" href="https://github.com/XUANTIE-RV/qemu">QEMU</a>，不知道是不是用这个），在<code>/bsp</code>目录下新建目录</li>
+<li>接着我们需要实现硬件抽象层的代码的适配，比如<code>/libcpu</code>中对于上下文切换、中断处理相关的代码。对于RISC-V ISA来说，<code>/libcpu/risc-v/common/</code>中已经提供了通用的实现，通常可以直接复用，但是如果新的内核对于指令集做了些扩展，引入了新的寄存器，那么可能需要针对该内核修改一下上下文切换之类的汇编代码</li>
+<li>接着需要对该SoC的外设驱动进行适配，比如串口、GPIO…</li>
+<li>接下来需要完成构建系统的适配，在<code>/bsp/new_soc</code>下创建SConstruct、各级SConscript、KConfig等文件</li>
+<li>最后进行内核镜像的编译、烧录并进行测试</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/05-MCU/rtt.html">https://li-ruiqi777.github.io/05-MCU/rtt.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/05-MCU/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E8%BF%9B%E5%88%B6%E9%97%AE%E9%A2%98.html" title="串口通信进制问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">串口通信进制问题</div></div><div class="info-2"><div class="info-item-1">串口通信进制问题由于UART一般通信帧是8 bit，所以通常以ASIIC码的形式进行传输，但也可以用一位16进制数来进行传输。 常见的串口助手默认发送的都是字符型比如’5’，或者说ASIIC码的形式，如果要发送16进制数，需要选择16进制发送，比如要发0xFF，串口助手这里发送写成FF就行，但单片机的的if中必须写成0XFF Python发送16进制数先用bytearry打包，然后serial.write就行了 </div></div></div></a><a class="pagination-related" href="/05-MCU/%E4%BC%98%E7%A7%80%E7%9A%84%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84.html" title="优秀的程序结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">优秀的程序结构</div></div><div class="info-2"><div class="info-item-1">记录从网上一些大佬的代码中学习到的比较好的代码结构，有助于简化编程。 1.main.cpp和CUBE生成的main.c分开放，在main.cpp中定义用户函数Main(),放到main.c的main()中。这样即使CUBE再生成也不会覆盖了。 2.稚晖君在Main()中做了如下的事情： Main(){电机：绑定驱动、编码器、初始化按键：绑定回调函数开启定时器主循环} 3.在main.cpp中，它还定义了一堆定时器的Event Callbacks，按键回调函数的实现。 4.定时器中断函数不要直接写在Cube给我们定义的接口中，可以自己定一个函数，比如Tim1Callback100Hz()，然后把这个函数放进定时器的IRQHandler中调用就行了，比较直观。 5.如果一个类需要定时器作为时间基准，那么就定义.Tick()函数，并放到定时器的回调函数中。然后在类中定义_Elapsedtime这个变量记录时间。 Tick函数的内容一般就是：给类中的_Elapsedtime变量加时间；如果涉及状态机，则在Tick()里面更新状态，并调用回调函数。手表的PageManager类就是这样的。 </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

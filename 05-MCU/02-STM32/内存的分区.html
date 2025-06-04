@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>内存的分区 | Hexo</title><meta name="author" content="Gearless Joe"><meta name="copyright" content="Gearless Joe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="内存的分区及存放位置一、内存分区介绍程序中内存有以下分区：  栈区（stack）  临时创建的局部变量存放在栈区。  函数调用时，其入口参数存放在栈区。  函数返回时，其返回值存放在栈区。  const定义的局部变量存放在栈区。    堆区（heap）堆区用于存放程序运行中被动态分布的内存段，可增可减。 可以有malloc等函数实现动态分布内存。 有malloc函数分布的内存，必须用free进行内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存的分区">
+<meta property="og:url" content="https://li-ruiqi777.github.io/05-MCU/02-STM32/%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E5%8C%BA.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="内存的分区及存放位置一、内存分区介绍程序中内存有以下分区：  栈区（stack）  临时创建的局部变量存放在栈区。  函数调用时，其入口参数存放在栈区。  函数返回时，其返回值存放在栈区。  const定义的局部变量存放在栈区。    堆区（heap）堆区用于存放程序运行中被动态分布的内存段，可增可减。 可以有malloc等函数实现动态分布内存。 有malloc函数分布的内存，必须用free进行内">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-06-04T08:29:12.667Z">
+<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:author" content="Gearless Joe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/05-MCU/02-STM32/%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E5%8C%BA.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '内存的分区',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">内存的分区</span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">内存的分区</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.667Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/05-MCU/">05-MCU</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/05-MCU/02-STM32/">02-STM32</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="内存的分区及存放位置"><a href="#内存的分区及存放位置" class="headerlink" title="内存的分区及存放位置"></a>内存的分区及存放位置</h1><h2 id="一、内存分区介绍"><a href="#一、内存分区介绍" class="headerlink" title="一、内存分区介绍"></a>一、内存分区介绍</h2><p>程序中内存有以下分区：</p>
+<ul>
+<li><p>栈区（stack）</p>
+<ul>
+<li><p>临时创建的局部变量存放在栈区。</p>
+</li>
+<li><p>函数调用时，其入口参数存放在栈区。</p>
+</li>
+<li><p>函数返回时，其返回值存放在栈区。</p>
+</li>
+<li><p>const定义的局部变量存放在栈区。</p>
+</li>
+</ul>
+</li>
+<li><p>堆区（heap）<br>堆区用于存放程序运行中被动态分布的内存段，可增可减。</p>
+<p>可以有malloc等函数实现动态分布内存。</p>
+<p>有malloc函数分布的内存，必须用free进行内存释放，否则会造成内存泄漏。</p>
+</li>
+<li><p>全局区（静态区）（static）<br>内存在程序编译的时候就已经分配好了，<mark>这块内存在程序的整个运行期间都存在。</mark>它主要存放<strong>静态数据</strong>（局部static变量，全局static变量）、<strong>全局变量</strong>。当程序结束后，变量由系统释放 。</p>
+</li>
+<li><p>常量区<br>存放数字 和 常量字符串。当程序结束后，由系统释放 。</p>
+<p>常量区的内容不可以被修改。</p>
+</li>
+<li><p>代码区<br>存放函数体的二进制代码。</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line">using namespace <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;  <span class="comment">//全局初始化区 </span></span><br><span class="line"><span class="type">char</span> *p1;  <span class="comment">//全局未初始化区 </span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123; </span><br><span class="line">    <span class="type">int</span> b;  <span class="comment">//栈 </span></span><br><span class="line">    <span class="type">char</span> s[] = <span class="string">&quot;abc&quot;</span>;  <span class="comment">//&quot;abc&quot;在常量区，s在栈上。 </span></span><br><span class="line">    <span class="type">char</span> *p2;  <span class="comment">//栈 </span></span><br><span class="line">    <span class="type">char</span> *p3 = (<span class="type">char</span>*)<span class="string">&quot;123456&quot;</span>;  <span class="comment">//123456\0;在常量区，p3在栈上。 </span></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> c = <span class="number">0</span>;  <span class="comment">//全局（静态）初始化区 </span></span><br><span class="line"></span><br><span class="line">    p1 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>); </span><br><span class="line">    p2 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">20</span>); <span class="comment">//分配得来的 10 和 20 字节的区域就在堆区。</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">strcpy</span>(p1, <span class="string">&quot;123456&quot;</span>);  <span class="comment">//123456\0放在常量区，编译器可能会将它与 p3 所指向的&quot;123456&quot;优化成一个地方。 </span></span><br><span class="line"></span><br><span class="line">    delete p1, p2;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h2 id="二、各分区特点"><a href="#二、各分区特点" class="headerlink" title="二、各分区特点"></a>二、各分区特点</h2><h3 id="1-全局静态变量"><a href="#1-全局静态变量" class="headerlink" title="1.全局静态变量"></a>1.全局静态变量</h3><p>定义：在全局变量之前加上关键字static，全局变量就被定义为一个全局静态变量。</p>
+<p>说明：1.内存中的位置：<strong>静态存储区</strong>（静态存储区在整个程序运行期间都存在）</p>
+<p>2.初始化：未经初始化的全局静态变量会被程序自动初始化为0（自动对象的值是任意的，除非它被显示初始化）</p>
+<p>3.作用域：<mark>全局静态变量在声明它的文件之外是不可见</mark>。准确的讲从定义之处开始到文件结尾。</p>
+<p><strong>注意：</strong></p>
+<p>1.不会被其他文件所访问，修改。</p>
+<p>2.其它文件中可以使用相同名字的变量，不会发生冲突。</p>
+<p>3.虽然改变了全局变量的作用域，但存储位置仍是静态存储区</p>
+<h3 id="2-局部静态变量"><a href="#2-局部静态变量" class="headerlink" title="2.局部静态变量"></a>2.局部静态变量</h3><p>定义：在局部变量之前加上关键字static，局部变量就被定义为一个局部静态变量。</p>
+<p>说明：1.内存中的位置：<strong>静态存储区</strong></p>
+<p>2.初始化：未经初始化的局部静态变量会被程序自动初始化为0（自动对象的值是任意的，除非它被显示初始化）</p>
+<p>3.作用域：作用域仍为局部作用域，当定义它的函数或者语句块结束的时候，作用域随之结束。</p>
+<p><strong>注意</strong>：当static用来修饰局部变量的时候，它就改变了局部变量的存储位置，从原来的<mark>栈中存放改为静态存储区</mark>。但是局部静态变量在离开作用域之后，<mark>并没有被销毁</mark>，而是仍然驻留在内存当中，直到程序结束，只不过我们不能再对它进行访问。</p>
+<h3 id="3-堆与栈的区别"><a href="#3-堆与栈的区别" class="headerlink" title="3.堆与栈的区别"></a>3.堆与栈的区别</h3><p>1.管理方式不同：对于栈来讲，是由编译器自动管理的，无需手动控制；对于堆来说，释放工作由程序员控制，容易产生memory leak。</p>
+<p>2.空间大小不同：一般来讲在32位系统下，堆内存可以达到4G的空间，从这个角度来看堆内存几乎是没有什么限制的。但是对于栈来讲，一般都是有一定的空间大小。在VC6下面，默认的栈空间是1M。</p>
+<p>3.产生碎片不同：对于堆来讲，频繁的new&#x2F;delete势必会造成内存空间的不连续，<strong>从而造成大量的碎片，使程序效率降低</strong>。对于栈来讲，则不会存在这个问题，因为栈是先进后出的队列，它们是如此的一一对应，以至于永远都不可能有一个内存块从栈中间弹出。在它弹出之前，在它上面的后进栈的内容已经被弹出。</p>
+<p>4.生长方向不同：对于堆来讲，生长方向是向上的，也就是向着内存地址增加的方向；对于栈来讲，它的生长方向是向下的，是向着内存地址减小的方向增长。</p>
+<p>5.分配方式不同：堆都是<mark>动态分配的</mark>，没有静态分配的堆。栈有两种分配方式：<mark>静态分配和动态分配</mark>。静态分配是编译器完成的，比如局部变量的分配。动态分配是由alloca函数进行分配，但是栈的动态分配和堆是不同的，它的动态分配是由编译器进行释放，无需我们手工实现。</p>
+<p>6.分配效率不同：栈是机器系统提供的数据结构，计算机会在底层对栈提供支持：分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了<mark>栈的效率比较高</mark>。</p>
+<h2 id="三、STM32中的内存存放"><a href="#三、STM32中的内存存放" class="headerlink" title="三、STM32中的内存存放"></a>三、STM32中的内存存放</h2><ul>
+<li><p>由前面的分析我们知道，代码区和常量区的内容是不允许被修改的，ROM（STM32就是Flash Memory）也是不允许被修改的，所以<mark>代码区和常量区的内容编译后存储在ROM中</mark>。</p>
+</li>
+<li><p>而栈、堆、静态变量、全局变量都是存放在RAM中。</p>
+</li>
+</ul>
+<h2 id="四、Keil-的Build-Output窗口"><a href="#四、Keil-的Build-Output窗口" class="headerlink" title="四、Keil 的Build Output窗口"></a>四、Keil 的Build Output窗口</h2><p>如上图，存在Code、RO-data、RW-data、ZI-data四个代码段大小。</p>
+<p>其中Code就是代码占用大小，RO-data是只读常量、RW-data是已初始化的可读可写变量，ZI-data是未初始化的可读可写变量。</p>
+<p>有些时候，我们需要知道RAM和ROM的使用情况如何，那么我们就可以使用下面的公式计算。</p>
+<ul>
+<li><strong>RAM  &#x3D; RW-data + ZI-data</strong></li>
+<li><strong>ROM &#x3D; Code + RO-data + RW-data</strong></li>
+</ul>
+<blockquote>
+<p>注意：上面讲的内存分区(代码段、bss段…)虽然讲的是<strong>内存分区</strong>，但实际上有些段，比如代码段在STM32这种嵌入式设备中是不会被放到RAM中而是放到ROM中，这是因为嵌入式的RAM实在太小了…但是在非嵌入式平台，以上的内存分区的各段全是放在RAM中的。</p>
+</blockquote>
+<h2 id="五、STM32的堆栈"><a href="#五、STM32的堆栈" class="headerlink" title="五、STM32的堆栈"></a>五、STM32的堆栈</h2><p>1.启动文件里堆栈大小都是以words为单位的(1words &#x3D; 4 bytes)</p>
+<p>2 <strong>裸机</strong>时Keil编译器工程项目的启动文件中定义的栈为：<mark>系统栈+用户栈</mark>（2个合二为一，作为一个整体）。系统栈+用户栈：单片机系统（中断函数和中断嵌套）使用这个栈区进行入栈和出栈操作；用户程序（函数调用的形参、非静态局部变量以及函数调用信息）也使用这个栈区进行入栈和出栈操作。  </p>
+<p>3  在FreeRTOS下，stm32的栈被分为：系统栈和任务栈.</p>
+<ul>
+<li><p><strong>系统栈</strong>:只有单片机系统（中断函数和中断嵌套使用系统栈）在使用这个栈区（系统栈）进行入栈和出栈操作，这个栈不包含用户栈。c此时在启动文件里的那个stack只是系统栈。</p>
+</li>
+<li><p>而<strong>任务栈</strong>则是 由<code>FreeRTOSConfig.h</code>文件中的宏定义configTOTAL_HEAP_SIZE确定。任务栈本身就是一个全局数组，(FreeRTOS里的HEAP指的是栈，而并不是堆。。。)</p>
+</li>
+<li><p>工程项目中创建的每一个任务的栈区（包括：每个任务的函数调用的形参、非静态局部变量以及函数调用信息）都是从 FreeRTOS内核的heap_4.c中定义HEAP区中进行申请和分配。</p>
+</li>
+<li><p>这个HEAP（用户栈区）来自于静态数组，所以它存在于数据段（具体为.bss段）， 它和Keil编译器工程项目的启动文件中定义的堆<mark>不是一个概念。</mark></p>
+</li>
+<li><p>FreeRTOS编程时，使用C语言的库函数malloc函数动态请求分配堆区，对于微控制器并不是线程安全的。使用库函数free函数释放空间，对于微控制器并不是线程安全的。为了线程安全，在使用FreeRTOS编程时，进行<strong>动态内存申请</strong>（Keil编译器工程项目的启动文件中配置的堆区）时，请使用FreeRTOS提供的pvPortMalloc和vPortFree函数。(还是从系统的堆区里申请，并不是FreeRTOS的HEAP)</p>
+</li>
+</ul>
+<p>参考地址：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ba_wang_mao/article/details/127284888?spm=1001.2014.3001.5501">STM32F103移植FreeRTOS必须搞明白的系列知识—3（堆栈）_ba_wang_mao的博客-CSDN博客</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Gearless Joe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/05-MCU/02-STM32/%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E5%8C%BA.html">https://li-ruiqi777.github.io/05-MCU/02-STM32/%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E5%8C%BA.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/05-MCU/02-STM32/SysTick%E8%AF%A6%E8%A7%A3.html" title="SysTick详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">SysTick详解</div></div><div class="info-2"><div class="info-item-1">SysTick详解SysTick定时器简介SysTick定时器也叫SysTick滴答定时器，它是Cortex内核的一个外设，被嵌入在NVIC中。它是一个24位向下递减的定时器，每计数一次所需时间为1&#x2F;SYSTICK，SYSTICK是系统定时器时钟，它可以直接取自系统时钟，还可以通过系统时钟8分频后获取。当定时器计数到0时，将从LOAD 寄存器中自动重装定时器初值，重新向下递减计数，如此循环往复。如果开启SysTick中断的话，当定时器计数到0，将产生一个中断信号。因此只要知道计数的次数就可以准确得到它的延时时间。 SysTick定时器作为HAL_Delay的基准在cube生成的代码中，main函数中HAL_RCC_ClockConfig();初始化系统时钟的时候Systick被初始化。初始化时，Cube默认设置Systick中断优先级为最高优先级，中断周期由函数HAL_SYSTICK_Config(SystemCoreClock / (1000U /...</div></div></div></a><a class="pagination-related" href="/05-MCU/01-FreeRTOS/FreeRTOS_%E5%B8%B8%E7%94%A8API.html" title="FreeRTOS_常用API"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">FreeRTOS_常用API</div></div><div class="info-2"><div class="info-item-1">FreeRTOS（3）常用API&#x3D;&#x3D;FreeRTOS中任务优先级数值越大，优先级越高，和HAL库相反&#x3D;&#x3D; 1.创建任务1234567891011121314BaseType_t xTaskCreate( TaskFunction_t pxTaskCode,    //任务函数    const char * const pcName,    //任务名字    const uint16_t usStackDepth,    //任务堆栈大小    void * const pvParameters,        //传递给任务函数的参数    UBaseType_t uxPriority,        //任务优先级    TaskHandle_t * const pxCreatedTask )    //任务句柄//pxTaskCode : 任务函数                                                                //PCName :...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Gearless Joe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">179</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E5%8C%BA%E5%8F%8A%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="toc-number">1.</span> <span class="toc-text">内存的分区及存放位置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%86%85%E5%AD%98%E5%88%86%E5%8C%BA%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">一、内存分区介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%90%84%E5%88%86%E5%8C%BA%E7%89%B9%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text">二、各分区特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%85%A8%E5%B1%80%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.全局静态变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B1%80%E9%83%A8%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.局部静态变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%A0%86%E4%B8%8E%E6%A0%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.堆与栈的区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81STM32%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E5%AD%98%E6%94%BE"><span class="toc-number">1.3.</span> <span class="toc-text">三、STM32中的内存存放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Keil-%E7%9A%84Build-Output%E7%AA%97%E5%8F%A3"><span class="toc-number">1.4.</span> <span class="toc-text">四、Keil 的Build Output窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81STM32%E7%9A%84%E5%A0%86%E6%A0%88"><span class="toc-number">1.5.</span> <span class="toc-text">五、STM32的堆栈</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/02-YOLOv1.html" title="02 YOLOv1">02 YOLOv1</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/04-YOLOv3.html" title="04 YOLOv3">04 YOLOv3</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/03-YOLOv2.html" title="03 YOLOv2">03 YOLOv2</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/05-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA.html" title="05 数据增强">05 数据增强</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/11-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/06-YOLOv8.html" title="06 YOLOv8">06 YOLOv8</a><time datetime="2025-06-04T08:29:12.964Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Gearless Joe</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
