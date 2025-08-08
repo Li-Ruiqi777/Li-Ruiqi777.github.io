@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>07 TrustZone | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="TrustZone概述ARM TrustZone技术是所有Cortex-A系列CPU的基本功能，是通过ARM的安全扩展引入的。TrustZone从硬件层面提供安全机制，将CPU的工作状态分为Normal World（非安全世界）和Secure World（安全世界），涉及到安全相关的操作比如指纹、密码等都要在安全世界中进行，其他操作在非安全世界中运行 系统架构ARM提供了一套TrustZone技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07 TrustZone">
+<meta property="og:url" content="https://li-ruiqi777.github.io/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/07-TrustZone.html">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="TrustZone概述ARM TrustZone技术是所有Cortex-A系列CPU的基本功能，是通过ARM的安全扩展引入的。TrustZone从硬件层面提供安全机制，将CPU的工作状态分为Normal World（非安全世界）和Secure World（安全世界），涉及到安全相关的操作比如指纹、密码等都要在安全世界中进行，其他操作在非安全世界中运行 系统架构ARM提供了一套TrustZone技术">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
+<meta property="article:published_time" content="2025-08-08T07:18:14.536Z">
+<meta property="article:modified_time" content="2025-08-08T07:18:15.287Z">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/07-TrustZone.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '07 TrustZone',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">143</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">07 TrustZone</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">07 TrustZone</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-08T07:18:14.536Z" title="Created 2025-08-08 15:18:14">2025-08-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-08-08T07:18:15.287Z" title="Updated 2025-08-08 15:18:15">2025-08-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/">02-系统移植</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="TrustZone"><a href="#TrustZone" class="headerlink" title="TrustZone"></a>TrustZone</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>ARM TrustZone技术是所有Cortex-A系列CPU的基本功能，是通过ARM的安全扩展引入的。TrustZone从硬件层面提供安全机制，将CPU的工作状态分为Normal World（非安全世界）和Secure World（安全世界），涉及到安全相关的操作比如指纹、密码等都要在安全世界中进行，其他操作在非安全世界中运行</p>
+<h2 id="系统架构"><a href="#系统架构" class="headerlink" title="系统架构"></a>系统架构</h2><p>ARM提供了一套TrustZone技术的开源解决方案TF-A，他是一套底层固件，由于不同芯片原厂的SoC各不相同，芯片原厂一般会基于这个开源的TF-A针对自己的芯片再做一些修改，我们直接用芯片原厂修改好的就行了</p>
+<img src="F:\个人笔记\assets\image-20250701104223296.png" alt="image-20250701104223296" style="zoom:80%;" />
+
+<p>前面提到了启用了ARM TrustZone后，CPU被分为2个世界，而这2个世界交互的桥梁就是ARM Trusted Firmware（通过ARM的SMC硬件指令），此时CPU会陷入EL3特权等级</p>
+<h2 id="ARMv8特权等级"><a href="#ARMv8特权等级" class="headerlink" title="ARMv8特权等级"></a>ARMv8特权等级</h2><p>ARMv8架构有32位的和64位的CPU，分别是AArch64和AArch32，他们都有4个特权等级：EL0~EL3（数字越高、特权越高）</p>
+<p>其中根据CPU所处的世界又可以分为安全EL0、安全EL1和非安全EL0、非安全EL1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ELO:一般的应用程序</span><br><span class="line">EL1:操作系统，比如Linux</span><br><span class="line">EL2:虚拟化(Hypervisor)，虚拟机管理器</span><br><span class="line">EL3:最底层的安全固件，如 ARM TrustedFirmware(ATF/TF-A)</span><br></pre></td></tr></table></figure>
+
+<img src="F:\个人笔记\assets\image-20250701110028854.png" alt="image-20250701110028854" style="zoom:67%;" />
+
+<p>AArch32模式下，EL0~EL3对应ARMv7的不同工作模式</p>
+<img src="F:\个人笔记\assets\image-20250701105941129.png" alt="image-20250701105941129" style="zoom:67%;" />
+
+<blockquote>
+<p>Trusted OS一般指的是OP-TEE，它和Linux内核同时运行，前者负责可信APP，后者负责一般APP</p>
+</blockquote>
+<h2 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h2><p>传统的ARM架构CPU比如i.MX6ULL的启动流程大致如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BootROM =&gt; uboot =&gt; kernel =&gt; rootfs</span><br></pre></td></tr></table></figure>
+
+
+
+<p>ARM TrustZone体系架构讲系统的启动流程定义为以下阶段（AArch64）：BL1、BL2、BL31、BL32、BL33如果把这些阶段的定义映射到RK平台上，对应关系如下：BootROM（BL1）、MiniLoader（BL2）、Trust（BL31[ARM Trust Firmware] + BL32[OP-TEE OS]）、U-Boot（BL33）</p>
+<p>他们的功能如下：</p>
+<ul>
+<li><p>BL1</p>
+<ul>
+<li>它是 TF-A 的第一个启动阶段，芯片复位以后就会运行 b1 镜像，TF-A 提供了 b1 源码。但是，实际上 bl1 一般是半导体厂商自己编写的内部 Boot ROM 代码，并没有使用 TF-A 提供的 b1 镜像。因此 bl1 部分的实现就千差万别，不同的半导体厂商有不同的实现方法</li>
+<li>一般 bl1 要做的就是初始化 CPU，如果芯片支持不同的启动设备，那么还需要初始化不同的启动设备，比如NAND.EMMC、SD、USB 或串口等，然后根据 BOOT 引脚的高低电平来判断当前所选择的启动设备，从对应的启动设备中加载 bl2 镜像，并放到对应的内存中，最后跳转到 bl2 镜像并运行</li>
+</ul>
+</li>
+<li><p>BL2</p>
+<ul>
+<li>进一步的初始化芯片，比如初始化 DDR、MMU、串口等。bl2 会将剩下三个阶段(bl31、bl32 和 bl33)对应的镜像加载到指定的内存中，最后根据实际情况来启动剩下三个阶段的镜像</li>
+</ul>
+</li>
+<li><p>BL31</p>
+<ul>
+<li>在 AArch64 中，bl31 主要是 EL3 的 Runtime 固件</li>
+</ul>
+</li>
+<li><p>BL32</p>
+<ul>
+<li>bl32 一般为安全系统(TEE OS)固件，比如 OP-TEE。TF-A为 AArch32 提供了 EL3 的 Runtime 软件，这个Runtime 软件就是 bl32 固件，sp_min 就是这个 Runtime 软件。大家可以打开 TF-A 的 bl32 源码文件夹，其下就有一个名为“sp_min”的子文件夹，这个就是 bl32 的 sp_min 源码，如图所示:</li>
+</ul>
+<img src="F:\个人笔记\assets\image-20250701112538106.png" alt="image-20250701112538106" style="zoom:50%;" />
+
+<ul>
+<li>bl32 提供运行时安全服务，在 TF-A 中默认使用 sp_min。sp_min 是一个最小的 AArch32 安全负载(SecurePayload)，整合了 PSCI 库以及 AArch32 的 EL3 运行时软件。sp_min 可以替代可信系统(TEE OS)或者可信执行环境(TEE)，比如 OP-TEE。用户可以自行选择 bl32 使用哪个软件包</li>
+<li>bl32 充当安全监控(secure monitor)，因此它向非安全系统(non-secure os，比如 linux)提供了一些安全服务。非安全的应用软件可以通过安全监控调用(secure monitor calls)来使用这些安全服务，这些代码支持标准的服务调用比如 PSCI</li>
+</ul>
+</li>
+<li><p>BL33</p>
+<ul>
+<li>Normal世界下的镜像文件，比如u-boot</li>
+</ul>
+</li>
+</ul>
+<p>对于AArch32来说，以上过程会被简化，只有以下几步：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BL1:第1个阶段，一般为芯片内部 ROM 代码</span><br><span class="line">BL2:第2 个阶段，可信启动固件</span><br><span class="line">BL32:EL3 运行时(Runtime)软件</span><br><span class="line">BL33:非安全固件，比如 uboot</span><br></pre></td></tr></table></figure>
+
+
+
+<p>ARM Trust Firmware其实本身包含了BL1、BL2、BL31的功能，但是RK仅使用了它BL31的功能</p>
+<p>RK 安卓系统的启动流程如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BOOTROM =&gt; Loader(ddr.bin + mini-loader) =&gt; Trust =&gt; kernel =&gt; Android</span><br></pre></td></tr></table></figure>
+
+<img src="F:\个人笔记\assets\image-20250701111617405.png" alt="image-20250701111617405" style="zoom: 67%;" />
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/07-TrustZone.html">https://li-ruiqi777.github.io/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/07-TrustZone.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width no-desc" href="/04-Linux/05-%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/003-%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B.html" title="003 启动流程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">003 启动流程</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">143</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TrustZone"><span class="toc-number">1.</span> <span class="toc-text">TrustZone</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">系统架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARMv8%E7%89%B9%E6%9D%83%E7%AD%89%E7%BA%A7"><span class="toc-number">1.3.</span> <span class="toc-text">ARMv8特权等级</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">1.4.</span> <span class="toc-text">启动流程</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
