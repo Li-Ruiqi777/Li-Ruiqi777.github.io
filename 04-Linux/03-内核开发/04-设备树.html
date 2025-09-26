@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
 <meta property="article:published_time" content="2025-06-04T08:29:12.542Z">
-<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:modified_time" content="2025-09-26T01:34:49.676Z">
 <meta property="article:author" content="Li Ruiqi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/04-%E8%AE%BE%E5%A4%87%E6%A0%91.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
@@ -145,7 +145,7 @@
   isHighlightShrink: false,
   isToc: true,
   isShuoshuo: false
-}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">143</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">04 设备树</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">04 设备树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.542Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/">03-内核开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="设备树"><a href="#设备树" class="headerlink" title="设备树"></a>设备树</h1><h2 id="设备树的定义"><a href="#设备树的定义" class="headerlink" title="设备树的定义"></a>设备树的定义</h2><p>设备树是用来以<strong>树形结构</strong>描述开发板<strong>板级逻辑</strong>（比如CPU数量、内存基地址、IIC上挂了什么设备…）的文件</p>
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">04 设备树</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">04 设备树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.542Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-26T01:34:49.676Z" title="Updated 2025-09-26 09:34:49">2025-09-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/">03-内核开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="设备树"><a href="#设备树" class="headerlink" title="设备树"></a>设备树</h1><h2 id="设备树的定义"><a href="#设备树的定义" class="headerlink" title="设备树的定义"></a>设备树的定义</h2><p>设备树是用来以<strong>树形结构</strong>描述开发板<strong>板级逻辑</strong>（比如CPU数量、内存基地址、IIC上挂了什么设备…）的文件</p>
 <img src="../../assets/image-20240131200735359.png" alt="image-20240131200735359" style="zoom:67%;" />
 
 
@@ -179,8 +179,54 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compatible = &quot;fsl,imx6ull-gpmi-nand&quot;, &quot;fsl, imx6ul-gpmi-nand&quot;;</span><br></pre></td></tr></table></figure>
 
 <h4 id="标准属性"><a href="#标准属性" class="headerlink" title="标准属性"></a>标准属性</h4><p>每一个节点都是由若干属性组成，不同的设备节点可能有不同的属性，但是有一些属性许多设备节点都会用到，这些属性被称为<strong>标准属性</strong></p>
-<p>下面列举一些标准属性：</p>
-<p>1.<code>compatible</code>属性：用于在Linux内核中匹配此设备所使用的驱动程序，它的值是字符串，格式如下：</p>
+<h5 id="设备节点标识属性"><a href="#设备节点标识属性" class="headerlink" title="设备节点标识属性"></a>设备节点标识属性</h5><p>这些属性用于唯一标识一个节点，并告诉内核它是什么设备</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">作用</th>
+<th align="left">值类型</th>
+<th align="left">示例</th>
+<th align="left">必须？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>compatible</code></td>
+<td align="left">最重要的属性。用于将设备节点与内核中的驱动程序绑定。内核驱动程序会声明自己支持的<code>compatible</code>字符串，两者匹配时驱动才会初始化此设备</td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left"><code>&quot;microchip,24c02&quot;</code></td>
+<td align="left">是</td>
+</tr>
+<tr>
+<td align="left"><code>reg</code></td>
+<td align="left">定义设备在其父总线地址空间内的地址。对于I²C设备，通常是设备地址。对于内存映射设备，是地址和长度</td>
+<td align="left"><code>&lt;prop-encoded-array&gt;</code></td>
+<td align="left"><code>reg = &lt;0x50&gt;;</code> (I²C地址) <code>reg = &lt;0x02000000 0x1000&gt;;</code> (地址0x02000000, 长度0x1000)</td>
+<td align="left">是</td>
+</tr>
+<tr>
+<td align="left"><code>status</code></td>
+<td align="left">设备的状态，决定是否启用该设备</td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left"><code>&quot;okay&quot;</code> (启用) <code>&quot;disabled&quot;</code> (禁用) <code>&quot;fail&quot;</code> (失败，表示设备存在但无法工作)</td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left"><code>model</code></td>
+<td align="left">设备的型号&#x2F;模型名称，通常是人类可读的描述</td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left"><code>model = &quot;Raspberry Pi 4 Model B&quot;;</code></td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left"><code>name</code></td>
+<td align="left">设备节点的名称（已过时，通常由节点名<code>label</code>代替）</td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left">(不推荐使用)</td>
+<td align="left">否</td>
+</tr>
+</tbody></table>
+<p><code>compatible</code>属性：用于在Linux内核中匹配此设备所使用的驱动程序，它的值是字符串，格式如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compatible = &quot;manufacturer,model&quot;</span><br></pre></td></tr></table></figure>
 
 <p>其中 <code>manufacturer</code> 表示<strong>厂商</strong>,&#96;&#96;model&#96; 一般是<strong>模块</strong>对应的驱动名字  ，比如</p>
@@ -195,16 +241,146 @@
 <li>根节点的<code>compatible</code>属性用于设备树文件的兼容性，用于与<strong>引导加载程序</strong>(U-Boot)匹配确定加载哪个设备树文件。</li>
 <li>子节点的<code>compatible</code>属性用于设备的兼容性，用于与<strong>驱动程序</strong>匹配确定加载哪个驱动程序。</li>
 </ul>
-<p>2.<code>model</code>属性：描述设备的名称，属性值为字符串</p>
-<p>3.<code>status</code>属性：描述设备的状态，属性值为字符串</p>
-<p>4.<code>reg</code>属性：描述某外设寄存器的信息，属性值为(address，length)对，用于描述某外设寄存器的起始地址 + 大小</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg = &lt;address1 length1 address2 length2 address3 length3……&gt;</span><br></pre></td></tr></table></figure>
-
-<p>每个“address，length”组合表示一个地址范围，其中 address 是起始地址， length 是地址长度  </p>
-<p>5.<code>#address-cells</code>属性：描述<strong>子节点</strong>的<code>reg</code>属性中每个地址信息所占的字长（32位）</p>
-<p>6.<code>#size-cells</code>属性：描述<strong>子节点</strong>的<code>reg</code>属性中每个长度信息所占的字长（32位）</p>
-<p>7.<code>ranges</code>属性：是一个地址映射&#x2F;转换表，由于MMU的存在，寄存器的物理地址和内存地址可能不同，因此需要转换。如果 ranges 属性值为空值，说明子地址空间和父地址空间完全相同，不需要进行地址转换  </p>
-<p>8.<code>name</code>属性：描述节点的名字，属性值为字符串</p>
+<h5 id="中断、时钟、引脚控制属性"><a href="#中断、时钟、引脚控制属性" class="headerlink" title="中断、时钟、引脚控制属性"></a>中断、时钟、引脚控制属性</h5><p>这些属性描述设备如何与SoC的其他部分连接，是驱动正确操作设备的关键。</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">作用</th>
+<th align="left">值类型</th>
+<th align="left">示例</th>
+<th align="left">必须？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>interrupts</code></td>
+<td align="left">指定设备使用的一个或多个中断号</td>
+<td align="left"><code>&lt;prop-encoded-array&gt;</code></td>
+<td align="left"><code>interrupts = &lt;0 10 4&gt;;</code> (中断号10, 高电平触发)</td>
+<td align="left">如果设备使用中断</td>
+</tr>
+<tr>
+<td align="left"><code>interrupt-parent</code></td>
+<td align="left">指定设备的中断由哪个中断控制器处理。如果省略，则继承父节点的中断控制器</td>
+<td align="left"><code>&lt;phandle&gt;</code></td>
+<td align="left"><code>interrupt-parent = &lt;&amp;intc&gt;;</code></td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left"><code>clocks</code></td>
+<td align="left">指定设备使用的一个或多个时钟源</td>
+<td align="left"><code>&lt;phandle&gt;</code></td>
+<td align="left"><code>clocks = &lt;&amp;clk 1&gt;;</code></td>
+<td align="left">如果设备需要时钟</td>
+</tr>
+<tr>
+<td align="left"><code>clock-names</code></td>
+<td align="left">为每个时钟源分配一个名字，方便驱动通过名字获取特定时钟</td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left"><code>clock-names = &quot;axi&quot;, &quot;spi&quot;;</code></td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left"><code>pinctrl-0</code></td>
+<td align="left">指定设备要使用的引脚复用（Pinmux）和配置（如上拉、下拉、驱动强度）</td>
+<td align="left"><code>&lt;phandle&gt;</code></td>
+<td align="left"><code>pinctrl-0 = &lt;&amp;i2c1_pins&gt;;</code></td>
+<td align="left">如果设备需要配置引脚</td>
+</tr>
+<tr>
+<td align="left"><code>pinctrl-names</code></td>
+<td align="left">为引脚控制状态命名，通常默认状态名为<code>&quot;default&quot;</code></td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left"><code>pinctrl-names = &quot;default&quot;;</code></td>
+<td align="left">否</td>
+</tr>
+</tbody></table>
+<h5 id="GPIO、DMA、电源管理属性"><a href="#GPIO、DMA、电源管理属性" class="headerlink" title="GPIO、DMA、电源管理属性"></a>GPIO、DMA、电源管理属性</h5><table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">作用</th>
+<th align="left">值类型</th>
+<th align="left">示例</th>
+<th align="left">必须？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>gpios</code></td>
+<td align="left">指定设备使用的GPIO引脚。驱动可以通过此属性请求和控制GPIO</td>
+<td align="left"><code>&lt;phandle&gt;</code></td>
+<td align="left"><code>gpios = &lt;&amp;gpio 10 0&gt;;</code> (使用GPIO10, 低电平有效)</td>
+<td align="left">如果设备使用GPIO</td>
+</tr>
+<tr>
+<td align="left"><code>dmas</code></td>
+<td align="left">指定设备使用的DMA通道</td>
+<td align="left"><code>&lt;phandle&gt;</code></td>
+<td align="left"><code>dmas = &lt;&amp;dma 5&gt;;</code></td>
+<td align="left">如果设备使用DMA</td>
+</tr>
+<tr>
+<td align="left"><code>dma-names</code></td>
+<td align="left">为DMA通道命名，如<code>&quot;tx&quot;</code>, <code>&quot;rx&quot;</code></td>
+<td align="left"><code>&lt;string&gt;</code></td>
+<td align="left"><code>dma-names = &quot;tx&quot;;</code></td>
+<td align="left">否</td>
+</tr>
+<tr>
+<td align="left"><code>vmmc-supply</code> <code>vin-supply</code> 等</td>
+<td align="left">指定设备的电源调节器（Regulator）。驱动通过此属性获取并控制设备的电源</td>
+<td align="left"><code>&lt;phandle&gt;</code></td>
+<td align="left"><code>vmmc-supply = &lt;&amp;vcc_3v3&gt;;</code></td>
+<td align="left">如果设备有独立电源</td>
+</tr>
+</tbody></table>
+<h5 id="总线相关属性"><a href="#总线相关属性" class="headerlink" title="总线相关属性"></a>总线相关属性</h5><table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">作用</th>
+<th align="left">值类型</th>
+<th align="left">示例</th>
+<th align="left">必须？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>#address-cells</code></td>
+<td align="left">在当前节点子节点的<code>reg</code>属性中，地址部分占用几个32位字（cell）</td>
+<td align="left"><code>&lt;u32&gt;</code></td>
+<td align="left"><code>#address-cells = &lt;1&gt;;</code></td>
+<td align="left">是 (在总线节点)</td>
+</tr>
+<tr>
+<td align="left"><code>#size-cells</code></td>
+<td align="left">在当前节点子节点的<code>reg</code>属性中，长度部分占用几个32位字（cell）。<code>0</code>表示没有长度字段</td>
+<td align="left"><code>&lt;u32&gt;</code></td>
+<td align="left"><code>#size-cells = &lt;0&gt;;</code> (I²C设备无长度)</td>
+<td align="left">是 (在总线节点)</td>
+</tr>
+</tbody></table>
+<h5 id="别名和引用"><a href="#别名和引用" class="headerlink" title="别名和引用"></a>别名和引用</h5><table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">作用</th>
+<th align="left">值类型</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>phandle</code></td>
+<td align="left">节点的唯一标识符，允许其他节点通过<code>&amp;label</code>引用它。通常由编译器自动生成，无需手动添加。</td>
+<td align="left"><code>&lt;u32&gt;</code></td>
+<td align="left">(自动生成)</td>
+</tr>
+<tr>
+<td align="left"><code>label</code> (节点名前的)</td>
+<td align="left">节点的标签，用于在其他地方通过<code>&amp;label</code>来引用该节点</td>
+<td align="left">(节点标识符)</td>
+<td align="left"><code>i2c1: i2c@...</code> (<code>&amp;i2c1</code>即可引用)</td>
+</tr>
+</tbody></table>
 <blockquote>
 <p>在知道了设备树有这么多属性之后，难免会有一个疑问：我怎么知道绑定某设备时创建的节点需要哪些属性？比如我要新加个MPU6050，我该在i2c节点下新增什么信息呢？</p>
 <p>SoC厂商会给一个文档，告诉我们在新增一个设备节点时，应该写哪些属性。此文档在内核的<code>Documentation/devicetree/bindings</code>下，里面有不同的SoC对于某个外设应该如何写设备树文件</p>
@@ -215,7 +391,7 @@
 
 <p>即使用节点命名提到的<code>&amp;label</code>来访问就可以了，并且如果有些属性之前被定义了，此处可以进行修改</p>
 <h2 id="设备树的解析流程"><a href="#设备树的解析流程" class="headerlink" title="设备树的解析流程"></a>设备树的解析流程</h2><p>从源代码文件 dts 文件开始，设备树的处理过程为： </p>
-<p><img src="https://img2020.cnblogs.com/i-beta/1359524/202003/1359524-20200316093719709-717446395.png" alt="img"></p>
+<p><img src="....%5Cassets%5Cimage-20250626102610215.png" alt="image-20250626102610215"></p>
 <p>① dts 在 PC 机上被编译为 dtb 文件<br>② u-boot 把 dtb 文件传给内核<br>③ 内核在启动早期（<code>setup_arch()</code>阶段）解析DTB，将其转换为内核内部的<code>device_node</code>结构体<strong>树</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">device_node</span> &#123;</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *name;           <span class="comment">// 节点名（如 &quot;i2c&quot;）</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *full_name;      <span class="comment">// 全路径名（如 &quot;/soc/i2c@400000&quot;）</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">property</span> *<span class="title">properties</span>;</span> <span class="comment">// 属性链表（如 &quot;compatible&quot;, &quot;reg&quot;）</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">device_node</span> *<span class="title">parent</span>;</span>  <span class="comment">// 父节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">device_node</span> *<span class="title">child</span>;</span>   <span class="comment">// 子节点</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -239,7 +415,7 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.通过名字查找</span></span><br><span class="line"><span class="keyword">struct</span> device_node *<span class="title function_">of_find_node_by_name</span><span class="params">(<span class="keyword">struct</span> device_node *from,<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br><span class="line"><span class="comment">//2.通过device_type属性查找</span></span><br><span class="line"><span class="keyword">struct</span> device_node *<span class="title function_">of_find_node_by_type</span><span class="params">(<span class="keyword">struct</span> device_node *from, <span class="type">const</span> <span class="type">char</span> *type)</span></span><br><span class="line"><span class="comment">//3.根据 device_type 和 compatible 这两个属性查找</span></span><br><span class="line"><span class="keyword">struct</span> device_node *<span class="title function_">of_find_compatible_node</span><span class="params">(<span class="keyword">struct</span> device_node *from,</span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> *type,</span></span><br><span class="line"><span class="params">    <span class="type">const</span> <span class="type">char</span> *compatible)</span></span><br><span class="line"><span class="comment">//4.通过 of_device_id 匹配表来查找指定的节点</span></span><br><span class="line"><span class="keyword">struct</span> device_node *<span class="title function_">of_find_matching_node_and_match</span><span class="params">(<span class="keyword">struct</span> device_node *from,<span class="type">const</span> <span class="keyword">struct</span> of_device_id *matches,<span class="type">const</span> <span class="keyword">struct</span> of_device_id **match)</span></span><br><span class="line"><span class="comment">//5.通过路径查找</span></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">struct</span> device_node *<span class="title function_">of_find_node_by_path</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *path)</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="查找父-子节点"><a href="#查找父-子节点" class="headerlink" title="查找父&#x2F;子节点"></a>查找父&#x2F;子节点</h3><h3 id="提取属性值"><a href="#提取属性值" class="headerlink" title="提取属性值"></a>提取属性值</h3><p>我们其实可以在设备树创建自定义的属性和值，<strong>属性名可以自定义</strong>，而值只能是设备树所支持的那几个类型，比如：u32&#x2F;u64，bool，字符串，数组…</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取 32 位整数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u32</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u32 *out_value)</span>;</span><br><span class="line"><span class="comment">// 读取 64 位整数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u64</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u64 *out_value)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接读取字符串</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_string</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, <span class="type">const</span> <span class="type">char</span> ​**​out_string)</span>;</span><br><span class="line"><span class="comment">// 读取字符串数组中的某一个（index 指定）</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_string_index</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, <span class="type">int</span> index, <span class="type">const</span> <span class="type">char</span> ​**​output)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取布尔值</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">of_property_read_bool</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取 u32 数组</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u32_array</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u32 *out_values, <span class="type">size_t</span> sz)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取 u64 数组</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u64_array</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u64 *out_values, <span class="type">size_t</span> sz)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取 32 位整数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u32</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u32 *out_value)</span>;</span><br><span class="line"><span class="comment">// 读取 64 位整数</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u64</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u64 *out_value)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 直接读取字符串</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_string</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, <span class="type">const</span> <span class="type">char</span> *out_string)</span>;</span><br><span class="line"><span class="comment">// 读取字符串数组中的某一个（index 指定）</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_string_index</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, <span class="type">int</span> index, <span class="type">const</span> <span class="type">char</span> *output)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取布尔值</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">of_property_read_bool</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取 u32 数组</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u32_array</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u32 *out_values, <span class="type">size_t</span> sz)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取 u64 数组</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">of_property_read_u64_array</span><span class="params">(<span class="type">const</span> <span class="keyword">struct</span> device_node *np, <span class="type">const</span> <span class="type">char</span> *propname, u64 *out_values, <span class="type">size_t</span> sz)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="其他常用的OF函数"><a href="#其他常用的OF函数" class="headerlink" title="其他常用的OF函数"></a>其他常用的OF函数</h3><h2 id="相关文件格式"><a href="#相关文件格式" class="headerlink" title="相关文件格式"></a>相关文件格式</h2><p>设备树文件可能有一下后缀格式：</p>
 <ul>
@@ -279,7 +455,37 @@
 <li><p>属性值是字符串时，用 cat 命令可以打印出来；属性值是数值时，用 hexdump 命令可以打印出来</p>
 </li>
 </ul>
-<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhuangquan/p/12502174.html">《内核对设备树的处理》 - 一个不知道干嘛的小萌新 - 博客园</a></li>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>1.Linux驱动开发编译内核时，如何确定是编译哪个dts？还是所有dts都会被编译？</p>
+<p><strong>并非所有DTS都会被编译</strong>，具体取决于配置：</p>
+<ul>
+<li>架构相关机制：<ul>
+<li>ARM架构：<code>arch/arm/boot/dts/Makefile</code></li>
+<li>ARM64架构：<code>arch/arm64/boot/dts/Makefile</code></li>
+<li>其他架构路径类似</li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/04-%E8%AE%BE%E5%A4%87%E6%A0%91.html">https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/04-%E8%AE%BE%E5%A4%87%E6%A0%91.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/03-Linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.html" title="03 Linux驱动开发的软件架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">03 Linux驱动开发的软件架构</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/00-%E5%BC%80%E5%8F%91%E6%9D%BF%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F%E9%80%89%E6%8B%A9.html" title="00 开发板启动方式选择"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">00 开发板启动方式选择</div></div><div class="info-2"><div class="info-item-1">开发板启动流程Linux(Cortex A系列)芯片和STM32不一样，除了能从内部Flash启动，还可以从其他多种外部介质中启动，比如SD卡，EMMC，NAND Flash等。 芯片的启动可以分为启动方式选择、启动设备选择2个问题 1.启动方式以I.MAX6ULL为例，它的启动方式有4种，具体选择哪种由芯片上特定的引脚BOOT_MODE0和1决定，这点和STM32类似，STM32芯片上也有BOOT0和BOOT1这样的引脚。   通常只使用方式2和3，绝对不能使用方式1。  1.1串行下载就是通过USB或者串口将代码下载到板子上的SD卡之类的存储设备上，这个下载需要用NXP提供的软件。一般用于设备最终量产时。 1.2内部BOOT模式该模式会执行内部的boot ROM中的代码，将一部分外设初始化(比如SD卡这样的boot设备)，再从对应的boot设备中将代码拷贝到指定的RAM（一般是DDR）中运行。 1.2.1Boot...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">143</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91"><span class="toc-number">1.</span> <span class="toc-text">设备树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">设备树的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">设备树语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6%E7%9A%84%E5%BC%95%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">对其他文件的引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E8%8A%82%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">设备节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">节点的命名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">节点的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">标准属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E8%8A%82%E7%82%B9%E8%BF%BD%E5%8A%A0%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">向节点追加内容</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">设备树的解析流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OF%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">OF函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E8%8A%82%E7%82%B9"><span class="toc-number">1.4.1.</span> <span class="toc-text">查找节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E7%88%B6-%E5%AD%90%E8%8A%82%E7%82%B9"><span class="toc-number">1.4.2.</span> <span class="toc-text">查找父&#x2F;子节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E5%B1%9E%E6%80%A7%E5%80%BC"><span class="toc-number">1.4.3.</span> <span class="toc-text">提取属性值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%9A%84OF%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.4.</span> <span class="toc-text">其他常用的OF函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.5.</span> <span class="toc-text">相关文件格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E7%BC%96%E8%AF%91"><span class="toc-number">1.6.</span> <span class="toc-text">设备树的编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">设备树的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">1.8.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5%EF%BC%9A"><span class="toc-number">1.9.</span> <span class="toc-text">参考链接：</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+</li>
+<li>选择逻辑：<ul>
+<li>默认情况下，只编译与<code>CONFIG_&lt;SOC&gt;</code>匹配的DTS（例如<code>CONFIG_ARCH_XYZ</code>）</li>
+<li>特定板级DTS通过Makefile中的<code>dtb-$(CONFIG_ARCH_XYZ) +=</code>语句指定</li>
+</ul>
+</li>
+</ul>
+<p>查看当前会编译哪些dts的方法：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&quot;CONFIG_ARCH_&quot;</span> .config</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.设备树里有那么多设备，他们的加载顺序是什么？</p>
+<ul>
+<li>设备树的解析其实就是DFS遍历整个树，但是设备初始化的顺序和驱动的加载有关</li>
+<li>驱动是通过<code>init_call</code>机制自动加载的，Linux内核通过<code>initcall</code>级别控制驱动初始化顺序</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">core_initcall(fn)       <span class="comment">// 最早（如时钟、中断控制器）</span></span><br><span class="line">postcore_initcall(fn)   <span class="comment">// 核心基础设施</span></span><br><span class="line">arch_initcall(fn)       <span class="comment">// 架构相关</span></span><br><span class="line">subsys_initcall(fn)     <span class="comment">// 子系统（如PCI、DMA）</span></span><br><span class="line">fs_initcall(fn)         <span class="comment">// 文件系统</span></span><br><span class="line">device_initcall(fn)     <span class="comment">// 大部分设备驱动（默认级别）</span></span><br><span class="line">late_initcall(fn)       <span class="comment">// 最晚</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhuangquan/p/12502174.html">《内核对设备树的处理》 - 一个不知道干嘛的小萌新 - 博客园</a></li>
+<li><a target="_blank" rel="noopener" href="https://doc.embedfire.com/linux/rk356x/driver/zh/latest/linux_driver/base_dynamic_device_tree.html">设备树插件(Device Tree Overlays) — 野火]嵌入式Linux驱动开发实战指南——基于LubanCat-RK系列板卡 文档</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/04-%E8%AE%BE%E5%A4%87%E6%A0%91.html">https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/04-%E8%AE%BE%E5%A4%87%E6%A0%91.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/03-Linux%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E7%9A%84%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84.html" title="03 Linux驱动开发的软件架构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">03 Linux驱动开发的软件架构</div></div><div class="info-2"><div class="info-item-1">...</div></div></div></a><a class="pagination-related" href="/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/00-%E5%BC%80%E5%8F%91%E6%9D%BF%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F%E9%80%89%E6%8B%A9.html" title="00 开发板启动方式选择"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">00 开发板启动方式选择</div></div><div class="info-2"><div class="info-item-1">开发板启动流程Linux(Cortex A系列)芯片和STM32不一样，除了能从内部Flash启动，还可以从其他多种外部介质中启动，比如SD卡，EMMC，NAND Flash等。 芯片的启动可以分为启动方式选择、启动设备选择2个问题 启动方式以I.MAX6ULL为例，它的启动方式有4种，具体选择哪种由芯片上特定的引脚BOOT_MODE0和1决定，这点和STM32类似，STM32芯片上也有BOOT0和BOOT1这样的引脚。   通常只使用方式2和3，绝对不能使用方式1   不管是哪种方式，都依赖SoC内部的BOOT ROM  串行下载首先运行BOOT ROM中的代码，初始化基本外设，通过USB OTG或者串口的形式将代码下载到板子的DDR上，这个下载需要用NXP提供的软件MfgTool，一般用于设备最终量产时 内部BOOT模式首先运行BOOT ROM中的代码，初始化基本外设(比如SD卡这样的boot设备)，再从对应的boot设备中将代码拷贝到指定的RAM（一般是DDR）中运行 Boot...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91"><span class="toc-number">1.</span> <span class="toc-text">设备树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">设备树的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E8%AF%AD%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">设备树语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%85%B6%E4%BB%96%E6%96%87%E4%BB%B6%E7%9A%84%E5%BC%95%E7%94%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">对其他文件的引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E8%8A%82%E7%82%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">设备节点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">节点的命名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">节点的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%87%E5%87%86%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">标准属性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E8%8A%82%E7%82%B9%E6%A0%87%E8%AF%86%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.3.1.</span> <span class="toc-text">设备节点标识属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E3%80%81%E6%97%B6%E9%92%9F%E3%80%81%E5%BC%95%E8%84%9A%E6%8E%A7%E5%88%B6%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.3.2.</span> <span class="toc-text">中断、时钟、引脚控制属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#GPIO%E3%80%81DMA%E3%80%81%E7%94%B5%E6%BA%90%E7%AE%A1%E7%90%86%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.3.3.</span> <span class="toc-text">GPIO、DMA、电源管理属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.3.4.</span> <span class="toc-text">总线相关属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%AB%E5%90%8D%E5%92%8C%E5%BC%95%E7%94%A8"><span class="toc-number">1.2.2.3.5.</span> <span class="toc-text">别名和引用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%91%E8%8A%82%E7%82%B9%E8%BF%BD%E5%8A%A0%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">向节点追加内容</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E8%A7%A3%E6%9E%90%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">设备树的解析流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OF%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.</span> <span class="toc-text">OF函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E8%8A%82%E7%82%B9"><span class="toc-number">1.4.1.</span> <span class="toc-text">查找节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E7%88%B6-%E5%AD%90%E8%8A%82%E7%82%B9"><span class="toc-number">1.4.2.</span> <span class="toc-text">查找父&#x2F;子节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E5%B1%9E%E6%80%A7%E5%80%BC"><span class="toc-number">1.4.3.</span> <span class="toc-text">提取属性值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%9A%84OF%E5%87%BD%E6%95%B0"><span class="toc-number">1.4.4.</span> <span class="toc-text">其他常用的OF函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.5.</span> <span class="toc-text">相关文件格式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E7%BC%96%E8%AF%91"><span class="toc-number">1.6.</span> <span class="toc-text">设备树的编译</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E6%A0%91%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.7.</span> <span class="toc-text">设备树的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-number">1.8.</span> <span class="toc-text">调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%96%91%E9%97%AE"><span class="toc-number">1.9.</span> <span class="toc-text">疑问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">1.10.</span> <span class="toc-text">参考</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

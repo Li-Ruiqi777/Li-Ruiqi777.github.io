@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>wsl | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="WSL遇到的问题1.开启WSL2后，VMWare老卡死   VMware虚拟机经常性卡死，打开运行一段时间后卡死 WSL、Docker、Hyper-V、VMWare共存方案  WSL2和VMWare因为Hyper-V虚拟化的原因，不能很好的共存，如果要开启WSL2的话，就得开启Hyper-V虚拟化，这可能导致VMWare运行的时候卡死。所以如果要用VMWare的话，就暂时把Hyper-V关了吧 H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="wsl">
+<meta property="og:url" content="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wsl.html">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="WSL遇到的问题1.开启WSL2后，VMWare老卡死   VMware虚拟机经常性卡死，打开运行一段时间后卡死 WSL、Docker、Hyper-V、VMWare共存方案  WSL2和VMWare因为Hyper-V虚拟化的原因，不能很好的共存，如果要开启WSL2的话，就得开启Hyper-V虚拟化，这可能导致VMWare运行的时候卡死。所以如果要用VMWare的话，就暂时把Hyper-V关了吧 H">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
+<meta property="article:published_time" content="2025-09-26T01:24:16.503Z">
+<meta property="article:modified_time" content="2025-09-26T01:25:14.725Z">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wsl.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'wsl',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">wsl</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">wsl</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-26T01:24:16.503Z" title="Created 2025-09-26 09:24:16">2025-09-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-26T01:25:14.725Z" title="Updated 2025-09-26 09:25:14">2025-09-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/">02-开发工具</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="WSL"><a href="#WSL" class="headerlink" title="WSL"></a>WSL</h1><h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>1.开启WSL2后，VMWare老卡死</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/28163971030"> VMware虚拟机经常性卡死，打开运行一段时间后卡死</a></li>
+<li><a target="_blank" rel="noopener" href="https://geekdaxue.co/read/xiaoyulive@wsl/flwxn1#8lsubs">WSL、Docker、Hyper-V、VMWare共存方案</a></li>
+</ul>
+<p>WSL2和VMWare因为Hyper-V虚拟化的原因，不能很好的共存，如果要开启WSL2的话，就得开启Hyper-V虚拟化，这可能导致VMWare运行的时候卡死。所以如果要用VMWare的话，就暂时把Hyper-V关了吧</p>
+<p>Hyper-V开&#x2F;关方法：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启：</span></span><br><span class="line">bcdedit /<span class="built_in">set</span> hypervisorlaunchtype auto <span class="comment"># 然后重启</span></span><br><span class="line"><span class="comment"># 关闭：</span></span><br><span class="line">bcdedit /<span class="built_in">set</span> hypervisorlaunchtype off <span class="comment"># 然后重启</span></span><br></pre></td></tr></table></figure>
+
+<p>重启后可以在终端中输入<code>wsl</code>验证，如果不能进ubuntu的终端，就说明关闭成功了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wsl.html">https://li-ruiqi777.github.io/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/wsl.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/03-C++/00-C++%E9%9D%A2%E7%BB%8F.html" title="00 C++面经"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">00 C++面经</div></div><div class="info-2"><div class="info-item-1">C&#x2F;C++八股关键字static1.static的作用是什么  在函数体内 + 修饰局部变量：其访问权限在函数内，仅初始化一次，存储于静态存储区 在函数体外 + 修饰全局变量：将模块的全局变量限制在模块内部（仅供.c使用），不能跨文件共享  修饰函数：该函数仅可被本模块调用，不能作为接口暴露给其他模块  注意：static 与 extern不可同时修饰一个变量 2.static结合函数重入性的理解  可重入函数：函数可以被多个任务&#x2F;线程同时调用而不会产生错误结果   static会引入状态持久性和共享状态，这与可重入函数所需的无状态和独立性要求直接冲突  const1.define和const区别，分别什么时候生效  #define（宏定义） 预处理阶段生效，由预处理器进行简单的文本替换，不占用内存 无类型检查，可能导致意外错误（如 #define PI 3.14 替换后可能产生表达式问题） 作用域：从定义处到文件末尾（或...</div></div></div></a><a class="pagination-related" href="/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/07-TrustZone.html" title="07 TrustZone"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">07 TrustZone</div></div><div class="info-2"><div class="info-item-1">TrustZone概述ARM TrustZone技术是所有Cortex-A系列CPU的基本功能，是通过ARM的安全扩展引入的。TrustZone从硬件层面提供安全机制，将CPU的工作状态分为Normal World（非安全世界）和Secure World（安全世界），涉及到安全相关的操作比如指纹、密码等都要在安全世界中进行，其他操作在非安全世界中运行 系统架构ARM提供了一套TrustZone技术的开源解决方案TF-A，他是一套底层固件，由于不同芯片原厂的SoC各不相同，芯片原厂一般会基于这个开源的TF-A针对自己的芯片再做一些修改，我们直接用芯片原厂修改好的就行了   前面提到了启用了ARM TrustZone后，CPU被分为2个世界，而这2个世界交互的桥梁就是ARM Trusted...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#WSL"><span class="toc-number">1.</span> <span class="toc-text">WSL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.1.</span> <span class="toc-text">遇到的问题</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

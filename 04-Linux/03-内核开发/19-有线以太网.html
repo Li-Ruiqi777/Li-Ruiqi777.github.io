@@ -1,0 +1,265 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>19 有线以太网 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="有线以太网(Ethernet) Etheret这个词一般指的就是有线以太网，若涉及无线网络，通常会使用Wi-Fi或其他明确术语  嵌入式网络概述之前总是听到“网卡”这个词，实际上他是个非常笼统的概念包含了多个硬件。实际上需要以下的具体硬件来实现Ethernet：    MAC控制器：它负责OSI体系中数据链路层的工作（以太网帧的封装、差错与流量控制、MAC地址寻址…）  MAC可能位于SoC的内部">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19 有线以太网">
+<meta property="og:url" content="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/19-%E6%9C%89%E7%BA%BF%E4%BB%A5%E5%A4%AA%E7%BD%91.html">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="有线以太网(Ethernet) Etheret这个词一般指的就是有线以太网，若涉及无线网络，通常会使用Wi-Fi或其他明确术语  嵌入式网络概述之前总是听到“网卡”这个词，实际上他是个非常笼统的概念包含了多个硬件。实际上需要以下的具体硬件来实现Ethernet：    MAC控制器：它负责OSI体系中数据链路层的工作（以太网帧的封装、差错与流量控制、MAC地址寻址…）  MAC可能位于SoC的内部">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
+<meta property="article:published_time" content="2025-09-26T01:24:17.361Z">
+<meta property="article:modified_time" content="2025-09-26T01:34:49.619Z">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/19-%E6%9C%89%E7%BA%BF%E4%BB%A5%E5%A4%AA%E7%BD%91.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '19 有线以太网',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">19 有线以太网</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">19 有线以太网</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-26T01:24:17.361Z" title="Created 2025-09-26 09:24:17">2025-09-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-26T01:34:49.619Z" title="Updated 2025-09-26 09:34:49">2025-09-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/">03-内核开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="有线以太网-Ethernet"><a href="#有线以太网-Ethernet" class="headerlink" title="有线以太网(Ethernet)"></a>有线以太网(Ethernet)</h1><blockquote>
+<p>Etheret这个词一般指的就是<strong>有线</strong>以太网，若涉及无线网络，通常会使用Wi-Fi或其他明确术语</p>
+</blockquote>
+<h2 id="嵌入式网络概述"><a href="#嵌入式网络概述" class="headerlink" title="嵌入式网络概述"></a>嵌入式网络概述</h2><p>之前总是听到“网卡”这个词，实际上他是个非常笼统的概念包含了多个硬件。实际上需要以下的具体硬件来实现Ethernet：</p>
+<img src="..\..\assets\image-20250709221722307.png" alt="image-20250709221722307" style="zoom:67%;" />
+
+<ul>
+<li><p>MAC控制器：它负责OSI体系中<strong>数据链路层</strong>的工作（以太网帧的封装、差错与流量控制、MAC地址寻址…）</p>
+<ul>
+<li>MAC可能位于SoC的内部，也可能外接。如果说一个SoC具备网络功能，一般指的SoC内部有MAC外设</li>
+</ul>
+</li>
+<li><p>PHY(物理层收发器)芯片：它负责OSI体系中<strong>物理层</strong>的工作：</p>
+<ul>
+<li>PHY一般位于SoC外部</li>
+<li>信号转换：MAC层的数字信号 &lt;—-&gt; RJ45的模拟信号</li>
+<li>时钟同步：从信号中提取时钟，确保数据采样准确（如通过PLL锁相环）</li>
+<li>自适应协商：自动协商速率（10&#x2F;100&#x2F;1000Mbps）和双工模式（全&#x2F;半双工）</li>
+<li>电气隔离和抗干扰：与耦合到RJ45网络接口上的变压器芯片直接相连</li>
+</ul>
+</li>
+<li><p>网络接口&amp;网络变压器模块</p>
+<ul>
+<li>网络接口一般指的就是RJ45接口。黄灯亮表示正在进行网络连接；绿灯亮表示网络连接正常，这2个灯由PHY芯片上的引脚控制</li>
+</ul>
+<img src="..\..\assets\image-20250709221443446.png" alt="image-20250709221443446" style="zoom:50%;" />
+
+<ul>
+<li>网络变压器模块一般是一个<strong>芯片</strong>，通常和RJ45搭配使用，主要是为了滤波、防止干扰等</li>
+<li>目前也有集成了变压器的RJ45，比如正点原子使用的HR911105A</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>MAC控制器和PHY芯片是一一对应的，有几个MAC控制器，就要几个PHY和RJ45接口</p>
+</blockquote>
+<h2 id="嵌入式网络方案"><a href="#嵌入式网络方案" class="headerlink" title="嵌入式网络方案"></a>嵌入式网络方案</h2><p>刚才提到MAC可能在SoC内部，也有可能在外边，这就引申出2个方案：</p>
+<h3 id="内部没有MAC外设"><a href="#内部没有MAC外设" class="headerlink" title="内部没有MAC外设"></a>内部没有MAC外设</h3><p>外置网络芯片一般都是MAC控制器+PHY一体的，SoC可以通过某些接口与该芯片通信从而获得网络功能，但是这种方案一般速度比较慢（10&#x2F;100M），因为内置MAC外设一般有专用DMA</p>
+<img src="..\..\assets\image-20250709220716123.png" alt="image-20250709220716123" style="zoom:50%;" />
+
+<h3 id="内部有MAC外设"><a href="#内部有MAC外设" class="headerlink" title="内部有MAC外设"></a>内部有MAC外设</h3><p>内部的MAC外设会通过MII或者RMII接口来<strong>传输网络数据</strong>，使用MIDO接口配置或读取PHY芯片的<strong>内部寄存器</strong></p>
+<p>MDIO很类似IIC，也是两根线，一根数据线叫做MDIO，一根时钟线叫做MDC</p>
+<img src="..\..\assets\image-20250709221019610.png" alt="image-20250709221019610" style="zoom:50%;" />
+
+<p>内部有MAC外设时一般支持更快的网速：10&#x2F;100&#x2F;100M，并且外部PHY芯片的价格肯定低于MAC+PHY</p>
+<h2 id="相关接口"><a href="#相关接口" class="headerlink" title="相关接口"></a>相关接口</h2><h3 id="MII"><a href="#MII" class="headerlink" title="MII"></a>MII</h3><p>MII全称是Media Independent Interface，直译过来就是介质独立接口，它是 IEEE-802.3 定义的以太网标准接口，MII 接口用于以太网 MAC 连接 PHY 芯片，一共16根线</p>
+<img src="..\..\assets\image-20250709222140360.png" alt="image-20250709222140360" style="zoom:50%;" />
+
+<h3 id="RMII"><a href="#RMII" class="headerlink" title="RMII"></a>RMII</h3><p>RMII全称是Reduced Media Independent Interface，翻译过来就是精简的介质独立接口，也就是MII接口的精简版本。RMII接口只需要7根数据线，相比MII直接减少了9根，极大的方便了板子布线</p>
+<img src="..\..\assets\image-20250709222518408.png" alt="image-20250709222518408" style="zoom:50%;" />
+
+<h3 id="MDIO"><a href="#MDIO" class="headerlink" title="MDIO"></a>MDIO</h3><p>MDIO全称是Management Data Input&#x2F;Output，直译过来就是管理数据输入输出接口，是一个简单的两线串行接口，一根MDIO数据线，一根MDC时钟线。驱动程序可以通过MDIO和MDC这两根线访问PHY芯片的任意一个寄存器。MDIO接口支持多达<strong>32</strong>个PHY。为了区分不同的PHY芯片，每个PHY都自带一个器件地址（正点原子开发版上的是0x01）。同一MDIO接口下的所有PHY芯片，其器件地址不能冲突，必须保证唯一，具体器件地址值要查阅相应的PHY数据手册</p>
+<h2 id="MAC控制器"><a href="#MAC控制器" class="headerlink" title="MAC控制器"></a>MAC控制器</h2><p>不同芯片的MAC控制器可能名字不太一样，但是功能都是一样的。i.mx6ull的MAC外设叫ENET（或者设备树里也叫fec），它的具体功能如下：</p>
+<ol>
+<li><p>实现了全功能的 802.3 规范前导码&#x2F;SFD 生成、帧填充、CRC 生成和检查</p>
+</li>
+<li><p>支持零长的前导码</p>
+</li>
+<li><p>支持 10&#x2F;100M 动态配置</p>
+</li>
+<li><p>兼容 AMD 远端节点电源管理的魔术帧中断检测</p>
+</li>
+<li><p>可以通过如下接口无缝的连接 PHY 芯片：</p>
+<ul>
+<li><p>4bit 的 MII 接口，频率为 2.5&#x2F;25MHz</p>
+</li>
+<li><p>4bit 的 MII-Lite 接口，也就是 MII 接口取消掉 CRS 和 COL 这两根线，频率也是2.5&#x2F;25MHz</p>
+</li>
+<li><p>2bit 的 RMII 接口，频率为 50MHz</p>
+</li>
+</ul>
+</li>
+<li><p>MAC 地址可编程</p>
+</li>
+<li><p>多播和单播地址过滤，降低更高层的处理负担</p>
+</li>
+<li><p>MDIO 主接口，用于管理和配置 PHY 设备</p>
+</li>
+</ol>
+<h2 id="PHY"><a href="#PHY" class="headerlink" title="PHY"></a>PHY</h2><p>PHY是Physical Layer Transceiver（物理层收发器）的缩写，本质是负责在物理介质上传输和接收原始信号的硬件模块。虽然它在以太网中最常见，但PHY的概念广泛存在于多种通信协议中。无论何种通信协议，PHY的核心任务始终是：</p>
+<ul>
+<li>信号转换：将数字信号（来自MAC或协议控制器）转换为适合物理介质传输的模拟信号，反之亦然。比如：以太网PHY将RMII接口的数字信号转为网线上的差分电压</li>
+<li>时钟同步：从信号中恢复时钟，确保数据采样准确</li>
+<li>介质适配：匹配物理介质的电气特性（如阻抗、电压、光功率）</li>
+<li>抗干扰与隔离：抑制噪声、提供电气隔离（如以太网变压器的1500V隔离）</li>
+</ul>
+<h3 id="不同协议中的PHY"><a href="#不同协议中的PHY" class="headerlink" title="不同协议中的PHY"></a>不同协议中的PHY</h3><ul>
+<li>以太网PHY：<ul>
+<li>作用：连接MAC层的MII&#x2F;RMII接口与RJ45网口，处理曼彻斯特编码、自适应协商等</li>
+<li>典型PHY芯片：LAN8720A（10&#x2F;100M）、RTL8211（千兆）</li>
+</ul>
+</li>
+<li>USB PHY：<ul>
+<li>负责将USB控制器的数字信号转换为差分信号（D+&#x2F;D-）</li>
+<li>示例：STM32的USB OTG模块需外接USB3300 PHY芯片</li>
+</ul>
+</li>
+<li>PCIE PHY：<ul>
+<li>将并行数据转为高速串行信号（如PCIe 3.0的8GT&#x2F;s）</li>
+</ul>
+</li>
+<li>wifi&#x2F;蓝牙 PHY：<ul>
+<li>处理基带信号与射频信号的转换（如OFDM调制、2.4GHz载波）</li>
+<li>示例：ESP32的Wi-Fi&#x2F;BT模块集成射频PHY</li>
+</ul>
+</li>
+<li>RS485 PHY：<ul>
+<li>将UART信号转为差分总线信号</li>
+</ul>
+</li>
+<li>CAN PHY：<ul>
+<li>处理CAN控制器的电平转换</li>
+</ul>
+</li>
+</ul>
+<h3 id="以太网PHY"><a href="#以太网PHY" class="headerlink" title="以太网PHY"></a>以太网PHY</h3><p>以太网PHY是IEEE802.3规定的一个标准模块，SOC可以对PHY进行配置或者读取PHY相关状态，这个就需要PHY内部寄存器去实现了。PHY芯片寄存器地址空间为5位，地址0<del>31共32个寄存器，IEEE定义了0</del>15这16个寄存器的功能，16<del>31这16个寄存器由厂商自行实现。也就是说不管你用的哪个厂家的PHY芯片，其中0</del>15这16个寄存器是<strong>一模一样的</strong>。仅靠这16个寄存器是<strong>完全可以驱动</strong>起PHY芯片的，至少能保证基本的网络数据通信，因此Linux内核有<strong>通用PHY驱动</strong>，按道理来讲，不管你使用的哪个厂家的PHY芯片，都可以使用Linux的这个通用PHY驱动来验证网络工作是否正常。</p>
+<p>事实上在实际开发中可能会遇到一些其他的问题导致Linux内核的通用PHY驱动工作不正常，这个时候就需要驱动开发人员去调试了。但是，随着现在的PHY芯片性能越来越强大，32个寄存器可能满足不了厂商的需求，因此很多厂商采用分页技术来扩展寄存器地址空间，以求定义更多的寄存器。这些多出来的寄存器可以用于实现厂商特有的一些技术，因此Linux内核的通用PHY驱动就无法驱动这些特色功能了，这个时候就需要PHY厂商提供相应的驱动源码了，所以大家也会在Linux内核里面看到很多具体的PHY芯片驱动源码。不管你的PHY芯片有多少特色功能，按道理来讲，Linux内核的通用PHY驱动是绝对可以让你这PHY芯片实现基本的网络通信，因此大家也不用担心更换PHY芯片以后网络驱动编写是不是会很复杂</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/19-%E6%9C%89%E7%BA%BF%E4%BB%A5%E5%A4%AA%E7%BD%91.html">https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/19-%E6%9C%89%E7%BA%BF%E4%BB%A5%E5%A4%AA%E7%BD%91.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/20-sysfs.html" title="20 sysfs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">20 sysfs</div></div><div class="info-2"><div class="info-item-1">sysfs定义sysfs 是 Linux 内核提供的一个 虚拟文件系统（类似 /proc），挂载在 /sys 下 作用：  展示内核对象（kobject）及其属性给用户空间 提供用户态访问和控制硬件及内核状态的接口 支持驱动和设备管理、模块信息查看、电源管理等  特点：  虚拟文件系统，不占用实际磁盘空间 每个 kobject 对象在 sysfs 中对应一个目录 属性（attribute）以文件的形式暴露，读写这些文件会触发内核的回调函数  结构   目录 作用    /sys/class/ 按设备类别（class）组织的设备，如 net、gpio、leds 等   /sys/bus/ 按总线类型组织设备，如 pci、usb、platform 等；还包含驱动&#x2F;设备信息   /sys/devices/ 所有 struct device...</div></div></div></a><a class="pagination-related" href="/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/06-%E9%95%9C%E5%83%8F%E7%83%A7%E5%86%99.html" title="06 镜像烧写"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">06 镜像烧写</div></div><div class="info-2"><div class="info-item-1">镜像的烧写 之前一直用NFS+TFTP搭建开发环境，但实际生产环境不会用这种形式，会直接把镜像下载到存储介质中（SD&#x2F;emmc…）   不同厂商的SoC烧录镜像所使用的工具，镜像的格式都不相同，所以这部分不是通用的，需要根据所用的平台来学习  我们在烧录时，不一定要把所有镜像（uboot、kernel、dtb、rootfs）都打包在一起再下载，可以分别下载各个部分   NXP平台NXP平台主要有2中方式，分别是针对USB烧录和SD卡烧录：  USB烧录 MFGTool工具是NXP官方推荐的一个使用USB OTG来升级镜像的软件工具，它是NXP针对i.MX系列处理器专门使用的烧录工具，可以用来升级linux， 单独烧录某一系统分区，独立地烧录spi flash、 nor flash、sd card、nand flash，emmc等，...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%89%E7%BA%BF%E4%BB%A5%E5%A4%AA%E7%BD%91-Ethernet"><span class="toc-number">1.</span> <span class="toc-text">有线以太网(Ethernet)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%BD%91%E7%BB%9C%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">嵌入式网络概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%BD%91%E7%BB%9C%E6%96%B9%E6%A1%88"><span class="toc-number">1.2.</span> <span class="toc-text">嵌入式网络方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E6%B2%A1%E6%9C%89MAC%E5%A4%96%E8%AE%BE"><span class="toc-number">1.2.1.</span> <span class="toc-text">内部没有MAC外设</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E6%9C%89MAC%E5%A4%96%E8%AE%BE"><span class="toc-number">1.2.2.</span> <span class="toc-text">内部有MAC外设</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.</span> <span class="toc-text">相关接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MII"><span class="toc-number">1.3.1.</span> <span class="toc-text">MII</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RMII"><span class="toc-number">1.3.2.</span> <span class="toc-text">RMII</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MDIO"><span class="toc-number">1.3.3.</span> <span class="toc-text">MDIO</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MAC%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">MAC控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PHY"><span class="toc-number">1.5.</span> <span class="toc-text">PHY</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%8D%8F%E8%AE%AE%E4%B8%AD%E7%9A%84PHY"><span class="toc-number">1.5.1.</span> <span class="toc-text">不同协议中的PHY</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91PHY"><span class="toc-number">1.5.2.</span> <span class="toc-text">以太网PHY</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

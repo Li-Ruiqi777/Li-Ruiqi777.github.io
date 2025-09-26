@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>23 USB | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="USB概述USB是“Universal Serial Bus”的缩写，中文意思是“通用串行总线”。它是一种广泛使用的接口技术，主要用于连接计算机与各种外部设备，如鼠标、键盘、打印机、摄像头、移动硬盘、手机等。主要特点:  通用性强：USB接口被几乎所有类型的计算机（包括台式机、笔记本电脑、平板电脑等）和大量外部设备所支持，是一种通用的连接标准 即插即用：大多数USB设备在连接到计算机后，操作系统可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="23 USB">
+<meta property="og:url" content="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/23-USB.html">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="USB概述USB是“Universal Serial Bus”的缩写，中文意思是“通用串行总线”。它是一种广泛使用的接口技术，主要用于连接计算机与各种外部设备，如鼠标、键盘、打印机、摄像头、移动硬盘、手机等。主要特点:  通用性强：USB接口被几乎所有类型的计算机（包括台式机、笔记本电脑、平板电脑等）和大量外部设备所支持，是一种通用的连接标准 即插即用：大多数USB设备在连接到计算机后，操作系统可">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
+<meta property="article:published_time" content="2025-09-26T01:24:17.425Z">
+<meta property="article:modified_time" content="2025-09-26T01:34:49.051Z">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/23-USB.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '23 USB',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">23 USB</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">23 USB</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-09-26T01:24:17.425Z" title="Created 2025-09-26 09:24:17">2025-09-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-26T01:34:49.051Z" title="Updated 2025-09-26 09:34:49">2025-09-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/">03-内核开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="USB"><a href="#USB" class="headerlink" title="USB"></a>USB</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>USB是“Universal Serial Bus”的缩写，中文意思是“通用串行总线”。它是一种广泛使用的接口技术，主要用于连接计算机与各种外部设备，如鼠标、键盘、打印机、摄像头、移动硬盘、手机等。主要特点:</p>
+<ul>
+<li>通用性强：USB接口被几乎所有类型的计算机（包括台式机、笔记本电脑、平板电脑等）和大量外部设备所支持，是一种通用的连接标准</li>
+<li>即插即用：大多数USB设备在连接到计算机后，操作系统可以自动识别并安装相应的驱动程序，无需用户进行复杂的配置</li>
+<li>支持热插拔：用户可以在不关闭计算机电源的情况下插拔USB设备，方便使用</li>
+<li>传输速度快：USB技术不断更新，从最早的USB 1.0到现在的USB 3.2和USB4，传输速度大幅提升。例如，USB 3.2的理论传输速度最高可达20Gbps</li>
+<li>支持多种设备连接：通过USB集线器，可以连接多个设备，扩展计算机的外设连接能力</li>
+</ul>
+<h2 id="USB技术发展"><a href="#USB技术发展" class="headerlink" title="USB技术发展"></a>USB技术发展</h2><ul>
+<li>USB 1.x<ul>
+<li>USB 1.0</li>
+<li>USB 1.1（即USB 2.0 Full Speed）</li>
+</ul>
+</li>
+<li>USB 2.0（即USB 2.0 High Speed）</li>
+<li>USB 3.x<ul>
+<li>USB 3.0（即USB 3.2 Gen1）</li>
+<li>USB 3.1（即USB 3.2 Gen2）</li>
+<li>USB 3.2（即USB 3.2 Gen2*2）</li>
+</ul>
+</li>
+</ul>
+<img src="..\..\assets\image-20250902163917812.png" alt="image-20250902163917812" style="zoom: 50%;" />
+
+<ul>
+<li>低速：1.5Mbps</li>
+<li>全速：12Mbps</li>
+<li>高速：480Mbps</li>
+<li>超速：5G &#x2F; 10G &#x2F;20G bps</li>
+</ul>
+<h2 id="硬件接口"><a href="#硬件接口" class="headerlink" title="硬件接口"></a>硬件接口</h2><img src="..\..\assets\image-20250916105236218.png" alt="image-20250916105236218" style="zoom: 67%;" />
+
+<p><img src="....%5Cassets%5Cimage-20250902154128850.png" alt="image-20250902154128850"></p>
+<p><img src="....%5Cassets%5Cimage-20250902154326310.png" alt="image-20250902154326310"></p>
+<h2 id="协议规范"><a href="#协议规范" class="headerlink" title="协议规范"></a>协议规范</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><ul>
+<li>USB主机：一个提供USB接口及接口管理能力的硬件、软件的复合体，一个USB系统中仅有一个USB主机，传输永远是主机先发起，设备响应</li>
+<li>USB设备：分为集线器和功能设备，最多支持127个设备（usb设备使用7bit地址，范围0-127，0作为未初始化的设备使用</li>
+<li>USB OTG：既能当主机又能当从机的设备，靠<strong>ID引脚</strong>决定角色。比如手机插 U 盘，手机是 Host；手机连 PC，手机是 Device</li>
+<li>上传：USB主机接收设备的数据</li>
+<li>下传：USB主机给设备发送数据</li>
+<li>地址：主机为每个从机都会分配一个地址，1个主机最多分配127个地址</li>
+<li>端点：USB中的实际物理单元，端点和地址决定了传输的物理通道</li>
+</ul>
+<h3 id="设备类型"><a href="#设备类型" class="headerlink" title="设备类型"></a>设备类型</h3><p>USB设备有很多不同的类型，通过设备描述符的<code>bDeviceClass</code>或者接口描述符中的<code>bInterfaceClass</code>字段指定。多功能设备必须由后者指定</p>
+<table>
+<thead>
+<tr>
+<th>USB类别</th>
+<th>描述</th>
+<th>用途示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>00h</td>
+<td>未指定（Use class information in Interface Descriptors）</td>
+<td>设备类别由接口定义，可多功能设备</td>
+</tr>
+<tr>
+<td>01h</td>
+<td>音频（Audio）</td>
+<td>声卡、麦克风、USB 音箱</td>
+</tr>
+<tr>
+<td>02h</td>
+<td>通信（Communications &amp; CDC Control）</td>
+<td>USB 调制解调器、网络适配器</td>
+</tr>
+<tr>
+<td>03h</td>
+<td>人机接口设备（HID）</td>
+<td>键盘、鼠标、游戏手柄、遥控器</td>
+</tr>
+<tr>
+<td>05h</td>
+<td>物理设备（Physical Interface Device, PID）</td>
+<td>力反馈设备、传感器</td>
+</tr>
+<tr>
+<td>06h</td>
+<td>图像（Imaging）</td>
+<td>扫描仪、数码相机、网络摄像头</td>
+</tr>
+<tr>
+<td>07h</td>
+<td>打印机（Printer）</td>
+<td>USB 打印机</td>
+</tr>
+<tr>
+<td>08h</td>
+<td>大容量存储（Mass Storage）</td>
+<td>U 盘、移动硬盘、SD 卡读卡器</td>
+</tr>
+<tr>
+<td>09h</td>
+<td>集线器（Hub）</td>
+<td>USB Hub</td>
+</tr>
+<tr>
+<td>0Ah</td>
+<td>数据（CDC-Data）</td>
+<td>数据通信接口</td>
+</tr>
+<tr>
+<td>0Bh</td>
+<td>智能卡（Smart Card）</td>
+<td>智能卡读卡器</td>
+</tr>
+<tr>
+<td>0Dh</td>
+<td>内容安全（Content Security）</td>
+<td>DRM 设备</td>
+</tr>
+<tr>
+<td>0Eh</td>
+<td>视频（Video）</td>
+<td>USB 摄像头、视频采集卡</td>
+</tr>
+<tr>
+<td>0Fh</td>
+<td>个人健康设备（Personal Healthcare Device）</td>
+<td>血压计、心率监测器</td>
+</tr>
+<tr>
+<td>DCh</td>
+<td>诊断设备（Diagnostic Device）</td>
+<td>医疗诊断设备</td>
+</tr>
+<tr>
+<td>E0h</td>
+<td>通用供应商特定（Wireless Controller）</td>
+<td>蓝牙适配器、无线手柄</td>
+</tr>
+<tr>
+<td>EFh</td>
+<td>设备供应商特定（Miscellaneous）</td>
+<td>联合类设备，多功能设备</td>
+</tr>
+<tr>
+<td>FEh</td>
+<td>应用专用（Application Specific）</td>
+<td>工业设备、专用仪器</td>
+</tr>
+<tr>
+<td>FFh</td>
+<td>厂商自定义（Vendor Specific）</td>
+<td>特殊定制设备</td>
+</tr>
+</tbody></table>
+<h3 id="信号传输状态"><a href="#信号传输状态" class="headerlink" title="信号传输状态"></a>信号传输状态</h3><ul>
+<li>J状态</li>
+<li>K状态</li>
+<li>SE0状态</li>
+<li>SE1状态</li>
+</ul>
+<h3 id="帧"><a href="#帧" class="headerlink" title="帧"></a>帧</h3><p>定义：一个时间单位，固定为1ms（低&#x2F;全速），125us（高速）</p>
+<h3 id="通讯的结构层次"><a href="#通讯的结构层次" class="headerlink" title="通讯的结构层次"></a>通讯的结构层次</h3><ul>
+<li>域</li>
+<li>包</li>
+<li>事务</li>
+<li>传输：USB支持4种传输，控制传输、中断传输、批量传输、等时传输<ul>
+<li>控制传输：主要用于在设备连接时对设备进行枚举以及其他因设备而异的特定操作</li>
+<li>中断传输：用于对延迟要求严格、小量数据的可靠传输，如键盘、游戏手柄等</li>
+<li>批量传输：用于对延迟要求宽松，大量数据的可靠传输，如U盘等</li>
+<li>同步传输：用于对可靠性要求不高的实时数据传输，如USB摄像头、USB音响等</li>
+</ul>
+</li>
+</ul>
+<p>多个域组成一个包；多个包组成一个事务；多个事务组成一个传输 </p>
+<h3 id="描述符"><a href="#描述符" class="headerlink" title="描述符"></a>描述符</h3><p>USB只是一个数据通路，USB总线驱动程序需要知道对端设备情况，就需要读取相关信息，引出了：设备、配置、接口和端点4个层次。用这4个标准描述符表达一个设备</p>
+<ul>
+<li>设备描述符（只有一个）： 向主机说明设备类型、端点0最大包长、设备版本、配置数量等等</li>
+<li>配置描述符（至少有一个）：向主机描述当前配置下的设备属性、所需电流、支持的接口数、配置描述符集合长度等等</li>
+<li>接口描述符（至少有一个）：说明设备类型、此接口下使用的端点数（不包括0号端点），一个接口就是实现一种功能</li>
+<li>端点描述符（至少有一个）：描述符端点的各种属性<ul>
+<li>端点是实现USB设备功能的物理缓冲区实体，USB主机和设备是通过端点进行数据交互的</li>
+</ul>
+</li>
+<li>其他： 字符串描述符、HID描述符、UVC描述符等</li>
+</ul>
+<img src="..\..\assets\image-20250902161527786.png" alt="image-20250902161527786" style="zoom:67%;" />
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sevenjoin/article/details/119955782">USB协议-描述符篇（一）_usb descriptortype-CSDN博客</a></li>
+</ul>
+<h3 id="热插拔检测"><a href="#热插拔检测" class="headerlink" title="热插拔检测"></a>热插拔检测</h3><p>USB的热插拔是由<strong>主机</strong>进行检测的</p>
+<ul>
+<li>低速或者全速设备：USB设备的主机端，D+和D-都是下拉，而设备端会上拉D+或者D-，如果主机端检测到D+&#x2F;D-被上拉，就知道有设备被插入了，并且根据上拉的是D+还是D-可以知道是全速设备还是低速设备</li>
+<li>高速设备：先以全速设备和主机相连，然后做双向检测，满足条件后进入高速模式</li>
+</ul>
+<p>断开检测：主机检测到D+&#x2F;D-都是低电平超过2.5us</p>
+<h3 id="总线状态"><a href="#总线状态" class="headerlink" title="总线状态"></a>总线状态</h3><ul>
+<li>正常工作</li>
+<li>总线复位</li>
+<li>总线挂起</li>
+</ul>
+<h3 id="USB枚举"><a href="#USB枚举" class="headerlink" title="USB枚举"></a>USB枚举</h3><p>定义：USB主设备向USB从设备通过获取各种描述符，了解设备的基本描述信息，如支持的 USB 版本、Product ID、Vendor ID、设备分类（Class）、供电方式、最大消耗电流、配置数量、各种类型端点的数量及传输能力（最大包长度）。HOST根据PID和VID加载设备驱动程序，并对设备进行合适的配置。只有经过枚举的设备才能正常使用。对于总线供电设备，在枚举完成前最多可从总线获取100mA的电流</p>
+<blockquote>
+<p>只有枚举完成并确认设备信息后，内核才会去匹配并调用对应驱动的 <code>probe()</code></p>
+</blockquote>
+<p>特点：</p>
+<ul>
+<li>主设备连接识别从设备<strong>必须</strong>的过程</li>
+<li>由多个<strong>控制传输</strong>构成</li>
+<li>经过地址0(缺省地址)到其他地址(主设备分配地址)的通讯</li>
+<li>对于挂载多个USB从设备的系统，主设备是逐一进行枚举操作</li>
+</ul>
+<p>枚举过程：</p>
+<blockquote>
+<p>设备插入-&gt;主机检测-&gt;总线复位-&gt;分配地址-&gt;获取设备描述符-&gt;获取配置描述符-&gt;选择配置</p>
+</blockquote>
+<p>1.USB设备上电(一般从USB口取电)并连接到USB总线</p>
+<p>2.主机检测到总线上有设备连接</p>
+<p>3.主机会等待至少100ms用于连接的机械、电气特性稳定</p>
+<p>4.主机执行<strong>总线复位</strong>至少10ms，并得到USB设备通讯速度</p>
+<p>5.主机驱动总线空闲至少10ms用于做恢复时间</p>
+<p>6.主机发出获取<strong>设备描述符</strong>请求(0地址)</p>
+<p>7.主机为从设备分配唯一设备地址，后续通讯用此地址</p>
+<p>8.主机以新地址发出获取<strong>设备描述符</strong>请求</p>
+<p>9.主机以新地址发出获取<strong>配置描述符</strong>请求，获取设备全部配置</p>
+<p>10.主机分析获取的描述符信息，并做相应记录和处理</p>
+<p>11.主机发送设置配置请求，为从设备选择一个合适的配置</p>
+<h2 id="驱动框架"><a href="#驱动框架" class="headerlink" title="驱动框架"></a>驱动框架</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/23-USB.html">https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/23-USB.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/04-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/08-GStreamer.html" title="08 GStreamer"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">08 GStreamer</div></div><div class="info-2"><div class="info-item-1">GStreamer基本概念GStreamer是一个跨平台的流媒体框架，采用基于管道的插件化架构，支持音视频采集、编解码、渲染等全流程处理。应用程序可以通过管道（Pipeline）的方式，将多媒体处理的各个步骤串联起来，达到预期的效果。每个步骤通过元素（Element）基于GObject对象系统通过插件（plugins）的方式实现，方便了各项功能的扩展。例如摄像头采集（v4l2src）、视频编码（nvv4l2h264enc）等模块可灵活拼接，组成流水线 ElementSource 元件（数据源）产生媒体流的元素  文件源：filesrc (从文件读取) 设备源：v4l2src (摄像头, Video4Linux2), alsasrc (音频输入), pulsesrc (PulseAudio输入), audiotestsrc, videotestsrc (测试源) 网络源：udpsrc, tcpclientsrc, rtmpsrc, rtspclientsrc 特殊硬件源 (Jetson&#x2F;NVIDIA)：nvarguscamerasrc,...</div></div></div></a><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/22-HDMI.html" title="22 HDMI"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">22 HDMI</div></div><div class="info-2"><div class="info-item-1">HDMI定义HDMI（高清晰度多媒体接口）主要用来传输视频、音频信号，它有type-a&#x2F;b&#x2F;c 3种形式的物理接口，最常用的是type-a的，包含19个引脚    引脚号 信号名称 功能描述    1 TMDS Data2+ 视频&#x2F;音频数据通道2（差分对正极）   2 TMDS Data2- 视频&#x2F;音频数据通道2（差分对负极）   3 TMDS Data1+ 视频&#x2F;音频数据通道1（差分对正极）   4 TMDS Data1- 视频&#x2F;音频数据通道1（差分对负极）   5 TMDS Data0+ 视频&#x2F;音频数据通道0（差分对正极）   6 TMDS Data0- 视频&#x2F;音频数据通道0（差分对负极）   7 TMDS Clock+ 像素时钟信号（差分对正极）   8 TMDS Clock- 像素时钟信号（差分对负极）   9 CEC 消费电子控制信号（设备联动控制）   10 HPD (Hot...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#USB"><span class="toc-number">1.</span> <span class="toc-text">USB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#USB%E6%8A%80%E6%9C%AF%E5%8F%91%E5%B1%95"><span class="toc-number">1.2.</span> <span class="toc-text">USB技术发展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.3.</span> <span class="toc-text">硬件接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E8%AE%AE%E8%A7%84%E8%8C%83"><span class="toc-number">1.4.</span> <span class="toc-text">协议规范</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.4.1.</span> <span class="toc-text">基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.4.2.</span> <span class="toc-text">设备类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93%E7%8A%B6%E6%80%81"><span class="toc-number">1.4.3.</span> <span class="toc-text">信号传输状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A7"><span class="toc-number">1.4.4.</span> <span class="toc-text">帧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%AE%AF%E7%9A%84%E7%BB%93%E6%9E%84%E5%B1%82%E6%AC%A1"><span class="toc-number">1.4.5.</span> <span class="toc-text">通讯的结构层次</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-number">1.4.6.</span> <span class="toc-text">描述符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E6%8F%92%E6%8B%94%E6%A3%80%E6%B5%8B"><span class="toc-number">1.4.7.</span> <span class="toc-text">热插拔检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%8A%B6%E6%80%81"><span class="toc-number">1.4.8.</span> <span class="toc-text">总线状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USB%E6%9E%9A%E4%B8%BE"><span class="toc-number">1.4.9.</span> <span class="toc-text">USB枚举</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E6%A1%86%E6%9E%B6"><span class="toc-number">1.5.</span> <span class="toc-text">驱动框架</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="总有低谷">
+<meta property="og:type" content="website">
+<meta property="og:title" content="李瑞琦的博客">
+<meta property="og:url" content="https://li-ruiqi777.github.io/page/16/">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="总有低谷">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/page/16/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '李瑞琦的博客',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(/img/index.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">李瑞琦的博客</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/01-%E7%BC%96%E8%AF%91%E4%B8%8E%E8%B0%83%E8%AF%95.html" title="01 编译与调试">01 编译与调试</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">编译与调试编译的流程将一个.c程序编译成一个可执行文件通常包含4步：  预处理：将各种宏定义翻译成C&#x2F;C++语言 编译：将C&#x2F;C++代码编译成汇编语言 汇编：对汇编代码进行处理，翻译成机器指令 链接：将用到的库文件和自己的机器指令汇总到一起（合并不同文件的同类内容，如.text节区）       从上图可以知道，只要加了-g其实就可以调试代码了，不一定非要使用debug模式编译才行  动态&#x2F;静态链接内部&#x2F;外部链接ELF文件定义：ELF（Excutable Linkable Format）是一种Unix-Like系统上二进制文件的标准，符合ELF标准的ELF文件可以分为4类：    不是所有Linux下的二进制文件都是ELF文件，必须符合一定的格式才行！  ELF文件都遵循以下的格式：     ELF 文件的作用有两个，一是用于程序链接（为了生成程序）；二是用于程序执行。 针对这两种情况，可以从不同的视角来看待同一个目标文件。当它分别被用于链接和用于执行的时候，其特性必然是不一样的，我们所关注的内容也不一样。从链接和运行的角度，可以将...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/04-%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE.html" title="04 总线协议">04 总线协议</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">总线协议对比UART总线概述定义：  UART(Universal Asynchronous Receiver&#x2F;Transmitter)通用异步收发器：异步、串行、全双工通信 USART(Universal Synchronous&#x2F;Asynchronous Receiver&#x2F;Transmitter)通用同步&#x2F;异步收发器：同步或者异步、串行、全双工通信 异步时靠波特率进行数据同步 同步时需要额外的CLK线     UART和USART不是总线，是点对点通信  特点：  点对点通信 传输距离较远(可达几十米) 硬件简单，成本低  硬件结构   信号线 作用    TX 发送数据线   RX 接收数据线   GND 共地线    UART原始输出是TTL电平，可通过PHY芯片转成别的电平，比如RS232、RS485、USB  通信时序数据帧格式 起始位：1位低电平  数据位：5-9位(通常8位)  校验位：可选(奇校验&#x2F;偶校验&#x2F;无校验)  停止位：1-2位高电平   波特率 双方必须约定相同的波特率(如9600,...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/05-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C.html" title="05 计算机网络">05 计算机网络</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">计算机网络网络体系结构对于网络体系结构的划分，主要有2种形式： OSI七层网络模型 看赛博二哈的八股（第115条）  OSI（Open Systems Interconnection）模型由ISO提出，是一个理论分层框架，用于标准化网络通信过程。虽然实际网络并未完全采用OSI，但它对理解网络协议分层至关重要    层数 名称 功能 协议&#x2F;设备示例 关键词    7 应用层 提供用户接口，实现具体应用功能（如文件传输、邮件收发） HTTP、FTP、SMTP、DNS    6 表示层 数据格式转换（加密、压缩、编码） SSL&#x2F;TLS、JPEG、ASCII    5 会话层 建立、管理、终止应用程序间的会话 NetBIOS、RPC    4 传输层 提供端到端的数据传输（流量控制、错误恢复） TCP、UDP 端口号、TCP、 UDP   3 网络层 实现主机间的逻辑寻址和路由选择，跨越不同网络 IP、ICMP、路由器 IP地址、路由 器、ping通   2 数据链路层 将比特流封装成数据帧（使用MAC地址在网卡间通信） ARP、网卡、交换机、...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/06-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F.html" title="06 操作系统">06 操作系统</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">操作系统内存管理1.超过一页的内存要怎么分配 2.内存碎片怎么处理 3.linux内存管理是怎么实现的，有了解吗 4.Linux是几级页表 5.怎么通过虚拟地址查找物理地址 6.零拷贝技术是什么 7.linux内核的物理内存管理方式（1）Buddy System（伙伴系统）​​  管理物理内存​​，按 2^n 页（4KB&#x2F;页）分配，避免碎片化 接口：alloc_pages(), __get_free_pages()  （2）Slab&#x2F;Slub&#x2F;Slob分配器​​  管理小块内存​​（如 task_struct），减少Buddy系统的内部碎片 接口：kmalloc(), kfree()  8.kmalloc最小内存分配，预期分配128字节实际多少？  kmalloc 最小分配单位：依赖Slab分配器的 size class，通常为 32字节或64字节（因架构而异） 分配128字节时的实际开销： 若Slab的 size class 包含128字节，则精确分配。 若无精确匹配，会向上取整到最近 size...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html" title="02 计算机体系结构">02 计算机体系结构</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">计算机体系结构基本概念体系结构vs组成原理 体系结构：能被程序员看到的计算机系统的属性，即概念性的结构和功能特性（主要是被汇编程序员所看到的属性，包括指令集、数据类型、存储器寻址技术、IO机理等…）  示例：  冯诺依曼架构  哈佛架构  核心内容：  多核协同：一致性协议（如 MESI）、互联总线（如 AMBA ACE）  内存子系统：NUMA 支持、内存控制器设计  外设与扩展：PCIe、USB 控制器、加速器（如 NPU）的集成  安全与虚拟化：TrustZone、IOMMU、虚拟化扩展（如 ARM SMMU）        组成原理：指如何实现计算机体系结构所体现的属性，它包含了很多对程序员来说是透明的硬件细节。比如规定一台计算机有哪些属性属于体系结构的问题，但如何通过电路实现这些指令，属于组成原理的问题      对比维度 体系结构 组成原理    关注点 软件可见的属性 硬件如何实现这些属性   面向对象 程序员 &#x2F;...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html" title="03 计算机组成原理">03 计算机组成原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.402Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">计算机组成原理参考链接 计算机组成原理 - 知乎  1.计算机的组成计算机通常包括以下几部分：  输入设备 输出设备 CPU：运算器 + 控制器 + 寄存器 + Cache + MMU + TLB… 总线：数据总线 + 地址总线 +...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/00-README.html" title="00 README">00 README</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-06-04T08:29:12.386Z" title="Created 2025-06-04 16:29:12">2025-06-04</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="content">看了涛神和仲一的八股文文档，我觉得复习八股可以从以下几个方面开展： C&#x2F;C++语法计算机网络 TCP&#x2F;IP协议栈 TCP协议 UDP协议 MQTT协议 HTTP协议  编译&#x2F;调试 GNU工具链的组成 ELF文件格式 交叉编译器 命名 命令行（-O -nostdlib…）   编译的全流程 内存分区及决定因素 gdb的使用 Core...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/15/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/#content-inner">15</a><span class="page-number current">16</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/"><span class="card-category-list-name">01-计算机基础八股</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"><span class="card-category-list-name">02-开发工具</span><span class="card-category-list-count">12</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/"><span class="card-category-list-name">CMake</span><span class="card-category-list-count">7</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/03-C/"><span class="card-category-list-name">03-C++</span><span class="card-category-list-count">16</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/"><span class="card-category-list-name">04-Linux</span><span class="card-category-list-count">52</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"><span class="card-category-list-name">01-Linux基本操作</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/"><span class="card-category-list-name">02-系统移植</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">03-内核开发</span><span class="card-category-list-count">24</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/04-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">04-应用开发</span><span class="card-category-list-count">8</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/04-Linux/05-%E5%AE%89%E5%8D%93%E5%BC%80%E5%8F%91/"><span class="card-category-list-name">05-安卓开发</span><span class="card-category-list-count">3</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/05-MCU/"><span class="card-category-list-name">05-MCU</span><span class="card-category-list-count">29</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/05-MCU/01-FreeRTOS/"><span class="card-category-list-name">01-FreeRTOS</span><span class="card-category-list-count">7</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/05-MCU/02-STM32/"><span class="card-category-list-name">02-STM32</span><span class="card-category-list-count">9</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/05-MCU/03-MSP430/"><span class="card-category-list-name">03-MSP430</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/05-MCU/04-LVGL/"><span class="card-category-list-name">04-LVGL</span><span class="card-category-list-count">4</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/06-%E5%B5%8C%E5%85%A5%E5%BC%8F%E7%A1%AC%E4%BB%B6/"><span class="card-category-list-name">06-嵌入式硬件</span><span class="card-category-list-count">5</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/07-RISC-V/"><span class="card-category-list-name">07-RISC-V</span><span class="card-category-list-count">4</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/08-Qt/"><span class="card-category-list-name">08-Qt</span><span class="card-category-list-count">20</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/09-ROS/"><span class="card-category-list-name">09-ROS</span><span class="card-category-list-count">7</span></a></li>
+          </ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">157</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-09-26T01:35:24.560Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: str => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: subtitleType => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        btf.getScript('https://cdn.jsdelivr.net/npm/typed.js/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+btf.addGlobalFn('pjaxSendOnce', () => { typed.destroy() }, 'typedDestroy')
+</script><script>function subtitleType () {
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      if (true) {
+        const from = '出自 ' + data.from
+        const sub = ["总有低谷"]
+        sub.unshift(data.hitokoto, from)
+        typedJSFn.init(sub)
+      } else {
+        document.getElementById('subtitle').textContent = data.hitokoto
+      }
+    })
+}
+typedJSFn.run(subtitleType)
+</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

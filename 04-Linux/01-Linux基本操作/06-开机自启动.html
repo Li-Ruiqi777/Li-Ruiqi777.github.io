@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>06 开机自启动 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="开机自启动 想要设置开发板的某程序开机时自启动，有多种方式  方式一 在&#x2F;etc&#x2F;rc.local 文件中添加自启动命令  例如，每次开机时要执行一个 hello.sh，这个脚本放在 &#x2F; usr 下面，那就可以在 &#x2F;etc&#x2F;rc.local“中加一行 &#x2F;usr&#x2F;.&#x2F;hello.sh，或者 cd &#x2F;usr&#x2F; &amp;&amp; .&#x2F;hello.sh 注意，你的命令应该添加在：exit 0">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>06 开机自启动 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="Linux初始化系统 想要设置开发板的某程序开机时自启动，有多种方式，本质上是使用了Linux的初始化系统（在linux内核启动后期会尝试加载用户空间的init程序，init程序是由内核启动的第一个用户空间程序（PID为1），该程序负责启动用户空间的服务和程序），init程序由初始化系统提供：  可以通过以下方法查看系统的init进程到底是谁： 法1：   法2：pstree -p Busybox">
 <meta property="og:type" content="article">
 <meta property="og:title" content="06 开机自启动">
 <meta property="og:url" content="https://li-ruiqi777.github.io/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/06-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8.html">
 <meta property="og:site_name" content="李瑞琦的博客">
-<meta property="og:description" content="开机自启动 想要设置开发板的某程序开机时自启动，有多种方式  方式一 在&#x2F;etc&#x2F;rc.local 文件中添加自启动命令  例如，每次开机时要执行一个 hello.sh，这个脚本放在 &#x2F; usr 下面，那就可以在 &#x2F;etc&#x2F;rc.local“中加一行 &#x2F;usr&#x2F;.&#x2F;hello.sh，或者 cd &#x2F;usr&#x2F; &amp;&amp; .&#x2F;hello.sh 注意，你的命令应该添加在：exit 0">
+<meta property="og:description" content="Linux初始化系统 想要设置开发板的某程序开机时自启动，有多种方式，本质上是使用了Linux的初始化系统（在linux内核启动后期会尝试加载用户空间的init程序，init程序是由内核启动的第一个用户空间程序（PID为1），该程序负责启动用户空间的服务和程序），init程序由初始化系统提供：  可以通过以下方法查看系统的init进程到底是谁： 法1：   法2：pstree -p Busybox">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
 <meta property="article:published_time" content="2025-06-04T08:29:12.511Z">
-<meta property="article:modified_time" content="2025-06-04T08:29:32.780Z">
+<meta property="article:modified_time" content="2025-09-26T01:34:49.708Z">
 <meta property="article:author" content="Li Ruiqi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/06-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
@@ -145,24 +145,199 @@
   isHighlightShrink: false,
   isToc: true,
   isShuoshuo: false
-}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">143</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">06 开机自启动</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">06 开机自启动</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.511Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-06-04T08:29:32.780Z" title="Updated 2025-06-04 16:29:32">2025-06-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">01-Linux基本操作</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="开机自启动"><a href="#开机自启动" class="headerlink" title="开机自启动"></a>开机自启动</h1><blockquote>
-<p>想要设置开发板的某程序开机时自启动，有多种方式</p>
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">06 开机自启动</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">06 开机自启动</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-06-04T08:29:12.511Z" title="Created 2025-06-04 16:29:12">2025-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-09-26T01:34:49.708Z" title="Updated 2025-09-26 09:34:49">2025-09-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">01-Linux基本操作</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Linux初始化系统"><a href="#Linux初始化系统" class="headerlink" title="Linux初始化系统"></a>Linux初始化系统</h1><blockquote>
+<p>想要设置开发板的某程序开机时自启动，有多种方式，本质上是使用了Linux的初始化系统（在linux内核启动后期会尝试加载用户空间的<code>init</code>程序，init程序是由内核启动的第一个用户空间程序（PID为1），该程序负责启动用户空间的服务和程序），<code>init</code>程序由初始化系统提供：</p>
 </blockquote>
-<h2 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h2><ul>
-<li>在<code>/etc/rc.local</code> 文件中添加自启动命令</li>
+<p>可以通过以下方法查看系统的init进程到底是谁：</p>
+<p>法1：</p>
+<p><img src="....%5Cassets%5Cimage-20250818145324336.png" alt="image-20250818145324336"></p>
+<p><img src="....%5Cassets%5Cimage-20250818092207319.png" alt="image-20250818092207319"></p>
+<p>法2：<code>pstree -p</code></p>
+<h2 id="Busybox"><a href="#Busybox" class="headerlink" title="Busybox"></a>Busybox</h2><p>BusyBox 是一个高度集成的嵌入式Linux工具集，它既是一个轻量级<strong>初始化系统</strong>，也是一个精简版的Unix命令集合。它的核心设计目标是用最小的空间提供完整的Linux系统功能</p>
+<p>BusyBox 提供了一个简化的<code>init</code>程序，用于替代传统的 <code>SysVinit</code>或 <code>systemd</code>，它的<code>init</code>程序有2种实现形式：</p>
+<p>(1) 传统 SysVinit 风格</p>
+<ul>
+<li><p>配置文件：<code>/etc/inittab</code></p>
+</li>
+<li><p>启动流程：</p>
+<ol>
+<li>内核启动后执行 <code>/sbin/init</code>（通常是 BusyBox 的符号链接）</li>
+<li>BusyBox 读取 <code>/etc/inittab</code>，定义运行级别和启动脚本</li>
+<li>执行 <code>/etc/init.d/</code>中的脚本（如 <code>rcS</code>、<code>rc.local</code>）</li>
+</ol>
+<p>示例 <code>/etc/inittab</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">::sysinit:/etc/init.d/rcS</span><br><span class="line">::askfirst:/bin/sh</span><br><span class="line">::ctrlaltdel:/sbin/reboot</span><br><span class="line">::shutdown:/sbin/swapoff -a</span><br></pre></td></tr></table></figure></li>
 </ul>
-<p>例如，每次开机时要执行一个 hello.sh，这个脚本放在 &#x2F; usr 下面，那就可以在 <code>/etc/rc.local</code>“中加一行 <code>/usr/./hello.sh</code>，或者 <code>cd /usr/ &amp;&amp; ./hello.sh</code></p>
-<p><strong>注意，你的命令应该添加在：exit 0 之前</strong></p>
-<p><strong>添加完保存后设置 rc.local 可执行权限</strong></p>
-<h2 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h2><ul>
+<p>(2) 简化的 BusyBox init</p>
+<ul>
+<li>如果没有 <code>/etc/inittab</code>，BusyBox 会执行默认行为：</li>
+<li>挂载 <code>/proc</code>和 <code>/sys</code></li>
+<li>运行 <code>/etc/init.d/rcS</code>（如果存在）</li>
+<li>启动一个登录 shell（如 <code>/bin/sh</code>）</li>
+</ul>
+<h2 id="System-V-Init"><a href="#System-V-Init" class="headerlink" title="System V Init"></a>System V Init</h2><p>利用Linux的System V Init机制，它主要依靠内核启动的第一个用户进程<code>initd</code>来运行一些脚本来实现</p>
+<ol>
+<li><p>内核启动后运行 <code>/sbin/init</code></p>
+</li>
+<li><p>init 读取 <code>/etc/inittab</code> 确定默认运行级别</p>
+<ul>
+<li>SystemV给出7个运行级别，分别对应rc0.d~rc6.d目录<img src="..\..\assets\image-20250723214655397.png" alt="image-20250723214655397" style="zoom: 67%;" /></li>
+<li>并且还有个<code>rcS.d</code>目录，它在所有运行级别之前运行</li>
+</ul>
+</li>
+<li><p>执行相应运行级别的rc脚本（如 <code>/etc/rc.d/rcX.d</code>）</p>
+</li>
+<li><p><code>rcX.d</code>脚本按顺序执行该目录下的服务脚本链接</p>
+</li>
+</ol>
+<blockquote>
+<p>用该方法的好处主要是可以控制各个脚本的启动顺序</p>
+</blockquote>
+<p>具体操作：</p>
+<ul>
 <li>在 <code>/etc/init.d/</code> 目录下添加自启动脚本</li>
 </ul>
-<p>Linux 开机的时候，会加载运行 <code>/etc/init.d</code> 目录下的程序，因此我们可以把想要自动运行的脚本放到这个目录下即可。系统服务的启动就是通过这种方式实现的。</p>
+<p>Linux 开机的时候，会加载运行 <code>/etc/init.d</code> 目录下的程序，因此我们可以把想要自动运行的脚本放到这个目录下即可。系统服务的启动就是通过这种方式实现的</p>
 <ul>
-<li><strong>1.添加完后务必设置文件的可执行权限 chmod +x filename</strong></li>
-<li>2.脚本必须以S开头，比如：S01syslogd 、S02klogd 、S02sysctl 、S40network</li>
+<li>添加完后务必设置文件的<strong>可执行权限</strong></li>
+<li>脚本必须以S或者K开头，比如：S01syslogd 、S02klogd 、S02sysctl 、S40network，S代表启动、K代表关机，这些脚本按数字升序依次执行</li>
 </ul>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>启动时间长。<code>init</code>进程是串行启动，只有前一个进程启动完，才会启动下一个进程</li>
+<li>启动脚本复杂。<code>init</code>进程只是执行启动脚本，不管其他事情。脚本需要自己处理各种情况，这往往使得脚本变得很长</li>
+</ul>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/t624124600/article/details/111085234">ubuntu18.04设置开机启动命令&#x2F;脚本的三种方法（可sudo）_ubuntu18.04开机自启动脚本-CSDN博客</a></li>
 </ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/06-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8.html">https://li-ruiqi777.github.io/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/06-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/03-tar%E5%B7%A5%E5%85%B7.html" title="03 tar工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">03 tar工具</div></div><div class="info-2"><div class="info-item-1">tar工具 tar是Ubuntu中的一个可执行文件，可以用来打包文件和目录，并生成.tar格式的文件，并且可以对打包后的文件进行压缩，生成.tar.gz等格式的文件  常见参数   参数 功能    -c 创建tar包   -x 解压tar包   -v 详细展示处理文件名   -f 指定输出文件名   -z 使用gzip压缩，.tar.gz 是常见的压缩文件扩展名   -j 使用bzip2压缩，.tar.bz2 是使用 bzip2 压缩的文件扩展名   -t 查看 tar 包中的文件列表   常见参数组合 -cvf：创建tar包 -xvf：在当前目录解压tar包 -xzvf：在当前目录使用gzip工具解压tar包  </div></div></div></a><a class="pagination-related" href="/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/07-%E5%BC%80%E5%8F%91%E6%9D%BF%E9%83%A8%E7%BD%B2nodejs.html" title="07 开发板部署nodejs"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">07 开发板部署nodejs</div></div><div class="info-2"><div class="info-item-1">在开发板上运行node.js添加环境变量nodejs主要有2个可执行文件：node, npm他们都在同一个目录下，为了后面简单使用，需要把该目录添加到环境变量并开机自动设置 换源1npm config set registry https://registry.npmmirror.com    关闭ssl验证1npm config set strict-ssl false    安装依赖 由于js是个跨平台语言，所以只要给开发板移植了nodejs环境，就可以使用其丰富的前端代码了  安装依赖时有2种选项：  全局安装：npm install xxx -g 局部安装：npm install xxx，会在当前目录生成一个node_modules文件夹，新安装的依赖都在该目录下，切换到别的目录运行js就不行了  </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">143</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-number">1.</span> <span class="toc-text">开机自启动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80"><span class="toc-number">1.1.</span> <span class="toc-text">方式一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C"><span class="toc-number">1.2.</span> <span class="toc-text">方式二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">参考链接</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+<h2 id="systemd"><a href="#systemd" class="headerlink" title="systemd"></a>systemd</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>systemd 是现代Linux系统的初始化系统与系统管理守护进程</li>
+<li>它在 Linux 内核启动完成之后，作为第一个用户态进程（PID 1）运行，负责启动和管理系统中的所有其他进程。</li>
+<li>它不仅仅是一个 init 程序，还包括一系列工具和守护进程，用于：<ul>
+<li>启动服务（Service Management）</li>
+<li>依赖管理和并行化启动</li>
+<li>日志管理（journalctl）</li>
+<li>设备管理（udev 集成）</li>
+<li>挂载点和自动挂载管理</li>
+<li>定时任务（timer）替代 cron</li>
+</ul>
+</li>
+</ul>
+<p>几乎所有主流 Linux 发行版（Fedora、Red Hat、Debian、Ubuntu、Arch Linux 等）都已经采用 systemd 作为默认 init 系统</p>
+<blockquote>
+<p>切换到systemd后，可能会保留SystemV初始化系统的一些文件，比如<code>/etc/init.d</code>之类的，里面的文件不会直接起作用，而会被systemd转成适用于它的单元文件，再起作用。之所以这样做是为了兼容一些软件（它们在安装时使用了SystemV来进行自启动）</p>
+</blockquote>
+<h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><ol>
+<li>更快的启动速度<ul>
+<li>使用依赖关系树和并行化启动（不像 SysVinit 顺序执行脚本）</li>
+<li>利用 socket 激活（服务按需启动）</li>
+</ul>
+</li>
+<li>统一管理接口<ul>
+<li>所有服务、挂载点、套接字、设备等都被抽象为 unit，统一管理</li>
+</ul>
+</li>
+<li>增强可靠性<ul>
+<li>服务崩溃时自动重启</li>
+<li>使用 cgroup 控制服务进程，防止“孤儿进程”</li>
+</ul>
+</li>
+<li>模块化和扩展性<ul>
+<li>提供 <code>systemctl</code>、<code>journalctl</code> 等工具</li>
+<li>替代部分传统组件（cron、inetd、syslog）</li>
+</ul>
+</li>
+</ol>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><h4 id="Unit（单元）"><a href="#Unit（单元）" class="headerlink" title="Unit（单元）"></a>Unit（单元）</h4><ul>
+<li>systemd 中所有受管对象都叫 <strong>unit</strong>，以配置文件描述，文件放在：<ul>
+<li><code>/etc/systemd/system/</code></li>
+<li><code>/run/systemd/system/</code></li>
+<li><code>/lib/systemd/system/</code></li>
+</ul>
+</li>
+<li>unit文件的类型包括：<ul>
+<li><strong>service</strong>：守护进程或一次性任务（如 <code>nginx.service</code>）</li>
+<li><strong>socket</strong>：套接字（systemd 可通过 socket 激活启动服务）</li>
+<li><strong>device</strong>：内核设备（udev 管理）</li>
+<li><strong>mount&#x2F;automount</strong>：挂载点与自动挂载</li>
+<li><strong>target</strong>：服务组（类似于 SysV 的运行级别 runlevel），可以看成同步点</li>
+<li><strong>timer</strong>：定时器（替代 cron）</li>
+<li><strong>slice</strong>：资源控制分组（基于 cgroup）</li>
+<li><strong>scope</strong>：非 systemd 启动的外部进程组</li>
+</ul>
+</li>
+</ul>
+<h4 id="配置文件（Unit-文件）"><a href="#配置文件（Unit-文件）" class="headerlink" title="配置文件（Unit 文件）"></a>配置文件（Unit 文件）</h4><p>以 <code>.service</code> 为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My Example Service</span><br><span class="line">After=network.target # 指定启动顺序，该服务必须在network.target中所有服务启动完毕后启动</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStart=/usr/bin/my_service</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target # 指定该服务被enable时，应该挂到哪个target下</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>[Unit]</code>：描述、依赖关系</li>
+<li><code>[Service]</code>：如何启动、停止、重启</li>
+<li><code>[Install]</code>：该服务被挂到哪些 target 下启用（即开机自启设置）</li>
+</ul>
+<hr>
+<h4 id="Target（服务组）"><a href="#Target（服务组）" class="headerlink" title="Target（服务组）"></a>Target（服务组）</h4><ul>
+<li>类似 SysV 的运行级别 (runlevel)</li>
+<li>它本身<strong>不执行命令</strong>，而是作为一个「分组」和「同步点」：<ul>
+<li><strong>分组作用</strong>：把一堆服务组织在一起，统一管理（像运行级别 runlevel）</li>
+<li><strong>同步作用</strong>：让 systemd 知道某个阶段达成了，可以继续下一个阶段（类似「里程碑」）</li>
+</ul>
+</li>
+<li>常见 target：<ul>
+<li><code>graphical.target</code> → 图形界面模式</li>
+<li><code>multi-user.target</code> → 多用户命令行模式</li>
+<li><code>rescue.target</code> → 单用户维护模式</li>
+<li><code>default.target</code> → 系统默认启动级别（一般指向上面某个 target）</li>
+</ul>
+</li>
+</ul>
+<p>当 systemd 启动时，它会：</p>
+<ol>
+<li>看到<strong>默认</strong>目标假如是 <code>multi-user.target</code></li>
+<li>查找 <code>multi-user.target</code> 依赖的所有target和service</li>
+<li>并行启动它依赖的target，然后再启动它自己的service</li>
+</ol>
+<hr>
+<h4 id="Journal（日志系统）"><a href="#Journal（日志系统）" class="headerlink" title="Journal（日志系统）"></a>Journal（日志系统）</h4><ul>
+<li><p><code>systemd-journald</code> 负责日志收集。</p>
+</li>
+<li><p>统一收集：</p>
+<ul>
+<li>内核日志</li>
+<li>init 输出</li>
+<li>服务标准输出&#x2F;错误输出</li>
+<li>syslog</li>
+</ul>
+</li>
+<li><p>使用 <code>journalctl</code> 查看：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">journalctl -u ssh.service       # 查看 ssh 服务日志</span><br><span class="line">journalctl -b                   # 查看本次启动日志</span><br><span class="line">journalctl -f                   # 实时日志（类似 tail -f）</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="systemd-的运行流程"><a href="#systemd-的运行流程" class="headerlink" title="systemd 的运行流程"></a>systemd 的运行流程</h3><ol>
+<li>Linux 内核启动完成后，执行 <code>systemd</code> 作为 PID 1</li>
+<li>读取默认目标（<code>default.target</code>），加载对应的 unit</li>
+<li>解析 unit 之间的依赖关系，尽可能并行地启动服务</li>
+<li>启动过程中会进行 socket&#x2F;device&#x2F;mount 等激活</li>
+<li>最终进入目标运行级别（如 <code>multi-user.target</code> 或 <code>graphical.target</code>）</li>
+</ol>
+<h3 id="systemd-常用命令"><a href="#systemd-常用命令" class="headerlink" title="systemd 常用命令"></a>systemd 常用命令</h3><p>服务管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">systemctl start nginx.service       # 启动服务</span><br><span class="line">systemctl stop nginx.service        # 停止服务</span><br><span class="line">systemctl restart nginx.service     # 重启服务</span><br><span class="line">systemctl status nginx.service      # 查看服务状态</span><br></pre></td></tr></table></figure>
+
+<p>开机自启</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable nginx.service      # 设置开机自启</span><br><span class="line">systemctl disable nginx.service     # 禁止开机自启</span><br><span class="line">systemctl is-enabled nginx.service  # 检查是否开机自启</span><br></pre></td></tr></table></figure>
+
+<p>Target 管理</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl isolate multi-user.target # 切换到多用户模式</span><br><span class="line">systemctl set-default graphical.target # 设置默认 target</span><br></pre></td></tr></table></figure>
+
+<p>查看信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-units --type=service    # 查看所有已加载的服务</span><br><span class="line">systemctl list-unit-files              # 查看所有 unit 文件</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>使用systemd创建一个开机自启动的服务的流程是什么？</p>
+</blockquote>
+<p>1.准备好要启动的进程</p>
+<p>2.创建一个unit文件，比如<code>xxx.service</code>，并写好内容</p>
+<p>3.通过<code>sudo systemctl daemon-reload</code>刷新一下unit文件</p>
+<p>4.<code>systemctl start xxx.service</code>，<code>systemctl status xxx.service</code>启动服务并查看其状态是否正常</p>
+<p>5.<code>systemctl enable xxx.service</code>设置开机自启动</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/06-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8.html">https://li-ruiqi777.github.io/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/06-%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF%E5%8A%A8.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/00-Windows%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E7%9A%84%E8%AE%BE%E7%BD%AE.html" title="00 Windows需要进行的设置"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">00 Windows需要进行的设置</div></div><div class="info-2"><div class="info-item-1">Windows需要进行的设置网络设置虚拟机要通过桥接与PC的物理网卡相连，2者的IP得在一个网段 虚拟机设置VMWare和WSL2的Hyper V冲突了，必须关闭一个 12345# 关hyper-vbcdedit /set hypervisorlaunchtype off# 开hyper-vbcdedit /set hypervisorlaunchtype auto  </div></div></div></a><a class="pagination-related" href="/03-C++/%E5%B8%B8%E7%94%A8%E7%9A%84%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93.html" title="常用的第三方库"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">常用的第三方库</div></div><div class="info-2"><div class="info-item-1">C++常用第三方库1.日志 plog  2.序列化 cereal RTTR protobuf  3.反射 RTTR  4.数据库ORM ORM意思是：对象关系映射，用于在数据库读写时进行序列化&#x2F;反序列化   ODB ormpp  5.后端框架 drogon gRPC  </div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">157</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">19</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E5%88%9D%E5%A7%8B%E5%8C%96%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.</span> <span class="toc-text">Linux初始化系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Busybox"><span class="toc-number">1.1.</span> <span class="toc-text">Busybox</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#System-V-Init"><span class="toc-number">1.2.</span> <span class="toc-text">System V Init</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">1.2.1.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">1.2.2.</span> <span class="toc-text">参考链接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#systemd"><span class="toc-number">1.3.</span> <span class="toc-text">systemd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E7%9B%AE%E6%A0%87"><span class="toc-number">1.3.2.</span> <span class="toc-text">设计目标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-number">1.3.3.</span> <span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Unit%EF%BC%88%E5%8D%95%E5%85%83%EF%BC%89"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">Unit（单元）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88Unit-%E6%96%87%E4%BB%B6%EF%BC%89"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">配置文件（Unit 文件）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Target%EF%BC%88%E6%9C%8D%E5%8A%A1%E7%BB%84%EF%BC%89"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">Target（服务组）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Journal%EF%BC%88%E6%97%A5%E5%BF%97%E7%B3%BB%E7%BB%9F%EF%BC%89"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">Journal（日志系统）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd-%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.3.4.</span> <span class="toc-text">systemd 的运行流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#systemd-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.5.</span> <span class="toc-text">systemd 常用命令</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
