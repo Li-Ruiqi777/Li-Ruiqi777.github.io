@@ -1,0 +1,415 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>04 SoC与系统架构 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="SoC与系统架构SoC&#x2F;MCU&#x2F;MPU&#x2F;CPU的区别 SoC是将一个完整的系统整合到单一芯片上的集成电路，包括 CPU、GPU、存储控制器、外设接口、专用加速器(GPU&#x2F;NPU&#x2F;VOP)等  SoC 不一定有片上 RAM（有些会集成 LPDDR），但一定有外部内存接口   MCU是一种集成了CPU、内存（如闪存、RAM）、以及多种外设（如ADC、D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04 SoC与系统架构">
+<meta property="og:url" content="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/04-SoC%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.html">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="SoC与系统架构SoC&#x2F;MCU&#x2F;MPU&#x2F;CPU的区别 SoC是将一个完整的系统整合到单一芯片上的集成电路，包括 CPU、GPU、存储控制器、外设接口、专用加速器(GPU&#x2F;NPU&#x2F;VOP)等  SoC 不一定有片上 RAM（有些会集成 LPDDR），但一定有外部内存接口   MCU是一种集成了CPU、内存（如闪存、RAM）、以及多种外设（如ADC、D">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/07.jpg">
+<meta property="article:published_time" content="2026-01-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-15T12:13:23.271Z">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/07.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/04-SoC%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '04 SoC与系统架构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">138</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/07.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">04 SoC与系统架构</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">04 SoC与系统架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2026-01-05T16:00:00.000Z" title="Created 2026-01-06 00:00:00">2026-01-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="SoC与系统架构"><a href="#SoC与系统架构" class="headerlink" title="SoC与系统架构"></a>SoC与系统架构</h1><h2 id="SoC-MCU-MPU-CPU的区别"><a href="#SoC-MCU-MPU-CPU的区别" class="headerlink" title="SoC&#x2F;MCU&#x2F;MPU&#x2F;CPU的区别"></a>SoC&#x2F;MCU&#x2F;MPU&#x2F;CPU的区别</h2><ul>
+<li><p>SoC是将一个完整的系统整合到<strong>单一芯片</strong>上的集成电路，包括 CPU、GPU、存储控制器、外设接口、专用加速器(GPU&#x2F;NPU&#x2F;VOP)等</p>
+<ul>
+<li>SoC 不一定有片上 RAM（有些会集成 LPDDR），但一定有外部内存接口</li>
+</ul>
+</li>
+<li><p>MCU是一种集成了CPU、内存（如闪存、RAM）、以及多种外设（如ADC、DAC、串行通信接口、定时器等）于一体的芯片，可以看成<strong>简易版的SoC</strong>。与SoC的核心区别：</p>
+<ul>
+<li><p>MCU通常不跑复杂OS(最多RTOS)，但是SoC一般跑Linux&#x2F;Android之类的</p>
+</li>
+<li><p>MCU的片上RAM&#x2F;ROM都比较小，功耗比较低</p>
+</li>
+</ul>
+</li>
+<li><p>MPU：不带片上 Flash&#x2F;RAM，需要外部存储器的处理器芯片，一般只包括CPU核心+外设控制器，必须配合外部的RAM+ROM才能运行，适合跑Linux&#x2F;Android之类的复杂操作系统。（注意：ARM里还有个叫内存保护单元的MPU，和这里不是一个东西）</p>
+</li>
+<li><p>CPU就只是CPU内核，包括运算器、控制器、寄存器、Cache等</p>
+</li>
+</ul>
+<blockquote>
+<p>x86架构的电脑通常会有个主板，将CPU芯片和各个外设芯片通过总线连接</p>
+<p>嵌入式系统的SOC&#x2F;MCU是把CPU和各个外设都集成到了一个芯片里，这是他们很大的一个区别</p>
+</blockquote>
+<p><img src="/assets/image-20241211101851896.png" alt="image-20241211101851896" style="zoom:50%;" /><img src="/assets/image-20241211101903102.png" alt="image-20241211101903102" style="zoom: 50%;" /><img src="/assets/image-20241211101954770.png" alt="image-20241211101954770" style="zoom: 50%;" /></p>
+<p>MCU和SoC的区别主要体现在：</p>
+<ul>
+<li>处理能力</li>
+<li>应用场景</li>
+<li>功耗</li>
+<li>集成度：<ul>
+<li>MCU集成的资源有限，主要用于控制任务，而非复杂计算</li>
+<li>而SOC通常是一个完整的系统集成在一块芯片上，集成度更高。比如有MCU上没有的屏幕驱动部分、GPU等</li>
+</ul>
+</li>
+</ul>
+<img src="/assets/image-20240901211121011.png" alt="image-20240901211121011" style="zoom:67%;" />
+
+<p>由于SOC中集成了很多模块，那么软硬件工程师的工作量也会减少，如果用裸CPU，那么什么RAM、FLASH的电路都得自己画，但是如果SOC自带了，那么就不需要了啊</p>
+<h2 id="总线的本质"><a href="#总线的本质" class="headerlink" title="总线的本质"></a>总线的本质</h2><blockquote>
+<p>总线不仅仅就是几根线，它包括一套<strong>协议</strong>以及对应的<strong>控制器</strong></p>
+</blockquote>
+<p>总线是指计算机组件间规范化的交换数据的方式，即以一种通用的方式为各组件提供<strong>数据传送</strong>和<strong>控制逻辑</strong></p>
+<p>对于总线而言，有以下比较重要的性能指标或者是概念需要掌握：</p>
+<ul>
+<li>总线带宽：指的是单位时间内总线上传送的数据量；其大小为总线位宽*工作频率（单位为bit，但通常用Byte表示，此时需要除以8）</li>
+<li>总线位宽：指的是总线有多少比特，即通常所说的32位，64位总线</li>
+<li>总线时钟工作频率：以MHz或者GHz为单位</li>
+<li>总线延迟：一笔传输从发起到结束的时间。在突发传输中，通常指的是第一笔的发起和结束时间之间的延迟（什么事是突发传输后面再讲）</li>
+</ul>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>总线可以分为片上总线和片外总线：</p>
+<ul>
+<li>片上总线：同一个芯片上不同模块之间的一种规范化交换数据的方式。比如AMBA引入的AHB、APB、AXI等…基于片上总线，我们可以非常迅速的搭建SoC</li>
+<li>片外总线：两颗芯片或者两个设备之间的数据交换传输方式，比如UART、SPI、IIC、CAN、PCIe、USB…</li>
+</ul>
+<h3 id="总线的组成"><a href="#总线的组成" class="headerlink" title="总线的组成"></a>总线的组成</h3><p>总线通常由多个信号线组成，每一条信号线承担不同的功能，一种总线由以下部分组成：</p>
+<ul>
+<li>数据总线：用于传输数据，数据总线的宽度（即信号线的数量）决定了每次传输的数据量，通常为8位、16位、32位或64位</li>
+<li>地址总线：用于传输内存地址或外设的地址。地址总线的宽度决定了系统能够访问的内存空间的大小。例如，32位地址总线可以寻址2^32个内存地址（即4GB内存）</li>
+<li>控制总线：用于传输控制信号，协调各个硬件部件的工作。例如，控制信号可以指示内存是否需要读取或写入数据，或者表示数据的方向（从CPU到内存还是从内存到CPU）</li>
+</ul>
+<h3 id="总线的工作原理"><a href="#总线的工作原理" class="headerlink" title="总线的工作原理"></a>总线的工作原理</h3><p>总线的工作原理依赖于计算机系统中不同组件之间的协调。具体来说，数据传输过程通常包括以下几个步骤：</p>
+<ol>
+<li>发起传输请求：当CPU需要从内存读取数据或向内存写入数据时，它通过控制总线发起传输请求</li>
+<li>地址传输：CPU将目标地址传送到地址总线上，标明要访问的内存位置或外设地址</li>
+<li>数据传输：数据通过数据总线传输到目标组件，数据总线将存储在寄存器中的数据传输到内存或外设，反之亦然</li>
+<li>控制信号：控制总线发送信号来确保数据传输的正确性，如控制读&#x2F;写操作、数据传输的方向等</li>
+</ol>
+<h2 id="片上互联总线"><a href="#片上互联总线" class="headerlink" title="片上互联总线"></a>片上互联总线</h2><p>对于SoC内部各个模块之间连接，我们通常不会用像I2C、SPI、USB之类的协议，而是用专用的片上互联总线。对于嵌入式平台来说，最常用的协议是AMBA</p>
+<h3 id="AMBA"><a href="#AMBA" class="headerlink" title="AMBA"></a>AMBA</h3><p>AMBA（Advanced Microcontroller Bus Architecture，高级微控制器总线架构）定义了SoC内部的RISC CPU和其他硬件模块如何连接，基于AMBA总线，可以快速的将各个模块连接起来，构建一个SoC</p>
+<p>AMBA是个协议簇，它包含了许多协议，比如：</p>
+<ul>
+<li>AHB(Advanced High-performance Bus) 高级高性能总线</li>
+<li>APB (Advanced Peripheral Bus) 高级外设总线</li>
+<li>AXI (Advanced eXtensible Interface) 高级可拓展接口</li>
+<li>ASB (Advanced System Bus) 高级系统总线——用的很少</li>
+<li>……</li>
+</ul>
+<img src="/assets/image-20251111154619677.png" alt="image-20251111154619677" style="zoom: 80%;" />
+
+<blockquote>
+<p>在SoC设计时，各个IP核如果要通过AMBA里的协议和其他模块连接，内部得包含相关协议的wrapper（协议适配层）在IP的内部逻辑和系统总线之间做协议映射</p>
+</blockquote>
+<p>在一个典型的基于 ARM Cortex-A 的 SoC 中，总线结构通常如下所示:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[ CPU ] [ GPU ] [ DMA ]   (高性能主设备)</span><br><span class="line">    \     |     /</span><br><span class="line">     \    |    /</span><br><span class="line">    [  AXI 互联矩阵 ]</span><br><span class="line">         |</span><br><span class="line">    [ AXI-to-AHB桥 ]</span><br><span class="line">        /     \</span><br><span class="line">       /       \</span><br><span class="line">[ AHB ]       [ DDR控制器 ]   (高性能从设备)</span><br><span class="line">  |</span><br><span class="line">[AHB-to-APB桥] </span><br><span class="line">  |</span><br><span class="line">[ APB 总线 ]</span><br><span class="line">  |   |    |</span><br><span class="line">[UART][I2C][GPIO]...   (低速外设)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="AHB"><a href="#AHB" class="headerlink" title="AHB"></a>AHB</h4><p>AHB总线用于连接高速模块，包括ARM的处理器，片内RAM、DMA Master等。它采用共享总线架构，支持多个主设备和从设备，但是同一时刻总线上<strong>只有一个</strong>主设备驱动信号线。此外他还包括一个<strong>仲裁器</strong>，用于选择主设备，一个<strong>译码器</strong>来选择从设备，顾硬件架构分为5部分：</p>
+<ul>
+<li>Master</li>
+<li>Slave</li>
+<li>仲裁器</li>
+<li>译码器</li>
+<li>多路选择器（Multiplexer）</li>
+</ul>
+<img src="/assets/image-20260106092243087.png" alt="image-20260106092243087" style="zoom:67%;" />
+
+<blockquote>
+<p>MUX（多路选择器）是数电里的基本电路，有多路输入信号和选择信号，通过选择信号（仲裁器&#x2F;译码器）来决定最终的输出</p>
+</blockquote>
+<p>在一些场景下，只有单个Master，此时用AHB可能过于复杂，于是ARM又提出了AHB-Lite协议，它支持单主多从，并且没有仲裁器了</p>
+<p><img src="/assets/image-20251219092617659.png" alt="image-20251219092617659"></p>
+<h4 id="APB"><a href="#APB" class="headerlink" title="APB"></a>APB</h4><p>APB总线用于连接低速、低功率的一些外设比如GPIO、SPI、UART、IIC等。它是个单主多从的总线。APB通常位于 AHB 或 AXI 总线的下游，通过桥接器（Bridge）连接</p>
+<p>APB总线包含以下3个模块：</p>
+<ul>
+<li>APB Bridge：从AHB&#x2F;AXI接收指令和数据，转成 APB 时序和信号，是 APB 的唯一<strong>Master</strong></li>
+<li>译码器：根据地址选择要访问的从设备，产生 <code>PSELx</code> 信号</li>
+<li>APB Slave：被访问的外设模块（UART、GPIO、Timer 等），响应 <code>PSEL</code>、<code>PENABLE</code> 信号，返回数据</li>
+</ul>
+<h4 id="AXI"><a href="#AXI" class="headerlink" title="AXI"></a>AXI</h4><p>AXI 是 AMBA 架构下的高性能总线协议，它通过“读写分离 + 多通道并行 + 灵活握手”机制，为SoC模块之间提供了统一且高效的数据通信方式。主要用于连接CPU、高速外设（DMA、GPU、NPU）、DDR、SRAM等</p>
+<p>实际上现在的SoC中AHB已经很少使用了。除非是很低端的MCU，考虑到节省功耗和面积等因素，才会去使用AHB总线。目前更多的SoC采用AXI总线来连接一些高速模块</p>
+<p><img src="https://pic1.zhimg.com/v2-59524099e524d54ba16279b41be81a38_1440w.jpg" alt="img"></p>
+<h4 id="总线矩阵"><a href="#总线矩阵" class="headerlink" title="总线矩阵"></a>总线矩阵</h4><p>在SoC中如果直接使用AHB+MUX连接多个主设备和从设备，实际上效率会非常低的，因为同一时刻只能有一个主设备驱动总线。因此人们提出总线矩阵，它是一种<strong>多主多从的片上互连（On-Chip Interconnect）架构</strong>，它允许多个主设备（例如 CPU、DMA 控制器）<strong>同时</strong>访问多个从设备（例如 SRAM、外设寄存器、DDR 控制器），而不需要像传统单总线那样串行访问，但是同一个从设备同时只能被一个主设备访问，所以仍有仲裁器</p>
+<p>一个总线矩阵内部包含以下模块：</p>
+<ul>
+<li>主接口（Master Interface）：与主设备（如 CPU、DMA）连接</li>
+<li>从接口（Slave Interface）：与从设备（如存储器、外设）连接</li>
+<li>地址解码器（Address Decoder）：判断访问目标属于哪个从设备</li>
+<li>仲裁器（Arbiter）：每个从设备都有一个，当多个主设备同时请求时决定谁先访问</li>
+<li>通道（Channel）：连接主从之间的独立数据路径，可并行工作</li>
+</ul>
+<p>常见实现：</p>
+<ul>
+<li>AMBA AHB Matrix：出现在 Cortex-M3&#x2F;M4&#x2F;M7 等 MCU 中（如 STM32F4）</li>
+<li>AMBA AXI Interconnect：出现在 Cortex-A 系列 SoC（如 i.MX6ULL、RK3568、全志A系列）</li>
+</ul>
+<h3 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/161077476">AMBA、AHB、APB、AXI总线介绍及对比</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/623558837">深入理解AMBA总线（零）绪论 </a></p>
+</li>
+</ul>
+<p>1.寄存器地址到底是什么？为什么每个外设在物理地址空间中会有自己的一段地址</p>
+<ul>
+<li>CPU 并不直接“认识外设”或“芯片模块”，它只知道“能访问的一切资源都通过地址访问”。所以SoC中一切资源（RAM、ROM、外设）全部都被映射到一个统一的物理地址空间中</li>
+</ul>
+<p>2.CPU访问内存地址的时候，怎么知道哪个地址对应RAM，哪个地址对应GPIO的呢</p>
+<ul>
+<li>每个SoC在设计阶段，都会由硬件工程师定义一张内存映射表，这张表规定了每个模块在物理地址空间中所占的区域，例如<ul>
+<li>0x00000000 ~ 0x0FFFFFFF → 内存</li>
+<li>0x10000000 ~ 0x1FFFFFFF → 外设</li>
+<li>0x20000000 ~ 0x2FFFFFFF → 调试模块</li>
+<li>…</li>
+</ul>
+</li>
+<li>这张表由<strong>总线矩阵</strong>实现，AHB&#x2F;AXI总线<strong>译码</strong>逻辑会根据地址选择哪个从设备</li>
+</ul>
+<p>3.为什么访问外设寄存器时要<code>ioremap</code></p>
+<ul>
+<li>因为外设寄存器在物理地址空间中，必须映射到内核虚拟地址空间中才能被CPU访问</li>
+</ul>
+<p>4.SoC 中 CPU 是如何访问外设寄存器的</p>
+<ul>
+<li>通过 AXI&#x2F;AHB 总线，经过 AXI-APB Bridge 访问外设</li>
+</ul>
+<h2 id="DMA"><a href="#DMA" class="headerlink" title="DMA"></a>DMA</h2><p>DMA（Direct Memory Access）是用于高效数据传输的一种技术，能够实现<strong>外设和内存</strong>之间直接交换数据，而无需CPU干预，它通常以独立的控制器存在。DMA不仅减轻了CPU负担，提高了数据传输效率，还能在数据传输过程中保持CPU的<strong>并行计算能力</strong>，适用于大数据量、高带宽的应用场景</p>
+<h3 id="DMA的工作模式"><a href="#DMA的工作模式" class="headerlink" title="DMA的工作模式"></a>DMA的工作模式</h3><p>DMA有几种常见的传输模式，具体方式取决于传输的源和目标设备以及数据的传输方向：</p>
+<ol>
+<li>内存到内存<ul>
+<li>数据从一个内存位置传输到另一个内存位置</li>
+<li>通常用于大数据块的移动，如从一个缓冲区复制数据到另一个缓冲区</li>
+</ul>
+</li>
+<li>外设到内存<ul>
+<li>数据从外设（例如传感器、ADC）传输到内存</li>
+<li>比如一个传感器的测量结果可以直接写入内存供后续处理</li>
+</ul>
+</li>
+<li>内存到外设<ul>
+<li>数据从内存传输到外设</li>
+<li>比如，将数据从内存直接写入到输出设备（如DAC、显示器）</li>
+</ul>
+</li>
+<li>外设到外设<ul>
+<li>数据从一个外设传输到另一个外设</li>
+<li>比如在某些设备之间直接传输数据，而不通过内存（例如数据采集系统中，数据直接从一个外设转移到另一个外设）</li>
+</ul>
+</li>
+</ol>
+<h3 id="DMA控制器的工作流程"><a href="#DMA控制器的工作流程" class="headerlink" title="DMA控制器的工作流程"></a>DMA控制器的工作流程</h3><ol>
+<li>请求：外设发起DMA请求，告诉DMA控制器需要进行数据传输</li>
+<li>授予：DMA控制器检查是否可以访问总线如果没有其他设备正在使用总线，则控制器将授予DMA传输权限</li>
+<li>传输：DMA控制器执行数据传输过程，直接在内存与外设之间传输数据</li>
+<li>完成：传输完成后，DMA控制器会生成中断信号通知CPU此时，CPU可以处理传输后的数据</li>
+</ol>
+<h3 id="DMA的优势"><a href="#DMA的优势" class="headerlink" title="DMA的优势"></a>DMA的优势</h3><ul>
+<li>减轻CPU负担：CPU可以将时间集中在计算和其他任务上，而不需要管理低效的数据传输操作</li>
+<li>并行处理：DMA可以与CPU并行工作，CPU和DMA可以在同一时刻执行不同的任务，从而提高系统效率</li>
+<li>高效传输：在大规模数据传输（如音视频流、网络传输等）中，DMA的效率要比传统的CPU控制的方式高得多</li>
+</ul>
+<h3 id="DMA的缺点"><a href="#DMA的缺点" class="headerlink" title="DMA的缺点"></a>DMA的缺点</h3><ul>
+<li>硬件需求：需要专门的DMA控制器，有时这可能增加硬件设计的复杂度和成本</li>
+<li>可能的冲突：DMA控制器直接访问内存时，可能会与CPU访问内存发生冲突，特别是在高频繁数据访问的情况下。现代系统通过<strong>总线仲裁</strong>来解决这个问题</li>
+<li>中断管理复杂：DMA传输完毕后需要通过中断通知CPU，这可能会带来中断处理的开销，尤其在高频率的传输中</li>
+</ul>
+<h3 id="DMA的实际应用"><a href="#DMA的实际应用" class="headerlink" title="DMA的实际应用"></a>DMA的实际应用</h3><ul>
+<li>音视频数据传输：DMA常用于音视频设备中，大数据的传输速度要求非常高，CPU不可能直接参与每个数据的传输，因此使用DMA可以让外设与内存之间高效交换数据</li>
+<li>网络数据传输：在网络芯片与内存之间的数据交换中，DMA大幅度提升了吞吐量</li>
+<li>存储设备：如硬盘、固态硬盘（SSD）等设备的数据传输，也通常使用DMA来提升性能</li>
+<li>嵌入式系统：在一些传感器数据读取、显示驱动等任务中，DMA也被广泛应用</li>
+</ul>
+<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><p>1.有解决过CPU和DMA的问题吗？</p>
+<ul>
+<li>回答解决使用DMA引入的缓存一致性问题</li>
+</ul>
+<p>2.DMA使用的内存如何分配</p>
+<ul>
+<li>DMA必须使用连续的内存，所以得用<code>kmalloc()</code>或者<code>dma_alloc_coherent()</code>分配，不能用<code>vmalloc()</code>分配</li>
+<li>用<code>kmalloc()</code>分配的内存时，要手动处理缓存一致性问题</li>
+</ul>
+<h2 id="IOMMU"><a href="#IOMMU" class="headerlink" title="IOMMU"></a>IOMMU</h2><p>IOMMU（Input–Output Memory Management Unit，输入输出内存管理单元）是一个专门用于外设（DMA 设备）的 <strong>地址转换与保护单元</strong>。它在现代操作系统和硬件平台中扮演着类似于 CPU MMU 的角色，但作用对象是<strong>外设的DMA访问</strong></p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>地址转换（DMA remapping）</td>
+<td>将外设发出的 DMA 虚拟地址（IOVA, I&#x2F;O Virtual Address）转换为物理内存地址。设备可以使用 IOVA，就像 CPU 使用虚拟地址一样</td>
+</tr>
+<tr>
+<td>隔离保护</td>
+<td>防止外设访问不属于自己的内存区域，类似于 CPU 的内存保护，增强系统安全</td>
+</tr>
+<tr>
+<td>支持虚拟化</td>
+<td>在虚拟机环境中，IOMMU 可以让多个虚拟机安全地共享物理设备，同时每个虚拟机看到的 DMA 地址是虚拟化后的地址</td>
+</tr>
+<tr>
+<td>扩展 DMA 能力</td>
+<td>支持 64 位 DMA 地址、打破物理连续性限制；设备不再必须访问物理连续内存</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>打破物理连续性限制</p>
+<ul>
+<li><p>没有 IOMMU 时，设备进行 DMA 访问时必须访问物理连续内存，这在大内存、碎片化严重的系统中很难保证</p>
+</li>
+<li><p>有了 IOMMU，设备可以访问 <strong>不连续物理页</strong>，IOMMU 会把连续的 IOVA 映射到实际的物理页</p>
+</li>
+</ul>
+</li>
+<li><p>增加安全性</p>
+<ul>
+<li><p>防止 DMA 攻击（恶意设备或驱动访问任意内存）</p>
+</li>
+<li><p>通过 IOMMU，可以只允许设备访问指定的内存区域</p>
+</li>
+</ul>
+</li>
+<li><p>支持虚拟化</p>
+<ul>
+<li><p>虚拟机中的设备可以访问 DMA 虚拟地址</p>
+</li>
+<li><p>IOMMU 将这些地址映射到宿主机的物理内存，实现 <strong>DMA 隔离</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
+<li>设备发出 DMA 请求，提供 IOVA（类似虚拟地址）</li>
+<li>IOMMU 查 <strong>页表</strong>，将 IOVA 转换为实际物理地址</li>
+<li>DMA 控制器通过物理总线访问物理内存</li>
+<li>CPU 也可以通过内核提供的接口管理 IOMMU 表</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/04-SoC%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.html">https://li-ruiqi777.github.io/01-计算机基础八股/04-SoC与系统架构.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/07.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/24-%E7%BD%91%E5%8D%A1%E9%A9%B1%E5%8A%A8%E7%A7%BB%E6%A4%8D.html" title="24 网卡驱动移植"><img class="cover" src="/img/08.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">24 网卡驱动移植</div></div><div class="info-2"><div class="info-item-1">网卡驱动移植型号确认及模式设置在移植网卡驱动前，首先得知道它的型号。如果是USB网卡的话，可以通过lsusb命令查看 12345lsusb ...Bus 001 Device 003: ID 0bda:1a2b Realtek Semiconductor Corp. RTL8188GU 802.11n WLAN Adapter (Driver CDROM Mode...    很多网卡在未使用时，可能被初始化成U盘的模式，这时还需要我们将其转成网卡模式  这里RTL8188GU并不是真正的型号，因为它此时不是真正的网卡模式，RTL8188GU是Realtek常用“老型号马甲”    可以通过以下的指令，将USB网卡切换到真正的网卡模式 12345sudo apt install usb-modeswitch usb-modeswitch-datasudo usb_modeswitch \  -v 0bda -p 1a2b \  -M...</div></div></div></a><a class="pagination-related" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/CMake/03-find_package%E7%94%A8%E6%B3%95.html" title="03 find_package用法"><img class="cover" src="/img/10.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">03 find_package用法</div></div><div class="info-2"><div class="info-item-1">find_package()的用法作用主要就是通过库对应的.cmake文件（由库的维护者提供，一般用不着自己写），获得第三方库的头文件以及动&#x2F;静态库文件的路径，方便我们直接添加到我们自己的工程里面  &lt;PackageName&gt;_FOUND ：找到了就是True，没找到就是未设定 &lt;PackageName&gt;_INCLUDE_DIR ：头文件目录 &lt;PackageName&gt;_LIBRARY...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">138</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SoC%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-text">SoC与系统架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SoC-MCU-MPU-CPU%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">SoC&#x2F;MCU&#x2F;MPU&#x2F;CPU的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-text">总线的本质</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%B1%BB"><span class="toc-text">分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">总线的组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">总线的工作原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%87%E4%B8%8A%E4%BA%92%E8%81%94%E6%80%BB%E7%BA%BF"><span class="toc-text">片上互联总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AMBA"><span class="toc-text">AMBA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AHB"><span class="toc-text">AHB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#APB"><span class="toc-text">APB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AXI"><span class="toc-text">AXI</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9F%A9%E9%98%B5"><span class="toc-text">总线矩阵</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98"><span class="toc-text">面试问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DMA"><span class="toc-text">DMA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">DMA的工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">DMA控制器的工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">DMA的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">DMA的缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">DMA的实际应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-text">面试题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IOMMU"><span class="toc-text">IOMMU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">工作原理</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/claudecode.html" title="claudecode"><img src="/img/09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="claudecode"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/claudecode.html" title="claudecode">claudecode</a><time datetime="2026-04-14T16:00:00.000Z" title="Created 2026-04-15 00:00:00">2026-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/26-PCIE.html" title="26 PCIE"><img src="/img/12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="26 PCIE"/></a><div class="content"><a class="title" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/26-PCIE.html" title="26 PCIE">26 PCIE</a><time datetime="2026-04-13T16:00:00.000Z" title="Created 2026-04-14 00:00:00">2026-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/autoconf.html" title="autoconf"><img src="/img/01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="autoconf"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/autoconf.html" title="autoconf">autoconf</a><time datetime="2026-03-20T16:00:00.000Z" title="Created 2026-03-21 00:00:00">2026-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git">git</a><time datetime="2026-02-09T16:00:00.000Z" title="Created 2026-02-10 00:00:00">2026-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html" title="25 IIO子系统"><img src="/img/09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="25 IIO子系统"/></a><div class="content"><a class="title" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html" title="25 IIO子系统">25 IIO子系统</a><time datetime="2026-01-26T16:00:00.000Z" title="Created 2026-01-27 00:00:00">2026-01-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" defer="defer" color="100,200,255" opacity="0.3" zIndex="-1" count="100" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>25 IIO子系统 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="IIO子系统IIO（Industrial I&#x2F;O）子系统是Linux中对于类ADC传感器（温湿度、电压、电流、IMU…）数据采集所提供的一个框架 总览在Linux内核中，IIO同样遵循着“驱动”分层的理念，一个完整的IIO设备的驱动可以分为以下几层    iio-core：  提供统一的用户空间接口（&#x2F;sys&#x2F;bus&#x2F;iio&#x2F;iio:deviceX&#x2F;和字符设备） 管理IIO子系统的初始化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="25 IIO子系统">
+<meta property="og:url" content="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html">
+<meta property="og:site_name" content="李瑞琦的博客">
+<meta property="og:description" content="IIO子系统IIO（Industrial I&#x2F;O）子系统是Linux中对于类ADC传感器（温湿度、电压、电流、IMU…）数据采集所提供的一个框架 总览在Linux内核中，IIO同样遵循着“驱动”分层的理念，一个完整的IIO设备的驱动可以分为以下几层    iio-core：  提供统一的用户空间接口（&#x2F;sys&#x2F;bus&#x2F;iio&#x2F;iio:deviceX&#x2F;和字符设备） 管理IIO子系统的初始化">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/09.jpg">
+<meta property="article:published_time" content="2026-01-26T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-15T12:13:23.601Z">
+<meta property="article:author" content="Li Ruiqi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/09.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '25 IIO子系统',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  isShuoshuo: false
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">138</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/09.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">25 IIO子系统</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">25 IIO子系统</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2026-01-26T16:00:00.000Z" title="Created 2026-01-27 00:00:00">2026-01-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/">04-Linux</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/">03-内核开发</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="IIO子系统"><a href="#IIO子系统" class="headerlink" title="IIO子系统"></a>IIO子系统</h1><p>IIO（Industrial I&#x2F;O）子系统是Linux中对于类ADC传感器（温湿度、电压、电流、IMU…）数据采集所提供的一个框架</p>
+<h2 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h2><p>在Linux内核中，IIO同样遵循着“驱动”分层的理念，一个完整的IIO设备的驱动可以分为以下几层</p>
+<img src="./../../assets/image-20260125192238798.png" alt="image-20260125192238798" style="zoom: 80%;" />
+
+<ul>
+<li><p>iio-core：</p>
+<ul>
+<li>提供统一的用户空间接口（<code>/sys/bus/iio/iio:deviceX/</code>和字符设备）</li>
+<li>管理IIO子系统的初始化和退出</li>
+<li>实现IIO设备的注册与注销机制</li>
+<li>定义标准的IIO操作数据结构（<code>iio_info</code>, <code>iio_dev</code>等）</li>
+</ul>
+</li>
+<li><p>iio device driver：这一层直接与硬件交互，是驱动开发者的工作重点</p>
+<ul>
+<li><p>实现<code>iio_info</code>结构体中的回调函数（<code>read_raw</code>, <code>write_raw</code>, <code>read_avail</code>等）</p>
+</li>
+<li><p>处理与传感器芯片的通信（I2C&#x2F;SPI等）</p>
+</li>
+<li><p>管理传感器的配置（量程、采样率、滤波器等）</p>
+</li>
+</ul>
+</li>
+<li><p>iio-buffer：负责高效的数据采集和传输</p>
+<ul>
+<li><p>管理硬件和软件缓冲区</p>
+</li>
+<li><p>处理数据从内核到用户空间的传输</p>
+</li>
+<li><p>支持<code>poll()</code>、<code>select()</code>等异步I&#x2F;O机制</p>
+</li>
+<li><p>可配置的缓冲区长度和水位标记</p>
+</li>
+</ul>
+</li>
+<li><p>iio-trigger：提供灵活的数据采集触发机制</p>
+<ul>
+<li>硬件触发器：外部GPIO信号、定时器中断等</li>
+<li>软件触发器：<code>sysfs</code>触发</li>
+<li>触发器消费者机制：多个设备可响应同一触发器</li>
+</ul>
+</li>
+</ul>
+<p>典型的数据流向：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.配置：用户通过sysfs配置传感器参数</span><br><span class="line">2.触发：配置触发器（定时或外部事件）</span><br><span class="line">3.采集：触发器启动数据采集</span><br><span class="line">4.缓冲：数据存入IIO缓冲区</span><br><span class="line">5.读取：用户空间从字符设备读取数据</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/yZMd_Z9PVeMkbs6NurPvBg">https://mp.weixin.qq.com/s/yZMd_Z9PVeMkbs6NurPvBg</a></li>
+</ul>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><p>相关数据结构的拓扑关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">iio_dev (设备实例)</span><br><span class="line">    |</span><br><span class="line">    |-- iio_info (回调函数)</span><br><span class="line">    |     |-- read_raw()</span><br><span class="line">    |     |-- write_raw()</span><br><span class="line">    |     |-- update_scan_mode()</span><br><span class="line">    |     `-- ...</span><br><span class="line">    |</span><br><span class="line">    |-- iio_chan_spec[] (通道数组)</span><br><span class="line">    |     |-- type, channel, scan_index</span><br><span class="line">    |     |-- info_mask_* (属性掩码)</span><br><span class="line">    |     |-- scan_type (数据格式)</span><br><span class="line">    |     `-- event_spec (事件规格)</span><br><span class="line">    |</span><br><span class="line">    |-- iio_buffer_setup_ops (缓冲区操作)</span><br><span class="line">    |     |-- preenable(), postenable()</span><br><span class="line">    |     `-- predisable(), postdisable()</span><br><span class="line">    |</span><br><span class="line">    `-- active_scan_mask (活动通道掩码)</span><br></pre></td></tr></table></figure>
+
+<h3 id="iio-dev"><a href="#iio-dev" class="headerlink" title="iio_dev"></a>iio_dev</h3><p><code>iio_dev</code>代表一个IIO设备实例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// include/linux/iio/iio.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_dev</span> &#123;</span></span><br><span class="line">    <span class="type">int</span>                     modes;              <span class="comment">// 设备支持的模式</span></span><br><span class="line">    <span class="type">int</span>                     currentmode;        <span class="comment">// 当前模式</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">device</span>           <span class="title">dev</span>;</span>                <span class="comment">// 内嵌的device结构</span></span><br><span class="line">    <span class="type">int</span>                     id;                 <span class="comment">// 设备ID</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>              *name;              <span class="comment">// 设备名称</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">iio_info</span>   *<span class="title">info</span>;</span>              <span class="comment">// 设备信息和方法</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">iio_buffer_setup_ops</span> *<span class="title">setup_ops</span>;</span> <span class="comment">// 缓冲区设置操作</span></span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iio_channel</span>      *<span class="title">channels</span>;</span>          <span class="comment">// 通道数组</span></span><br><span class="line">    <span class="type">int</span>                     num_channels;       <span class="comment">// 通道数量</span></span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span>        <span class="title">buffer_list</span>;</span>        <span class="comment">// 缓冲区链表</span></span><br><span class="line">    <span class="type">int</span>                     scan_bytes;         <span class="comment">// 扫描字节数</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="type">unsigned</span> <span class="type">long</span>     *available_scan_masks; <span class="comment">// 可用的扫描掩码</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">const</span> <span class="type">unsigned</span> <span class="type">int</span>      *active_scan_mask;  <span class="comment">// 活动扫描掩码</span></span><br><span class="line">    <span class="type">bool</span>                    scan_timestamp;     <span class="comment">// 是否包含时间戳</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span>  *<span class="title">attrs</span>;</span>             <span class="comment">// 设备属性组</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span>  *<span class="title">event_interface_attrs</span>;</span> <span class="comment">// 事件接口属性</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>modes</code>：设备的采集模式</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> INDIO_DIRECT_MODE		0x01  <span class="comment">// 直接读取模式</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INDIO_BUFFER_TRIGGERED	0x02  <span class="comment">// 缓冲区触发模式</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INDIO_BUFFER_SOFTWARE	0x04  <span class="comment">// 软件缓冲区</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INDIO_BUFFER_HARDWARE	0x08  <span class="comment">// 硬件缓冲区</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INDIO_EVENT_CLASS		0x10  <span class="comment">// 支持事件</span></span></span><br></pre></td></tr></table></figure>
+
+<p><img src="./../../assets/image-20260124194504595.png" alt="image-20260124194504595"></p>
+<ul>
+<li>只有设置了<code>INDIO_BUFFER_*</code>模式的设备才能使用Buffer</li>
+<li>直接模式（<code>INDIO_DIRECT_MODE</code>）是互斥的，不能与Buffer模式共存</li>
+</ul>
+<p>不使用Buffer：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户读取 → 驱动立即读硬件 → 返回单次数据</span><br></pre></td></tr></table></figure>
+
+<p>使用Buffer：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户启用Buffer → 用户触发/定时/硬件自动触发 → 驱动批量读硬件 → 数据入Buffer → 用户读取Buffer</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="iio-info"><a href="#iio-info" class="headerlink" title="iio_info"></a>iio_info</h3><p><strong>直接读取模式下</strong>，用户空间和驱动的交互流程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户空间操作sysfs节点 → 内核调用属性show/store → 调用iio_info回调 → 驱动处理 → 返回结果</span><br></pre></td></tr></table></figure>
+
+<p>调用链：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">用户：cat /sys/.../in_voltage0_raw</span><br><span class="line">       ↓</span><br><span class="line">IIO核心：iio_chan_sysfs_show()</span><br><span class="line">       ↓</span><br><span class="line">解析出：通道=0, 属性类型=IIO_CHAN_INFO_RAW</span><br><span class="line">       ↓</span><br><span class="line">调用：indio_dev-&gt;info-&gt;read_raw()</span><br><span class="line">       ↓</span><br><span class="line">驱动：adc_read_raw()</span><br><span class="line">       ↓</span><br><span class="line">驱动读取硬件寄存器</span><br><span class="line">       ↓</span><br><span class="line">返回数据 → 格式化 → 用户空间</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//include/linux/iio/iio.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_info</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">module</span> *<span class="title">driver_module</span>;</span>  <span class="comment">// 驱动模块</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">attribute_group</span> *<span class="title">attrs</span>;</span>  <span class="comment">// 驱动特定属性</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取原始值（必须实现）</span></span><br><span class="line">    <span class="type">int</span> (*read_raw)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                   <span class="keyword">struct</span> iio_chan_spec <span class="type">const</span> *chan,</span><br><span class="line">                   <span class="type">int</span> *val, <span class="type">int</span> *val2, <span class="type">long</span> mask);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 写入原始值</span></span><br><span class="line">    <span class="type">int</span> (*write_raw)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                    <span class="keyword">struct</span> iio_chan_spec <span class="type">const</span> *chan,</span><br><span class="line">                    <span class="type">int</span> val, <span class="type">int</span> val2, <span class="type">long</span> mask);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取可用值范围</span></span><br><span class="line">    <span class="type">int</span> (*read_avail)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                     <span class="keyword">struct</span> iio_chan_spec <span class="type">const</span> *chan,</span><br><span class="line">                     <span class="type">const</span> <span class="type">int</span> **vals, <span class="type">int</span> *type, <span class="type">int</span> *length,</span><br><span class="line">                     <span class="type">long</span> mask);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 写入原始值（带可用值）</span></span><br><span class="line">    <span class="type">int</span> (*write_raw_get_fmt)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                            <span class="keyword">struct</span> iio_chan_spec <span class="type">const</span> *chan,</span><br><span class="line">                            <span class="type">long</span> mask);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取事件值</span></span><br><span class="line">    <span class="type">int</span> (*read_event_value)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                           u64 event_code, <span class="type">int</span> *val);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 写入事件值</span></span><br><span class="line">    <span class="type">int</span> (*write_event_value)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                            u64 event_code, <span class="type">int</span> val);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 验证事件</span></span><br><span class="line">    <span class="type">int</span> (*validate_trigger)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                           <span class="keyword">struct</span> iio_trigger *trig);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 更新缓冲区</span></span><br><span class="line">    <span class="type">int</span> (*update_scan_mode)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                           <span class="type">const</span> <span class="type">unsigned</span> <span class="type">long</span> *scan_mask);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 调试寄存器访问</span></span><br><span class="line">    <span class="type">int</span> (*debugfs_reg_access)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                             <span class="type">unsigned</span> reg, <span class="type">unsigned</span> writeval,</span><br><span class="line">                             <span class="type">unsigned</span> *readval);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="通道"><a href="#通道" class="headerlink" title="通道"></a>通道</h3><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>IIO通道是IIO框架中表示单个传感器数据流的抽象。每个通道对应一个物理量（如温度、电压、加速度等）的测量点。一个传感器设备可以有多个通道（如三轴加速度计有X、Y、Z三个通道）</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><ul>
+<li>定义数据类型：指定测量的是什么物理量（电压、温度、加速度等）</li>
+<li>描述数据格式：指定数据如何编码（位数、符号、字节序等）</li>
+<li>配置属性：控制哪些sysfs属性对该通道可用</li>
+<li>组织数据流：定义在Buffer中的数据排列顺序</li>
+</ul>
+<h4 id="核心数据结构"><a href="#核心数据结构" class="headerlink" title="核心数据结构"></a>核心数据结构</h4><p><code>iio_chan_spec</code>定义设备的每个数据通道，核心层会根据<code>iio_chan_spec</code>字段自动在sysfs下创建属性文件，并绑定<code>show</code>和<code>store</code>方法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//include/linux/iio/iio.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_chan_spec</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">iio_chan_type</span>  <span class="title">type</span>;</span>              <span class="comment">// 通道类型</span></span><br><span class="line">    <span class="type">int</span>                 channel;           <span class="comment">// 通道编号（用于区分同一类型的多个通道）</span></span><br><span class="line">    <span class="type">int</span>                 channel2;          <span class="comment">// 辅助通道编号</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span>       address;           <span class="comment">// 地址</span></span><br><span class="line">    <span class="type">int</span>                 scan_index;         <span class="comment">// 在扫描中的索引</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="type">char</span>    sign;                      <span class="comment">// 符号(&#x27;s&#x27;/&#x27;u&#x27;)</span></span><br><span class="line">        u8      realbits;                  <span class="comment">// 实际位数</span></span><br><span class="line">        u8      storagebits;               <span class="comment">// 存储位数</span></span><br><span class="line">        u8      shift;                     <span class="comment">// 位移</span></span><br><span class="line">        u8      repeat;                    <span class="comment">// 重复次数</span></span><br><span class="line">        <span class="class"><span class="keyword">enum</span> <span class="title">iio_endian</span> <span class="title">endianness</span>;</span>        <span class="comment">// 字节序</span></span><br><span class="line">    &#125; scan_type;                          <span class="comment">// 扫描类型</span></span><br><span class="line">    <span class="type">long</span>                info_mask_separate; <span class="comment">// 独立属性掩码</span></span><br><span class="line">    <span class="type">long</span>                info_mask_shared_by_type; <span class="comment">// 同类型共享属性</span></span><br><span class="line">    <span class="type">long</span>                info_mask_shared_by_dir;  <span class="comment">// 同方向共享属性</span></span><br><span class="line">    <span class="type">long</span>                info_mask_shared_by_all;  <span class="comment">// 所有通道共享属性</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">iio_event_spec</span> *<span class="title">event_spec</span>;</span> <span class="comment">// 事件规格</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span>        num_event_specs;   <span class="comment">// 事件规格数量</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">iio_chan_spec_ext_info</span> *<span class="title">ext_info</span>;</span> <span class="comment">// 扩展信息</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>          *extend_name;      <span class="comment">// 扩展名称</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>          *datasheet_name;   <span class="comment">// 数据手册名称</span></span><br><span class="line">    <span class="type">unsigned</span>            modified:<span class="number">1</span>;        <span class="comment">// 是否修改</span></span><br><span class="line">    <span class="type">unsigned</span>            indexed:<span class="number">1</span>;         <span class="comment">// 是否有索引</span></span><br><span class="line">    <span class="type">unsigned</span>            output:<span class="number">1</span>;          <span class="comment">// 输出通道</span></span><br><span class="line">    <span class="type">unsigned</span>            differential:<span class="number">1</span>;    <span class="comment">// 差分通道</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>关键字段：</p>
+<ul>
+<li><code>type</code>：最重要的字段，定义通道类型，决定了sysfs属性路径（如in_voltage0_raw）</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">iio_chan_type</span> &#123;</span></span><br><span class="line">    IIO_VOLTAGE,        <span class="comment">// 电压</span></span><br><span class="line">    IIO_CURRENT,        <span class="comment">// 电流</span></span><br><span class="line">    IIO_POWER,          <span class="comment">// 功率</span></span><br><span class="line">    IIO_ACCEL,          <span class="comment">// 加速度</span></span><br><span class="line">    IIO_ANGL_VEL,       <span class="comment">// 角速度</span></span><br><span class="line">    IIO_MAGN,           <span class="comment">// 磁场</span></span><br><span class="line">    IIO_LIGHT,          <span class="comment">// 光强</span></span><br><span class="line">    IIO_INTENSITY,      <span class="comment">// 强度</span></span><br><span class="line">    IIO_PROXIMITY,      <span class="comment">// 接近</span></span><br><span class="line">    IIO_TEMP,           <span class="comment">// 温度</span></span><br><span class="line">    IIO_INCLI,          <span class="comment">// 倾角</span></span><br><span class="line">    IIO_ROT,            <span class="comment">// 旋转</span></span><br><span class="line">    IIO_ANGL,           <span class="comment">// 角度</span></span><br><span class="line">    IIO_TIMESTAMP,      <span class="comment">// 时间戳</span></span><br><span class="line">    <span class="comment">// ... 更多类型</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>channel</code>：通道编号，用于区分同一类型的多个通道</p>
+<ul>
+<li>如三轴加速度计的X&#x3D;0、Y&#x3D;1、Z&#x3D;2</li>
+</ul>
+</li>
+<li><p><code>indexed</code>：布尔标志</p>
+<ul>
+<li>为true时，通道名称会包含channel编号</li>
+<li>如in_voltage0而不是in_voltage</li>
+</ul>
+</li>
+<li><p>差分通道：<code>differential=1</code></p>
+<ul>
+<li>表示测量的是两个输入之差</li>
+<li>通道名称会包含<code>-</code>（如<code>in_voltage0-voltage1</code>）</li>
+</ul>
+</li>
+<li><p>输出通道：<code>output=1</code></p>
+<ul>
+<li>表示通道是输出而非输入</li>
+<li>名称前缀为<code>out_</code>而不是<code>in_</code></li>
+</ul>
+</li>
+<li><p>带<code>channel2</code>的通道：</p>
+<ul>
+<li>用于差分测量或调制信号</li>
+<li>第二个通道编号</li>
+</ul>
+</li>
+</ul>
+<p>IIO设备在sysfs下<strong>有哪些属性</strong>由下面这几个字段控制：</p>
+<blockquote>
+<p>一个物理量通常由多个<strong>属性</strong>，比如一个X轴加速度有RAW和SCALE2个属性，分离它们让用户既可以直接用物理量，也能获取原始数据做高级处理</p>
+</blockquote>
+<ul>
+<li><p><code>info_mask_separate</code>：每个通道独立的属性</p>
+<ul>
+<li>如<code>raw</code>、<code>offset</code>、<code>scale</code>等</li>
+<li>路径：<code>in_voltage0_raw</code>、<code>in_voltage1_raw</code></li>
+</ul>
+</li>
+<li><p><code>info_mask_shared_by_type</code>：同类型通道共享的属性</p>
+<ul>
+<li>如所有电压通道共享的<code>scale</code></li>
+<li>路径：<code>in_voltage_scale</code></li>
+</ul>
+</li>
+<li><p><code>info_mask_shared_by_dir</code>：同方向通道共享的属性</p>
+<ul>
+<li>如所有输入通道共享的属性</li>
+</ul>
+</li>
+<li><p><code>info_mask_shared_by_all</code>：所有通道共享的属性</p>
+<ul>
+<li>如<code>sampling_frequency</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Buffer子系统"><a href="#Buffer子系统" class="headerlink" title="Buffer子系统"></a>Buffer子系统</h3><h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>Buffer是IIO的数据暂存区，批量存储多个通道、多个样本的数据。使用Buffer可以实现：多个数据存到缓冲区后一次性给用户空间，减少系统调用次数</p>
+<p>IIO Buffer<strong>不会</strong>自己填充，必须由Trigger触发IIO数据读取后，才会被填充。它本质是内核中的一个<strong>环形队列</strong>，数据在 Buffer 中是按“扫描顺序（Scan Order）”排列的。比如使能了通道 0、2 和时间戳，Buffer 中的一帧数据结构可能是：<code>[Ch0][Ch2][Padding][Timestamp]</code>，内核通过 kfifo 机制处理并发读写，确保采集不丢包</p>
+<p> IIO Scan Mask (扫描掩码)决定了哪些通道的数据会被放入 Buffer，假如我们需要 5 个通道，通过 Sysfs 接口（scan_elements&#x2F; in_voltageX_en），用户可以动态选择需要开启的通道，驱动程序根据 active_scan_mask 来决定读取哪些寄存器</p>
+<h4 id="核心数据结构-1"><a href="#核心数据结构-1" class="headerlink" title="核心数据结构"></a>核心数据结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// include/linux/iio/buffer.h</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//缓冲区操作回调，管理数据缓冲区</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_buffer_setup_ops</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> (*preenable)(<span class="keyword">struct</span> iio_dev *);     <span class="comment">// 启用前回调</span></span><br><span class="line">    <span class="type">int</span> (*postenable)(<span class="keyword">struct</span> iio_dev *);    <span class="comment">// 启用后回调</span></span><br><span class="line">    <span class="type">int</span> (*predisable)(<span class="keyword">struct</span> iio_dev *);    <span class="comment">// 禁用前回调</span></span><br><span class="line">    <span class="type">int</span> (*postdisable)(<span class="keyword">struct</span> iio_dev *);   <span class="comment">// 禁用后回调</span></span><br><span class="line">    <span class="type">bool</span> (*validate_scan_mask)(<span class="keyword">struct</span> iio_dev *indio_dev,</span><br><span class="line">                              <span class="type">const</span> <span class="type">unsigned</span> <span class="type">long</span> *scan_mask);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Trigger子系统"><a href="#Trigger子系统" class="headerlink" title="Trigger子系统"></a>Trigger子系统</h3><h4 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h4><p>Trigger是IIO框架中的数据采集触发器。IIO设备不会”自动”读取数据，必须被Trigger驱动。它决定”<strong>何时</strong>“读取数据，而不是”如何”读取</p>
+<p>Trigger可以基于：</p>
+<ul>
+<li><p>定时器（固定频率）</p>
+</li>
+<li><p>外部信号（GPIO中断）</p>
+</li>
+<li><p>软件命令</p>
+</li>
+<li><p>其他传感器的事件</p>
+</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li><strong>Trigger是独立设备</strong>：有自己的设备节点，不依赖具体传感器</li>
+<li><strong>多对多关系</strong>：一个Trigger可触发多个设备，一个设备可用多个Trigger</li>
+<li><strong>current_trigger是符号链接</strong>：指向实际Trigger设备</li>
+<li><strong>必须Buffer模式</strong>：只有支持Buffer的IIO设备才有<code>trigger/</code>目录</li>
+</ul>
+<h4 id="作用-1"><a href="#作用-1" class="headerlink" title="作用"></a>作用</h4><ul>
+<li><p>同步采集：多个传感器同时采样</p>
+</li>
+<li><p>事件驱动：只在需要时采集，节省功耗</p>
+</li>
+<li><p>精确时序：保证采样时间的准确性</p>
+</li>
+<li><p>数据关联：多传感器数据时间对齐</p>
+</li>
+</ul>
+<h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><p>trigger的类型确定于<code>iio_dev</code>的<code>mode</code>字段</p>
+<h5 id="硬件触发"><a href="#硬件触发" class="headerlink" title="硬件触发"></a>硬件触发</h5><p>工作原理：</p>
+<ul>
+<li><p>外部引脚产生中断</p>
+</li>
+<li><p>中断服务程序调用Trigger</p>
+</li>
+<li><p>Trigger通知所有注册的设备</p>
+</li>
+<li><p>各设备同时读取数据</p>
+</li>
+</ul>
+<h5 id="软件触发"><a href="#软件触发" class="headerlink" title="软件触发"></a>软件触发</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> 1 &gt; /sys/bus/iio/devices/trigger0/trigger_now</span><br></pre></td></tr></table></figure>
+
+<p>工作原理：</p>
+<ul>
+<li>用户写入trigger_now文件</li>
+<li>内核调用trigger回调</li>
+<li>设备执行数据采集</li>
+</ul>
+<h5 id="定时器触发器"><a href="#定时器触发器" class="headerlink" title="定时器触发器"></a>定时器触发器</h5><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 固定时间间隔触发</span></span><br><span class="line"><span class="built_in">echo</span> 100 &gt; /sys/bus/iio/devices/trigger0/sampling_frequency</span><br></pre></td></tr></table></figure>
+
+<p>工作原理：</p>
+<ul>
+<li>定时器中断触发数据采集</li>
+</ul>
+<h4 id="核心数据结构-2"><a href="#核心数据结构-2" class="headerlink" title="核心数据结构"></a>核心数据结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//include/linux/iio/trigger.h</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_trigger</span> &#123;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">iio_trigger_ops</span>   *<span class="title">ops</span>;</span>       <span class="comment">// 触发器操作</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">module</span>                  *<span class="title">owner</span>;</span>     <span class="comment">// 拥有者模块</span></span><br><span class="line">    <span class="type">int</span>                            id;         <span class="comment">// 触发器ID</span></span><br><span class="line">    <span class="type">const</span> <span class="type">char</span>                     *name;      <span class="comment">// 触发器名称</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">device</span>                  <span class="title">dev</span>;</span>        <span class="comment">// 内嵌的设备</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span>               <span class="title">list</span>;</span>       <span class="comment">// 链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span>               <span class="title">alloc_list</span>;</span> <span class="comment">// 分配链表</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_trigger_ops</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> (*set_trigger_state)(<span class="keyword">struct</span> iio_trigger *trig, <span class="type">bool</span> state);</span><br><span class="line">    <span class="type">int</span> (*reenable)(<span class="keyword">struct</span> iio_trigger *trig);</span><br><span class="line">    <span class="type">int</span> (*validate_device)(<span class="keyword">struct</span> iio_trigger *trig,</span><br><span class="line">                          <span class="keyword">struct</span> iio_dev *indio_dev);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>使用示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建Trigger</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_trigger</span> *<span class="title">trigger</span>;</span></span><br><span class="line">trigger = iio_trigger_alloc(dev, <span class="string">&quot;my_trigger_%s&quot;</span>, name);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置Trigger操作</span></span><br><span class="line">trigger-&gt;ops = &amp;trigger_ops;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册Trigger</span></span><br><span class="line">iio_trigger_register(trigger);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设备关联Trigger</span></span><br><span class="line">iio_trigger_set_drvdata(trigger, data);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="sysfs节点详解"><a href="#sysfs节点详解" class="headerlink" title="sysfs节点详解"></a>sysfs节点详解</h2><p>一个IIO设备在sysfs下有以下主要节点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/sys/bus/iio/devices/iio:deviceX/</span><br><span class="line">├── name                     # 设备名称 → iio_dev-&gt;name</span><br><span class="line">├── dev                      # 设备号</span><br><span class="line">├── of_node -&gt; ../../../../../../../firmware/devicetree/base/...</span><br><span class="line">├── power/                   # 电源管理</span><br><span class="line">├── subsystem -&gt; ../../../../../../../bus/iio</span><br><span class="line">├── uevent</span><br><span class="line">├── in_accel_x_raw          # 单次读取属通道属性（直接I/O）</span><br><span class="line">├── in_accel_y_raw</span><br><span class="line">├── in_accel_z_raw</span><br><span class="line">├── in_accel_scale</span><br><span class="line">├── sampling_frequency      # 共享属性</span><br><span class="line">├── buffer/                 # Buffer控制</span><br><span class="line">│   ├── enable</span><br><span class="line">│   ├── length</span><br><span class="line">│   └── watermark</span><br><span class="line">├── scan_elements/          # 缓冲扫描配置目录</span><br><span class="line">│   ├── in_accel_x_en		# 使能X轴（0/1）</span><br><span class="line">│   ├── in_accel_x_index	# 在缓冲中的位置</span><br><span class="line">│   └── in_accel_x_type		# 数据类型（le:s16）</span><br><span class="line">├── trigger/                # Trigger配置</span><br><span class="line">│   └── current_trigger     # 当前绑定的Trigger</span><br><span class="line">└── events/                 # 事件配置（如有）</span><br><span class="line">    ├── in_accel_thresh_either_en</span><br><span class="line">    └── in_accel_thresh_either_value</span><br><span class="line">    </span><br><span class="line">/sys/bus/iio/devices/triggerX/</span><br><span class="line">├── name                           # Trigger名称</span><br><span class="line">├── trigger_now                    # 立即触发（软件Trigger）</span><br><span class="line">├── sampling_frequency             # 采样频率（定时Trigger）</span><br><span class="line">├── sampling_frequency_available   # 可用频率</span><br><span class="line">└── subsystem -&gt; ../../bus/iio</span><br></pre></td></tr></table></figure>
+
+<h3 id="通道相关节点"><a href="#通道相关节点" class="headerlink" title="通道相关节点"></a>通道相关节点</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_chan_spec</span> <span class="title">channel</span> =</span> &#123;</span><br><span class="line">    .type = IIO_ACCEL,        <span class="comment">// 基础类型</span></span><br><span class="line">    .modified = <span class="number">1</span>,            <span class="comment">// 有修饰符</span></span><br><span class="line">    .channel2 = IIO_MOD_X,    <span class="comment">// 修饰符：X轴</span></span><br><span class="line">    .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |  <span class="comment">// 单独属性</span></span><br><span class="line">                         BIT(IIO_CHAN_INFO_CALIBSCALE),</span><br><span class="line">    .info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SAMP_FREQ), <span class="comment">// 类型共享</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>in_accel_x_raw：<code>.info_mask_separate</code>中的<code>IIO_CHAN_INFO_RAW</code></li>
+<li>in_accel_x_calibscale： <code>.info_mask_separate</code>中的<code>IIO_CHAN_INFO_CALIBSCALE</code></li>
+<li>in_accel_sampling_frequency：<code>.info_mask_shared_by_type</code>中的<code>IIO_CHAN_INFO_SAMP_FREQ</code></li>
+</ul>
+<h3 id="Buffer相关节点"><a href="#Buffer相关节点" class="headerlink" title="Buffer相关节点"></a>Buffer相关节点</h3><p>来自<code>iio_dev</code>的<code>.iio_buffer_setup_ops</code>和<code>iio_chan_spec</code>的<code>.scan_type</code></p>
+<ul>
+<li><p><code>buffer/</code></p>
+<ul>
+<li>enable：是否开启了buffer模式</li>
+</ul>
+</li>
+<li><p><code>scan_elements/</code></p>
+<ul>
+<li>_en：控制”采不采”这个通道（仅Buffer模式下有效）</li>
+<li>_ index：告诉用户 这个通道数据在Buffer的哪里</li>
+<li>_type：告诉用户 这个数据怎么解析</li>
+</ul>
+</li>
+</ul>
+<h3 id="Trigger相关节点"><a href="#Trigger相关节点" class="headerlink" title="Trigger相关节点"></a>Trigger相关节点</h3><p>来自<code>struct iio_trigger</code></p>
+<ul>
+<li>trigger&#x2F;目录 → 当iio_dev支持Buffer模式时自动创建</li>
+<li>current_trigger→ 指向当前绑定的Trigger</li>
+</ul>
+<p>不同的Tigger对应的节点不同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 软件Trigger</span><br><span class="line">/sys/bus/iio/devices/trigger0/</span><br><span class="line">├── name = &quot;sysfstrig0&quot;</span><br><span class="line">└── trigger_now              # echo 1 &gt; trigger_now</span><br><span class="line"></span><br><span class="line"># 定时Trigger</span><br><span class="line">/sys/bus/iio/devices/trigger0/</span><br><span class="line">├── name = &quot;hrtimer0&quot;</span><br><span class="line">├── sampling_frequency       # 设置频率</span><br><span class="line">└── sampling_frequency_available</span><br><span class="line"></span><br><span class="line"># GPIO Trigger</span><br><span class="line">/sys/bus/iio/devices/trigger0/</span><br><span class="line">├── name = &quot;gpio-trigger-17&quot;  # 基于GPIO 17</span><br><span class="line">└── ...                      # 无用户可配置参数</span><br></pre></td></tr></table></figure>
+
+<h3 id="命名规则"><a href="#命名规则" class="headerlink" title="命名规则"></a>命名规则</h3><ul>
+<li>输入通道：<code>in_</code></li>
+<li>输出通道：<code>out_</code></li>
+<li>类型：<code>voltage</code>、<code>accel</code>、<code>temp</code>等</li>
+<li>修饰符：<code>x</code>、<code>y</code>、<code>z</code>、<code>illuminance</code>等</li>
+<li>后缀：<code>_raw</code>、<code>_scale</code>、<code>_offset</code>等</li>
+</ul>
+<h2 id="驱动模板"><a href="#驱动模板" class="headerlink" title="驱动模板"></a>驱动模板</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 分配IIO设备</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iio_dev</span> *<span class="title">indio_dev</span>;</span></span><br><span class="line">indio_dev = devm_iio_device_alloc(&amp;client-&gt;dev, <span class="keyword">sizeof</span>(*data));</span><br><span class="line"><span class="keyword">if</span> (!indio_dev)</span><br><span class="line">    <span class="keyword">return</span> -ENOMEM;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 设置设备信息</span></span><br><span class="line">indio_dev-&gt;name = <span class="string">&quot;adc_example&quot;</span>;</span><br><span class="line">indio_dev-&gt;info = &amp;adc_info;</span><br><span class="line">indio_dev-&gt;modes = INDIO_DIRECT_MODE;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 定义通道</span></span><br><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">iio_chan_spec</span> <span class="title">adc_channels</span>[] =</span> &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        .type = IIO_VOLTAGE,</span><br><span class="line">        .indexed = <span class="number">1</span>,</span><br><span class="line">        .channel = <span class="number">0</span>,</span><br><span class="line">        .info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |</span><br><span class="line">                             BIT(IIO_CHAN_INFO_SCALE),</span><br><span class="line">        .scan_index = <span class="number">0</span>,		<span class="comment">// 决定在 Buffer 中的排列顺序</span></span><br><span class="line">        .scan_type = &#123;</span><br><span class="line">            .sign = <span class="string">&#x27;u&#x27;</span>,		<span class="comment">// 无符号</span></span><br><span class="line">            .realbits = <span class="number">12</span>,		<span class="comment">// 真实有效位</span></span><br><span class="line">            .storagebits = <span class="number">16</span>,	<span class="comment">// 存储占用位（2字节对齐）</span></span><br><span class="line">            .shift = <span class="number">4</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    IIO_CHAN_SOFT_TIMESTAMP(<span class="number">1</span>),	<span class="comment">// 强制添加时间戳通道，scan_index 设为最高</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 设置通道</span></span><br><span class="line">indio_dev-&gt;channels = adc_channels;</span><br><span class="line">indio_dev-&gt;num_channels = ARRAY_SIZE(adc_channels);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 5. 注册设备</span></span><br><span class="line">ret = devm_iio_device_register(&amp;client-&gt;dev, indio_dev);</span><br></pre></td></tr></table></figure>
+
+<h2 id="libiio"><a href="#libiio" class="headerlink" title="libiio"></a>libiio</h2><p>libiio是一个开源的iio用户态组件，包括一些调试用的命令行工具和库，用来简化应用层对iio设备的开发和调试</p>
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>1.为什么有的驱动明明有buffer、trigger文件，可是它的probe函数里<code>iio_dev</code>的<code>modes</code>字段设置的是<code>INDIO_DIRECT_MODE</code>？</p>
+<ul>
+<li>要初始化buffer或者trigger模式，需要另外的核心层API，其内部会<code>modes |= 别的模式</code></li>
+</ul>
+<p>2.ODR是什么东西</p>
+<ul>
+<li>ODR是Output Data Rate，如果设置成0的话，传感器就没数据了</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html">https://li-ruiqi777.github.io/04-Linux/03-内核开发/25-IIO子系统.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/09.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git"><img class="cover" src="/img/10.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">git</div></div><div class="info-2"><div class="info-item-1">git使用笔记1.用户初始化12git config --global user.name &quot;Li-Ruiqi&quot;git config --global user.email &quot;1009962019@qq.com&quot;   提交代码时会显示这里配置的user的信息 不加--global也行，就是配置当前仓库  2.提交一个PR12345git checkout -b feature/xxx  # 创建新分支并切换# 进行代码修改git add.git commit -m &quot;提交信息&quot;git push origin feature/xxx    3.切换到某个提交(commit) 如果check out到当前最新节点之前的某个节点，修改代码并提交，再切换回最新节点，会发现刚才的commit消失了，并没在该分支中  12345678910# 列出提交历史来找git graph中消失的commitgit log# 或者git reflog#切换git checkout...</div></div></div></a><a class="pagination-related" href="/04-Linux/02-%E7%B3%BB%E7%BB%9F%E7%A7%BB%E6%A4%8D/05-Kbuild.html" title="05 Kbuild"><img class="cover" src="/img/13.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">05 Kbuild</div></div><div class="info-2"><div class="info-item-1">KbuildKbuild（Kernel Build...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">138</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IIO%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-text">IIO子系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E8%A7%88"><span class="toc-text">总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="toc-text">核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#iio-dev"><span class="toc-text">iio_dev</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#iio-info"><span class="toc-text">iio_info</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E9%81%93"><span class="toc-text">通道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">核心数据结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-text">Buffer子系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-1"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1"><span class="toc-text">核心数据结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trigger%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="toc-text">Trigger子系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8-1"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B"><span class="toc-text">类型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="toc-text">硬件触发</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%A7%A6%E5%8F%91"><span class="toc-text">软件触发</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-text">定时器触发器</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-2"><span class="toc-text">核心数据结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sysfs%E8%8A%82%E7%82%B9%E8%AF%A6%E8%A7%A3"><span class="toc-text">sysfs节点详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E9%81%93%E7%9B%B8%E5%85%B3%E8%8A%82%E7%82%B9"><span class="toc-text">通道相关节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer%E7%9B%B8%E5%85%B3%E8%8A%82%E7%82%B9"><span class="toc-text">Buffer相关节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trigger%E7%9B%B8%E5%85%B3%E8%8A%82%E7%82%B9"><span class="toc-text">Trigger相关节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-text">命名规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A9%B1%E5%8A%A8%E6%A8%A1%E6%9D%BF"><span class="toc-text">驱动模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#libiio"><span class="toc-text">libiio</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95"><span class="toc-text">调试</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/claudecode.html" title="claudecode"><img src="/img/09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="claudecode"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/claudecode.html" title="claudecode">claudecode</a><time datetime="2026-04-14T16:00:00.000Z" title="Created 2026-04-15 00:00:00">2026-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/26-PCIE.html" title="26 PCIE"><img src="/img/12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="26 PCIE"/></a><div class="content"><a class="title" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/26-PCIE.html" title="26 PCIE">26 PCIE</a><time datetime="2026-04-13T16:00:00.000Z" title="Created 2026-04-14 00:00:00">2026-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/autoconf.html" title="autoconf"><img src="/img/01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="autoconf"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/autoconf.html" title="autoconf">autoconf</a><time datetime="2026-03-20T16:00:00.000Z" title="Created 2026-03-21 00:00:00">2026-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git">git</a><time datetime="2026-02-09T16:00:00.000Z" title="Created 2026-02-10 00:00:00">2026-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html" title="25 IIO子系统"><img src="/img/09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="25 IIO子系统"/></a><div class="content"><a class="title" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html" title="25 IIO子系统">25 IIO子系统</a><time datetime="2026-01-26T16:00:00.000Z" title="Created 2026-01-27 00:00:00">2026-01-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" defer="defer" color="100,200,255" opacity="0.3" zIndex="-1" count="100" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

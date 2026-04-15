@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>03 计算机组成原理 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="计算机组成原理参考链接 计算机组成原理 - 知乎  1.计算机的组成计算机通常包括以下几部分：  输入设备 输出设备 CPU：运算器 + 控制器 + 寄存器 + Cache + MMU + TLB… 总线：数据总线 + 地址总线 + 控制总线 存储器   2.存储器存储器包含以下几种&#x3D;&#x3D;类别&#x3D;&#x3D;，不同类别的存储器单字节成本、访问速度都不同  寄存器：CPU可">
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>03 计算机组成原理 | 李瑞琦的博客</title><meta name="author" content="Li Ruiqi"><meta name="copyright" content="Li Ruiqi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="计算机组成原理计算机的基本组成 如果找来一本计组的书，或者看一些博客，他们通常会告诉我们，计算机包含五个核心的模块：输入设备、输出设备、存储器、运算器、控制器。这虽然没错，但是是一种以比较高层的视角来看的，为了更清晰地了解其中的细节，本文从微架构的角度，更深入的分析一台计算机的组成 CPU在计算机系统中，CPU是负责执行指令、驱动整个系统运行的核心部件。如果仅从功能上看，CPU无非是在做三件事：取">
 <meta property="og:type" content="article">
 <meta property="og:title" content="03 计算机组成原理">
 <meta property="og:url" content="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html">
 <meta property="og:site_name" content="李瑞琦的博客">
-<meta property="og:description" content="计算机组成原理参考链接 计算机组成原理 - 知乎  1.计算机的组成计算机通常包括以下几部分：  输入设备 输出设备 CPU：运算器 + 控制器 + 寄存器 + Cache + MMU + TLB… 总线：数据总线 + 地址总线 + 控制总线 存储器   2.存储器存储器包含以下几种&#x3D;&#x3D;类别&#x3D;&#x3D;，不同类别的存储器单字节成本、访问速度都不同  寄存器：CPU可">
+<meta property="og:description" content="计算机组成原理计算机的基本组成 如果找来一本计组的书，或者看一些博客，他们通常会告诉我们，计算机包含五个核心的模块：输入设备、输出设备、存储器、运算器、控制器。这虽然没错，但是是一种以比较高层的视角来看的，为了更清晰地了解其中的细节，本文从微架构的角度，更深入的分析一台计算机的组成 CPU在计算机系统中，CPU是负责执行指令、驱动整个系统运行的核心部件。如果仅从功能上看，CPU无非是在做三件事：取">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://li-ruiqi777.github.io/img/head.png">
-<meta property="article:published_time" content="2025-10-31T12:40:43.147Z">
-<meta property="article:modified_time" content="2025-10-31T12:44:28.096Z">
+<meta property="og:image" content="https://li-ruiqi777.github.io/img/01.jpg">
+<meta property="article:published_time" content="2025-12-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-15T12:13:23.267Z">
 <meta property="article:author" content="Li Ruiqi">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/head.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+<meta name="twitter:image" content="https://li-ruiqi777.github.io/img/01.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
     (() => {
       
     const saveToLocal = {
@@ -145,83 +145,113 @@
   isHighlightShrink: false,
   isToc: true,
   isShuoshuo: false
-}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">127</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">03 计算机组成原理</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">03 计算机组成原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-10-31T12:40:43.147Z" title="Created 2025-10-31 20:40:43">2025-10-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-10-31T12:44:28.096Z" title="Updated 2025-10-31 20:44:28">2025-10-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1589905431551574016">计算机组成原理 - 知乎</a></li>
-</ul>
-<h2 id="1-计算机的组成"><a href="#1-计算机的组成" class="headerlink" title="1.计算机的组成"></a>1.计算机的组成</h2><p>计算机通常包括以下几部分：</p>
-<ul>
-<li>输入设备</li>
-<li>输出设备</li>
-<li>CPU：运算器 + 控制器 + 寄存器 + Cache + MMU + TLB…</li>
-<li>总线：数据总线 + 地址总线 + 控制总线</li>
-<li>存储器</li>
-</ul>
-<p><img src="../assets/image-20240902185043231.png" alt="image-20240902185043231"></p>
-<h2 id="2-存储器"><a href="#2-存储器" class="headerlink" title="2.存储器"></a>2.存储器</h2><p>存储器包含以下几种&#x3D;&#x3D;类别&#x3D;&#x3D;，不同类别的存储器单字节成本、访问速度都不同</p>
-<ul>
-<li>寄存器：CPU可直接访问、访问速度最快，差不多等于CPU的时钟周期</li>
-<li>高速缓冲存储器(Cache)：CPU可直接访问，用于存放当前运行程序中的<strong>活跃部分</strong>，以便快速向CPU提供数据和指令，Cache又分为L1、L2、L3缓存，大小依次增大，速度依次减小</li>
-<li>主存储器：CPU可直接访问，广义上的运行内存(RAM)，用于存放当前运行程序的数据和指令</li>
-<li>辅助存储器：CPU<strong>不可直接访问</strong>，用于存放当前暂时不用的程序的数据和指令，用到时再拷贝到RAM中</li>
-</ul>
-<p>访问速度：</p>
-<ul>
-<li>Cache：几百到上千GB&#x2F;s</li>
-<li>内存：几十GB&#x2F;s</li>
-<li>磁盘：几百MB&#x2F;s</li>
-</ul>
-<img src="../assets/image-20240903150636778.png" alt="image-20240903150636778" style="zoom:80%;" />
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono@4.5.12/index.min.css"><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background: linear-gradient(135deg, #a9d6e0 0%, #e0f7fa 100%);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/head.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">138</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header" style="background-image: url(/img/01.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">李瑞琦的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">03 计算机组成原理</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">03 计算机组成原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">Created</span><time datetime="2025-12-19T16:00:00.000Z" title="Created 2025-12-20 00:00:00">2025-12-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/">01-计算机基础八股</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="计算机的基本组成"><a href="#计算机的基本组成" class="headerlink" title="计算机的基本组成"></a>计算机的基本组成</h2><p><img src="/assets/image-20251219171649706.png" alt="image-20251219171649706"></p>
+<p>如果找来一本计组的书，或者看一些<a target="_blank" rel="noopener" href="https://www.zhihu.com/column/c_1589905431551574016">博客</a>，他们通常会告诉我们，计算机包含五个核心的模块：输入设备、输出设备、存储器、运算器、控制器。这虽然没错，但是是一种以比较高层的视角来看的，为了更清晰地了解其中的细节，本文从微架构的角度，更深入的分析一台计算机的组成</p>
+<h2 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h2><p>在计算机系统中，CPU是负责<strong>执行指令、驱动整个系统运行</strong>的核心部件。如果仅从功能上看，CPU无非是在做三件事：取指、运算、访存。一般的<a target="_blank" rel="noopener" href="https://infrasys-ai.github.io/aisystem-docs/02Hardware02ChipBase/01CPUBase.html">教材</a>里会告诉我们，CPU主要包含计算单元、控制单元、寄存器3类模块，在现代处理器中，为了在有限的频率和功耗下获得更高的性能，CPU的内部结构已经演化得非常复杂。计算单元、控制单元内部也包含了很多模块，不仅仅是一个独立的东西了</p>
+<img src="/assets/image-20251220165720084.png" alt="image-20251220165720084" style="zoom: 80%;" />
 
-
-
-<h2 id="3-CPU的运行原理"><a href="#3-CPU的运行原理" class="headerlink" title="3.CPU的运行原理"></a>3.CPU的运行原理</h2><img src="../assets/image-20240903153947085.png" alt="image-20240903153947085" style="zoom:67%;" />
-
+<h3 id="指令的执行"><a href="#指令的执行" class="headerlink" title="指令的执行"></a>指令的执行</h3><p>从一种简化的角度看，一条指令的执行可以拆解为以下几个阶段：</p>
+<ol>
+<li>取指（Fetch）：根据当前程序计数器（PC），从指令存储器或指令缓存中取出指令</li>
+<li>译码（Decode）：分析指令的操作类型、源操作数、目标寄存器等信息，并生成后续执行所需的控制信息</li>
+<li>执行（Execute）：在执行单元中完成算术运算、逻辑运算或地址计算</li>
+<li>访存（Memory Access）：对于Load&#x2F;Store指令，通过访存单元访问数据缓存或内存系统</li>
+<li>写回（Write Back）：将执行结果写回寄存器，供后续指令使用</li>
+</ol>
+<p>早期处理器通常严格按照这一顺序、一次只执行一条指令。现代CPU则通过流水线和并行机制，让多条指令在不同阶段<strong>同时推进</strong></p>
+<p>流水线的基本思想是：把一条指令的执行过程拆成多个阶段，让不同指令在不同阶段并行执行</p>
 <blockquote>
-<p>CPU就包含3大部分：控制单元、运算单元和寄存器。运算单元只能访问寄存器里的数据，所以需要先把数据和指令从内存读取到寄存器中</p>
+<p>流水线能并行的前提是：每个阶段都有独立的硬件来执行。在应用层开发时也有流水线的概念，但是如果要做到真正的并行，得有多个CPU核一样</p>
 </blockquote>
-<p>CPU的运行可以概括为一句话：首先从内存中取出指令和数据，再在CPU内部执行指令，进行运算，运算完毕后再传回内存中</p>
-<h2 id="4-指令执行的步骤"><a href="#4-指令执行的步骤" class="headerlink" title="4.指令执行的步骤"></a>4.指令执行的步骤</h2><ul>
-<li>取指令：CPU的控制器根据指令计数器从内存中读取一条指令并放到指令寄存器里</li>
-<li>指令译码：译码指令寄存器里存放的指令，得到该指令进行什么操作、操作数的地址</li>
-<li>执行指令：分为“取操作数”和“执行运算”2个步骤</li>
-<li>修改指令计数器：决定下一条指令的地址</li>
-</ul>
-<img src="../assets/image-20240903154746864.png" alt="image-20240903154746864" style="zoom:50%;" />
-
-
-
-<h2 id="5-流水线"><a href="#5-流水线" class="headerlink" title="5.流水线"></a>5.流水线</h2><p>CPU的流水线（Pipeline）是一种提高处理器执行效率的技术，将指令执行过程划分为多个阶段，并使多个指令在不同阶段之间<strong>并行</strong>执行，从而实现指令级并行</p>
-<p>CPU流水线通常包括以下几个阶段：</p>
-<ol>
-<li>取指（Instruction Fetch）：从内存中获取下一条指令</li>
-<li>译码（Instruction Decode）：将指令解析成对应的操作码和操作数，并为执行阶段做准备</li>
-<li>执行（Execute）：执行指令的具体操作，如算术运算、逻辑运算等</li>
-<li>访存（Memory Access）：如果指令需要访问内存，这个阶段用于进行数据的读取或写入操作</li>
-<li>写回（Write Back）：将执行结果写回到寄存器中，更新寄存器的内容</li>
-</ol>
-<p>每条指令在流水线中按顺序通过不同的阶段，形成一个连续的流水线操作。当一个指令完成当前阶段的操作后，就会进入下一阶段，同时下一条指令进入到当前阶段，从而实现指令的并行执行。</p>
-<p>通过流水线技术，CPU可以实现更高的处理能力和更好的性能指标，因为在同一时钟周期内可以同时执行多个指令。然而，流水线也会引入一些问题，如流水线的阻塞、冲突和分支预测问题，可能导致流水线效率下降。为了解决这些问题，还可以采取一些技术手段，如超标量流水线、动态调度、乱序执行等。</p>
-<p>ARM3级流水线步骤</p>
-<ol>
-<li>取指</li>
-<li>译码</li>
-<li>执行</li>
-</ol>
-<h2 id="6-协处理器"><a href="#6-协处理器" class="headerlink" title="6.协处理器"></a>6.协处理器</h2><p>ARM体系结构允许通过增加协处理器来<strong>扩展指令集</strong>，一般的协处理器是用于控制片上系统功能的，比如：控制Cache、MMU、中断向量表</p>
+<p>一个经典的流水线可能只有五级，包括上面提到那5个步骤</p>
+<p>在理想情况下，当流水线填满后，CPU可以做到<strong>每个时钟周期完成一条指令</strong>，而不是原始的5个时钟周期才能完成一条指令，显著提高吞吐率</p>
+<p>但流水线也会引入新的问题：</p>
 <ul>
-<li>在程序运行的过程中，每个协处理器忽略属于ARM处理器和其他协处理器的指令</li>
-<li>当一个协处理器收到它不支持的指令时，会产生一个未定义的异常中断，但是在中断中可以通过软件模拟该硬件的操作</li>
+<li>结构冒险：多个阶段竞争同一硬件资源</li>
+<li>数据冒险：指令之间存在数据依赖</li>
+<li>控制冒险：分支指令导致取指方向不确定</li>
 </ul>
-<h2 id="7-冯诺依曼和哈佛架构"><a href="#7-冯诺依曼和哈佛架构" class="headerlink" title="7.冯诺依曼和哈佛架构"></a>7.冯诺依曼和哈佛架构</h2><ul>
-<li><p>冯诺依曼架构：指令和数据不加区分的存储在存储器中，由同一组总线（地址总线、数据总线、控制总线）传输。优点是总线开销小，控制逻辑简单，缺点是执行效率低（多用于台式机和服务器）</p>
+<blockquote>
+<p>现代CPU通过转发、暂停、分支预测等手段来缓解这些问题，且流水线通常有10级以上，远远不仅仅是上面提到的5个简单的步骤</p>
+</blockquote>
+<h3 id="微架构层次"><a href="#微架构层次" class="headerlink" title="微架构层次"></a>微架构层次</h3><p>可以从一条指令被执行的路径，将CPU划分成不同的功能模块</p>
+<h4 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h4><p>前端的职责是<strong>持续、稳定地向后端提供指令</strong>。它并不真正“执行”指令，而是决定<strong>接下来要执行哪些指令</strong></p>
+<p>前端通常包括以下功能模块：</p>
+<ul>
+<li>指令缓存（I-Cache）：为取指提供低延迟的指令存储</li>
+<li>取指单元（IFU）：根据当前程序计数器获取指令流</li>
+<li>分支预测单元（BPU）：预测控制流走向，减少控制冒险带来的停顿</li>
+<li>译码单元（IDU）：将指令转换为CPU内部可调度的形式</li>
+</ul>
+<p>前端性能的瓶颈往往不在于“算得快不快”，而在于：</p>
+<ul>
+<li>是否能提供足够高的<strong>指令带宽</strong></li>
+<li>分支预测是否足够<strong>准确</strong></li>
+</ul>
+<p>一旦前端供给不足，后端即使具备强大的并行执行能力，也会因为“吃不饱”而空转</p>
+<h4 id="调度与发射"><a href="#调度与发射" class="headerlink" title="调度与发射"></a>调度与发射</h4><p>调度与发射位于前端和执行单元之间，是现代CPU中<strong>最具“智能性”的部分</strong></p>
+<p>在这一层，指令已经完成译码和寄存器重命名，并进入调度队列。硬件会持续检查这些指令的状态，包括：</p>
+<ul>
+<li>源操作数是否就绪</li>
+<li>所需执行单元是否空闲</li>
+<li>是否存在结构或资源冲突</li>
+</ul>
+<p><strong>调度（Scheduling）</strong>的职责是：在大量候选指令中，找出当前“可以执行”的指令</p>
+<p><strong>发射（Issue）</strong>的职责是：将这些已就绪的指令，在同一个时钟周期内，派送到对应的执行单元中</p>
+<ul>
+<li>在支持超标量的CPU中，调度器可以在一个周期内<strong>同时发射多条指令</strong>，只要它们之间不存在依赖冲突，并且执行资源允许</li>
+<li>发射并不意味着指令立刻执行完成，而是表示指令正式进入执行流水线</li>
+</ul>
+<h4 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h4><p>后端是CPU中<strong>真正完成计算和访存操作的部分</strong>。它由多个并行存在的执行单元组成，不同类型的指令会被送往不同的执行通路</p>
+<p>常见的后端执行单元包括：</p>
+<ul>
+<li>整型单元（IU）：算术逻辑单元（ALU）、乘法单元（MULT）、除法单元（DIV）和跳转单元（BJU）…</li>
+<li>浮点单元（FPU）：浮点算术逻辑单元（FALU）、浮点乘累加单元（FMAU）、浮点除法开方单元（FDSU）…</li>
+<li>矢量单元（VU）：矢量加法单元（VALU）、矢量移位单元(VSHIFT)、矢量乘法单元（VMUL）、矢量除法<br>单元（VDIVU）、矢量置换单元（VPERM）、矢量缩减单元（VREDU）、矢量逻辑操作单元（VMISC）…</li>
+<li>访存单元（Load &#x2F; Store Unit）：地址计算与内存访问</li>
+</ul>
+<p>后端执行通常是<strong>乱序进行的</strong>，即指令可以不按照程序顺序完成执行，只要不违反数据依赖关系即可。这种乱序性是隐藏访存延迟、提高执行单元利用率的关键手段。</p>
+<blockquote>
+<p>一个CPU中通常会存在<strong>多个执行单元</strong>，以支持多发射和并行执行。调度器会根据指令类型和执行单元空闲情况，将指令分派到合适的单元中</p>
+</blockquote>
+<h4 id="提交与回退"><a href="#提交与回退" class="headerlink" title="提交与回退"></a>提交与回退</h4><p>虽然指令在CPU内部可以乱序执行，但对程序而言，<strong>结果必须看起来像是顺序执行的</strong>。这一保证由提交与回退机制完成</p>
+<p>执行完成的指令会进入提交阶段：</p>
+<ul>
+<li>按程序顺序提交结果</li>
+<li>处理异常和中断</li>
+<li>在分支预测失败时回滚状态</li>
+</ul>
+<p>常见的实现方式是使用<strong>重排序缓冲区（ROB）</strong>或类似结构，当发生异常或分支预测失败时，指令退休单元（RTU）可以丢弃尚未提交的执行结果，并恢复到正确的状态继续执行</p>
+<h3 id="性能提升机制"><a href="#性能提升机制" class="headerlink" title="性能提升机制"></a>性能提升机制</h3><p>在完成基本的流水线划分之后，CPU性能的进一步提升不再取决于频率的简单提高，而依赖于<strong>如何在同一时间内推进更多有意义的工作</strong>。现代CPU围绕这一目标，引入了一系列性能提升机制，其中最核心的包括超标量、乱序执行以及寄存器重命名。</p>
+<h4 id="超标量"><a href="#超标量" class="headerlink" title="超标量"></a>超标量</h4><p>超标量指的是CPU在<strong>同一个时钟周期</strong>内，能够同时<strong>发射多条指令</strong>的能力。与只能每周期处理一条指令的标量处理器相比，超标量<strong>通过复制执行资源和扩宽调度通路</strong>，实现了&#x3D;&#x3D;指令级的并行&#x3D;&#x3D;</p>
+<p>实现超标量通常需要满足两个条件：</p>
+<ul>
+<li>硬件中存在<strong>多个并行执行单元</strong></li>
+<li>调度与发射模块能够在同一周期内选择并派发多条指令</li>
+</ul>
+<p>需要注意的是，超标量并不保证每个周期都能执行多条指令。其实际效果受到程序中数据依赖、分支结构以及可用执行单元数量的限制。在依赖密集或控制流复杂的代码中，超标量的潜力往往难以完全发挥</p>
+<p>从本质上看，超标量解决的是<strong>“一拍能干多少活”</strong>的问题</p>
+<h4 id="乱序执行"><a href="#乱序执行" class="headerlink" title="乱序执行"></a>乱序执行</h4><ul>
+<li><strong>顺序</strong>执行模型中，指令必须严格按照程序顺序进入执行阶段。一旦某条指令因等待数据或访存而停顿，后续所有指令都会被阻塞，从而导致执行单元空闲</li>
+<li><strong>乱序</strong>执行通过打破这一限制，使CPU能够在内部<strong>不按程序顺序执行指令</strong>。只要指令之间不存在真实的数据依赖关系，并且所需资源可用，后续指令就可以被提前执行，从而隐藏访存延迟，提高整体吞吐率</li>
+</ul>
+<p>需要强调的是，乱序执行仅存在于CPU内部，&#x3D;&#x3D;对软件是完全透明的&#x3D;&#x3D;。CPU会通过提交阶段确保最终结果与顺序执行的程序语义一致。</p>
+<p>从作用上看，乱序执行解决的是<strong>“有没有指令可以先做”</strong>的问题，是超标量机制能够充分发挥作用的前提</p>
+<h4 id="寄存器重命名"><a href="#寄存器重命名" class="headerlink" title="寄存器重命名"></a>寄存器重命名</h4><p>在程序中，寄存器数量是有限的，不同指令往往会反复使用相同的寄存器名。这会在硬件中引入大量“假相关”，即指令在语义上并不相关，但因为读写了同一个寄存器而被错误地串行化</p>
+<p>寄存器重命名通过将体系结构寄存器映射到更多的物理寄存器，消除了这些假相关。每一条写寄存器的指令都会被分配一个新的物理寄存器，从而使原本可以并行的指令得以同时执行</p>
+<p>寄存器重命名并不会改变程序可见的寄存器模型，而只是CPU内部的一种资源管理手段。它是实现乱序执行和高效调度的基础设施之一</p>
+<p>从本质上看，寄存器重命名解决的是<strong>“哪些相关是真正必须等待的”</strong>问题</p>
+<h2 id="存储系统"><a href="#存储系统" class="headerlink" title="存储系统"></a>存储系统</h2><h3 id="冯诺依曼和哈佛结构"><a href="#冯诺依曼和哈佛结构" class="headerlink" title="冯诺依曼和哈佛结构"></a>冯诺依曼和哈佛结构</h3><ul>
+<li><p>冯诺依曼架构：指令和数据共享同一地址空间、同一存储系统、同一访问路径</p>
 </li>
-<li><p>哈佛架构：指令和数据分开存储，优点是执行效率高，缺点是总线开销大，控制逻辑复杂（多用于MCU）</p>
+<li><p>哈佛架构：指令和数据在逻辑上分离，有独立的存储和访问路径</p>
 </li>
 </ul>
+<p><img src="/assets/image-20240903153107357.png" alt="image-20240903153107357"></p>
 <table>
 <thead>
 <tr>
-<th align="center">体系</th>
+<th align="center"></th>
 <th align="center">冯诺依曼</th>
 <th align="center">哈佛</th>
 <th align="center">改进的哈佛（现代ARM）</th>
@@ -258,17 +288,36 @@
 <td align="center">同哈佛</td>
 </tr>
 </tbody></table>
-<p><img src="../assets/image-20240903153107357.png" alt="image-20240903153107357"></p>
-<p><img src="../assets/image-20240903153147919.png" alt="image-20240903153147919"></p>
 <p>我们之前用的CortexM系列的STM32、8051，其实是属于<strong>哈佛架构</strong>的，程序和数据分别存在了MCU中的Flash和RAM上</p>
 <p>而Cortex A系列的Soc，或者PC上的CPU，一般都是<strong>改进哈佛架构</strong>的，在CPU外部，程序和数据都存在RAM中，但是在CPU内部又有iROM和iRAM，用于Soc启动时的引导</p>
-<h2 id="8-Cache"><a href="#8-Cache" class="headerlink" title="8.Cache"></a>8.Cache</h2><p>Cache（缓存）是CPU内部的一种用于临时存储数据的&#x3D;&#x3D;高速存储器&#x3D;&#x3D;，目的是减少处理器访问主内存的时间，提高计算机系统的整体性能。一般是SRAM。它位于&#x3D;&#x3D;处理器和外部RAM之间&#x3D;&#x3D;。通常，缓存存储着频繁访问的数据或指令，这样可以避免每次都从较慢的主内存中读取数据</p>
-<h3 id="Cache的作用"><a href="#Cache的作用" class="headerlink" title="Cache的作用"></a>Cache的作用</h3><ul>
-<li>提高性能：由于缓存是高速存储器，能够显著减少访问主内存的次数，从而提高计算机系统的执行效率</li>
-<li>降低延迟：访问缓存的数据通常比访问主内存的时间要短得多，这对于提升系统响应时间至关重要</li>
+<p><img src="/assets/image-20240903153147919.png" alt="image-20240903153147919"></p>
+<h3 id="存储系统层次结构"><a href="#存储系统层次结构" class="headerlink" title="存储系统层次结构"></a>存储系统层次结构</h3><p>存储器包含以下几种&#x3D;&#x3D;类别&#x3D;&#x3D;，不同类别的存储器单字节成本、访问速度都不同</p>
+<ul>
+<li>寄存器：CPU可直接访问、访问速度最快，差不多等于CPU的时钟周期</li>
+<li>高速缓冲存储器(Cache)：CPU可直接访问，用于存放当前运行程序中的<strong>活跃部分</strong>，以便快速向CPU提供数据和指令，Cache又分为L1、L2、L3缓存，大小依次增大，速度依次减小</li>
+<li>主存储器：CPU可直接访问，广义上的运行内存(RAM)，用于存放当前运行程序的数据和指令</li>
+<li>辅助存储器：CPU<strong>不可直接访问</strong>，用于存放当前暂时不用的程序的数据和指令，用到时再拷贝到RAM中</li>
 </ul>
-<h3 id="Cache的工作原理"><a href="#Cache的工作原理" class="headerlink" title="Cache的工作原理"></a>Cache的工作原理</h3><p>局部性原理：缓存利用程序访问数据时具有的局部性原理（时间局部性和空间局部性）。时间局部性意味着程序会重复访问最近使用的数据；空间局部性则是指访问某一数据后，附近的数据也有可能被访问。因此，缓存会将这些数据存储起来，方便之后的快速访问</p>
-<h3 id="Cache的层次结构"><a href="#Cache的层次结构" class="headerlink" title="Cache的层次结构"></a>Cache的层次结构</h3><ul>
+<p>访问速度：</p>
+<ul>
+<li>Cache：几百到上千GB&#x2F;s</li>
+<li>内存：几十GB&#x2F;s</li>
+<li>磁盘：几百MB&#x2F;s</li>
+</ul>
+<img src="/assets/image-20240903150636778.png" alt="image-20240903150636778" style="zoom:80%;" />
+
+
+
+<h3 id="Cache机制"><a href="#Cache机制" class="headerlink" title="Cache机制"></a>Cache机制</h3><p>Cache是CPU内部的一种用于临时存储数据的&#x3D;&#x3D;高速存储器&#x3D;&#x3D;，目的是减少处理器访问主内存的时间，提高计算机系统的整体性能。一般是SRAM。它位于&#x3D;&#x3D;处理器和外部RAM之间&#x3D;&#x3D;</p>
+<p>Cache的工作原理其实利用了<strong>局部性原理</strong>：</p>
+<ul>
+<li>时间局部性：程序会重复访问最近使用的数据</li>
+<li>空间局部性：访问某一数据后，附近的数据也有可能被访问</li>
+</ul>
+<h4 id="Cache的层次结构"><a href="#Cache的层次结构" class="headerlink" title="Cache的层次结构"></a>Cache的层次结构</h4><img src="/assets/image-20250521091306900.png" alt="image-20250521091306900" style="zoom: 67%;" />
+
+<p>现代CPU中考虑到成本和速度，一般会设置多级缓存：</p>
+<ul>
 <li>L1 Cache：通常位于处理器内核内部，存取速度最快，容量最小。每个处理器核心通常都有独立的L1缓存。又被分为I-Cache和D-Cache</li>
 <li>L2 Cache：一般比L1大，速度稍慢，但仍然比主内存快</li>
 <li>L3 Cache：通常比L2更大且更慢，多个处理器核心可能共享L3缓存</li>
@@ -276,11 +325,19 @@
 <blockquote>
 <p>一般一个核内部最多有L1、L2Cache，L3Cache一般多个核共享</p>
 </blockquote>
-<img src="../assets/image-20250521091306900.png" alt="image-20250521091306900" style="zoom: 67%;" />
-
-<h3 id="Cache的物理结构"><a href="#Cache的物理结构" class="headerlink" title="Cache的物理结构"></a>Cache的物理结构</h3><p>Cache实际上是由多个Cacheline组成的，Cacheline是CPU从缓存中读写数据的基本单位（一般是多个字节）也是缓存从内存中读取&#x2F;写入数据的基本单位，它的结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">| Tag (20~40 bits) | State (MESI) | Valid | Dirty | Data (512 bits = 64 Bytes) |</span><br><span class="line">|------------------|--------------|-------|-------|----------------------------|</span><br></pre></td></tr></table></figure>
-
+<h4 id="Cache-line的结构"><a href="#Cache-line的结构" class="headerlink" title="Cache line的结构"></a>Cache line的结构</h4><p>Cache实际上是由多个Cacheline组成的，Cacheline是CPU从缓存中读写数据的基本单位（一般是多个字节）也是缓存从内存中读取&#x2F;写入数据的基本单位。</p>
+<p>某微架构的Cacheline结构如下：</p>
+<table>
+<thead>
+<tr>
+<th>Tag (20~40 bits)</th>
+<th>State (MESI)</th>
+<th>Valid</th>
+<th>Dirty</th>
+<th>Data</th>
+</tr>
+</thead>
+</table>
 <table>
 <thead>
 <tr>
@@ -290,11 +347,6 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">数据块</td>
-<td align="center">64字节（举个例子）</td>
-<td align="center">存储从主存加载的实际数据</td>
-</tr>
-<tr>
 <td align="center">标记(Tag)</td>
 <td align="center">20~40位</td>
 <td align="center">标识该缓存行对应的主存物理地址的高位部分（用于匹配内存块）</td>
@@ -314,11 +366,16 @@
 <td align="center">1位（可选）</td>
 <td align="center">标记数据是否被相对于内存中的有更新<br />仅写回策略需要，写直达策略不需要</td>
 </tr>
+<tr>
+<td align="center">数据块</td>
+<td align="center">64字节（举个例子）</td>
+<td align="center">存储从主存加载的实际数据</td>
+</tr>
 </tbody></table>
-<h3 id="Cache的组织方式"><a href="#Cache的组织方式" class="headerlink" title="Cache的组织方式"></a>Cache的组织方式</h3><blockquote>
-<p>Q：假设我们主存中有32个块，而我们的cache一共有8个cacheline，那么我的第12块内存应该放到Cache中的哪个Cacheline呢？</p>
+<h4 id="映射方式"><a href="#映射方式" class="headerlink" title="映射方式"></a>映射方式</h4><blockquote>
+<p>假设我们主存中有32个块，而我们的cache一共有8个cacheline，那么我的第12块内存应该放到Cache中的哪个Cacheline呢？</p>
 </blockquote>
-<p>缓存通过将<strong>内存</strong>地址划分为<strong>索引（Index）+ 标记（Tag）+ 偏移（Offset）</strong>字段来决定数据放到哪个Cacheline，具体分为三种映射方式：</p>
+<p>Cache通过将&#x3D;&#x3D;内存地址&#x3D;&#x3D;划分为<strong>索引（Index）+ 标记（Tag）+ 偏移（Offset）</strong>字段来决定数据映射到哪个Cacheline，具体有三种映射方式：</p>
 <p>1.直接映射（Direct mapped）：</p>
 <ul>
 <li>每个主存块只能映射到缓存中<strong>唯一固定的位置</strong>（类似哈希表）</li>
@@ -331,41 +388,32 @@
 </ul>
 <p>3.组相连（set associative）：</p>
 <ul>
-<li>缓存分为多个组（Set），每组包含多个缓存行（Way）。主存块可映射到<strong>同一组内的任意行</strong></li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">组号 = (主存地址 / 缓存行大小) % 组数  </span><br><span class="line">组内行选择：LRU（最近最少使用）或随机替换。</span><br></pre></td></tr></table></figure>
-
-<h4 id="内存地址的划分"><a href="#内存地址的划分" class="headerlink" title="内存地址的划分"></a>内存地址的划分</h4><p>假设一个 <strong>32位内存地址</strong>和 <strong>64字节缓存行</strong>（Cache Line），可以通过如下方式划分内存地址：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">| 31 ------------------------ 12 | 11 ----- 6 | 5 -- 0 |</span><br><span class="line">|           Tag (20位)           | Index (6位) | Offset (6位) |</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Offset（偏移）：<ul>
-<li>作用：定位缓存行内的具体字节</li>
-<li>位数：由缓存行大小决定<ul>
-<li>若缓存行为 32字节，则 Offset 为 5位</li>
-</ul>
+<li><p>缓存分为多个组（Set），每组包含多路（Way）缓存行。主存块可映射到<strong>同一组内的任意行</strong></p>
 </li>
-</ul>
+<li><p>组号 &#x3D; (主存地址 &#x2F; 缓存行大小) % 组数  </p>
 </li>
-<li>Index（索引）：<ul>
-<li>作用：选择缓存中的组（组相联缓存）或直接映射的行（直接映射缓存）</li>
-<li>位数：由 缓存组数决定。<ul>
-<li>例如：64组缓存 &#x3D; 2^6&#x3D;64 → 6位 Index</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Tag（标记）：<ul>
-<li>作用：与Cacheline的Tag字段对比，来找到内存对应的Cache</li>
-<li>位数：剩余高位地址（32位地址 - Index - Offset）<ul>
-<li>上例中：32 - 6 - 6 &#x3D; 20位 Tag</li>
-</ul>
-</li>
-</ul>
+<li><p>组内行选择：LRU（最近最少使用）或随机替换</p>
 </li>
 </ul>
 <hr>
-<p>根据映射时拆分的<strong>内存地址</strong>到底是<strong>物理</strong>地址还是<strong>虚拟</strong>地址，可以分为以下几类：</p>
+<p>对于一个内存地址长度为32位、Cacheline长度为64为的微架构，其将内存地址进行如下的划分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">| 31 ------- 12 | 11 ----- 6 | 5 -- 0 |</span><br><span class="line">|   Tag (20位)   | Index (6位) | Offset (6位) |</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Offset（偏移）：定位Cache Line内部的具体字节位置。其长度由缓存行数据字段的大小决定（64&#x3D;2^6）</li>
+<li>Index（索引）：用于选择Cache中的一个组（对于组相联Cache）或一个Cacheline（对于直接映射Cache）其长度由Cache中可寻址的组数决定（64组缓存 &#x3D; 2^6&#x3D;64 → 6位 Index）</li>
+<li>Tag（标记）：用于判断某组缓存中各Cacheline是否与当前给的内存对应。访问Cache时，Index选定候选Cache Line后，Tag字段会与该行中存储的Tag进行比较，以判断是否<strong>命中</strong>。Tag的长度：为地址中除去Index和Offset后的高位部分（上例中：32 - 6 - 6 &#x3D; 20位 Tag）</li>
+</ul>
+<blockquote>
+<p>Cacheline访问的流程</p>
+</blockquote>
+<ol>
+<li>用输入地址的Index选中一个set</li>
+<li>取出这个set中所有way的Tag</li>
+<li>把输入地址中的Tag字段同时与所有way的Tag并行比较</li>
+<li>如果某一条Cacheline的Tag与输入地址的Tag相等，并且valid位为1，则Cache hit，直接返回数据就行了；反之，如果所有Cacheline的Tag都不匹配，则触发页面替换，选中某个的way进行更新</li>
+</ol>
+<p>根据映射所使用的Index和Tag到底是<strong>物理</strong>地址还是<strong>虚拟</strong>地址，可以分为以下几类：</p>
 <ul>
 <li>物理索引物理标记（PIPT）：<ul>
 <li>缓存使用物理地址的 <code>Tag|Index|Offset</code></li>
@@ -385,8 +433,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="Cache替换策略"><a href="#Cache替换策略" class="headerlink" title="Cache替换策略"></a>Cache替换策略</h3><p>当缓存满时，需要决定哪些数据应该被替换掉以腾出空间。这通常通过替换策略来决定，如最近最少使用（LRU，Least Recently Used）、最不常用（LFU，Least Frequently Used）等</p>
-<h3 id="Cache的写入策略"><a href="#Cache的写入策略" class="headerlink" title="Cache的写入策略"></a>Cache的写入策略</h3><p>当CPU执行<code>sd</code>指令即往内存中写数据的时候，首先需要对Cache进行写入操作，那Cache何时&#x3D;&#x3D;把数据真正地写入内存&#x3D;&#x3D;呢？此时Cache的行为也分为2个类型：</p>
+<h4 id="写策略"><a href="#写策略" class="headerlink" title="写策略"></a>写策略</h4><p>当CPU执行<code>sd</code>指令即往内存中写数据的时候，首先需要对Cache进行写入操作，那Cache何时&#x3D;&#x3D;把数据真正地写入内存&#x3D;&#x3D;呢？此时Cache的行为也分为2个类型：</p>
 <ul>
 <li><p>写直达（Write-through）：把数据同时写入Cache和内存</p>
 <ul>
@@ -411,12 +458,16 @@
 </ul>
 </li>
 </ul>
-<h3 id="缓存一致性问题"><a href="#缓存一致性问题" class="headerlink" title="缓存一致性问题"></a>缓存一致性问题</h3><p>定义：在多处理器系统中，确保同一份数据在多个缓存（内存层次）中保持一致的机制。如果有人修改了这块数据，而其他设备的缓存还没更新，就会造成“数据不同步”问题，因此需要协议来维护一致性</p>
+<h4 id="替换策略"><a href="#替换策略" class="headerlink" title="替换策略"></a>替换策略</h4><p>当缓存满时，需要决定哪些数据应该被替换掉以腾出空间。这通常通过替换策略来决定，如最近最少使用（LRU，Least Recently Used）、最不常用（LFU，Least Frequently Used）等</p>
+<h3 id="Cache一致性"><a href="#Cache一致性" class="headerlink" title="Cache一致性"></a>Cache一致性</h3><ul>
+<li>定义：在多处理器系统中，确保同一份数据在多个缓存（内存层次）中保持一致的机制</li>
+<li>如果有人修改了这块数据，而其他设备的缓存还没更新，就会造成“数据不同步”问题，因此需要协议来维护一致性</li>
+</ul>
 <h4 id="缓存不一致的原因"><a href="#缓存不一致的原因" class="headerlink" title="缓存不一致的原因"></a>缓存不一致的原因</h4><ul>
 <li><strong>核间</strong>缓存不一致：现代 CPU 采用 <strong>多级缓存（L1&#x2F;L2&#x2F;L3）</strong> 结构，每个核心有独立的 L1&#x2F;L2 缓存，共享 L3 缓存或主存。当某个核心修改了自己的缓存数据时，其他核心的缓存副本可能仍然是旧值。</li>
 <li><strong>DMA</strong>缓存不一致：此外，DMA会绕过CPU直接将外设中的数据写入内存，但CPU中的Cache并未更新，此时CPU可能也会读取到旧值</li>
 </ul>
-<h4 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h4><h5 id="核间缓存一致性"><a href="#核间缓存一致性" class="headerlink" title="核间缓存一致性"></a>核间缓存一致性</h5><p>MESI协议是一种多核 CPU 间的缓存一致性协议，它通过 4 种缓存行状态和总线嗅探机制，确保所有核看到的内存数据始终一致</p>
+<h4 id="核间一致性"><a href="#核间一致性" class="headerlink" title="核间一致性"></a>核间一致性</h4><p>MESI协议是一种维护多核CPU间的缓存一致性的协议，它通过4种缓存行状态和总线嗅探机制，确保所有核看到的内存数据始终一致</p>
 <ul>
 <li>总线嗅探机制：某个CPU核心更新了Cache中的数据后，会把该事件<strong>广播</strong>通过总线通知到其他核心，并且实现了<strong>事务串行化</strong></li>
 <li>MESI只用于CPU和CPU之间，不管DMA</li>
@@ -539,7 +590,7 @@
 <li>若是 E&#x2F;S：直接丢弃（因为干净）</li>
 <li>若是 I：直接覆盖</li>
 </ul>
-<h5 id="DMA缓存一致性"><a href="#DMA缓存一致性" class="headerlink" title="DMA缓存一致性"></a>DMA缓存一致性</h5><table>
+<h4 id="CPU-DMA一致性"><a href="#CPU-DMA一致性" class="headerlink" title="CPU-DMA一致性"></a>CPU-DMA一致性</h4><table>
 <thead>
 <tr>
 <th>场景</th>
@@ -559,9 +610,11 @@
 </tr>
 </tbody></table>
 <ul>
-<li>DMA从外设–&gt;内存：当DMA将数据写入内存后，CPU需要<strong>无效化</strong>（Invalidate）相关缓存行，确保后续读取时从主存加载最新数据</li>
+<li>DMA从外设–&gt;内存：当DMA将数据写入内存后，CPU需要<strong>无效化</strong>（Invalidate）相关缓存行，确保后续读取时从主存加载最新数据<ul>
 <li>现代CPU缓存控制器会<strong>自动</strong>检测并无效化相关Cacheline</li>
 <li>如果不支持硬件自动无效化缓存，需要手动通过一些汇编代码无效化相关Cacheline</li>
+</ul>
+</li>
 <li>DMA从内存–&gt;外设：当CPU写入数据后，可能发生Cache更新了但内存还未更新的情况，此时用DMA把内存中的数据写到外设，可能写的是旧数据，因此需要<strong>刷回（Flush）</strong>Cacheline到主存</li>
 </ul>
 <p>在驱动开发时，Linux内核在DMA框架里已经提供了一整套机制来维护缓存一致性</p>
@@ -609,11 +662,15 @@
 <ul>
 <li>这2个API底层都是调用了和cache相关的汇编指令</li>
 </ul>
-<h3 id="参考链接-1"><a href="#参考链接-1" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/386919471">计算机体系架构——一文读懂Cache（一） - 知乎</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651732241">一小时，完全搞懂 cpu 缓存一致性 - 知乎</a></li>
+<h3 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/386919471">计算机体系架构——一文读懂Cache（一） - 知乎</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/651732241">一小时，完全搞懂 cpu 缓存一致性 - 知乎</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/16921952423">Cache的50问，您能回答上几个 - 知乎</a></p>
+</li>
 </ul>
-<h3 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h3><p>1.二维数组是逐行读取快还是逐列读取快？为什么</p>
+<p>1.二维数组是逐行读取快还是逐列读取快？为什么</p>
 <ul>
 <li>哪种读法快取决于该语言中2维数组在内存中怎么存的。以C为例，二维数组在内存中是以<strong>行优先</strong>的方式存放的，同一行相邻元素在内存中是连续的，由于CPU每次从内存中读数据都是以Cacheline为单位,即一次会读多个字节的内容到Cache中，所以当我们访问<code>a[i][j]</code>时,该行的后面多个元素<code>a[i][j+n]</code>都会被加载到缓存中，后边访问就比较快了。所以针对C&#x2F;C++，<strong>逐行</strong>读取快</li>
 </ul>
@@ -636,14 +693,16 @@
 <li>在多核CPU系统中，由于每个核心都有自己的缓存，同一数据可能在多个缓存中存在副本。当某个核心修改了自己的缓存数据时，其他核心的缓存副本可能仍然是旧值，导致数据不一致</li>
 <li>在使用了DMA时，DMA直接修改内存中的数据，而没有更新缓存，CPU从缓存中读取数据，这也会导致数据不一致</li>
 </ul>
-<h2 id="9-MMU"><a href="#9-MMU" class="headerlink" title="9.MMU"></a>9.MMU</h2><p>MMU（Memory Management Unit，内存管理单元）是CPU中用于管理虚拟内存和物理内存之间映射的<strong>硬件组件</strong>。它的核心功能是将程序访问的虚拟地址转换为实际的物理地址，同时进行内存保护、分页（或分段）等操作。</p>
-<p><img src="../assets/image-20250522091744316.png" alt="image-20250522091744316"></p>
-<h3 id="MMU的物理结构"><a href="#MMU的物理结构" class="headerlink" title="MMU的物理结构"></a>MMU的物理结构</h3><p>MMU内部主要包含2个组件：</p>
+<p>6.什么是全相连，什么是组相连</p>
+<p>7.PIPT、VIPT、VIVT什么意思</p>
+<h2 id="地址转换的实现"><a href="#地址转换的实现" class="headerlink" title="地址转换的实现"></a>地址转换的实现</h2><h3 id="MMU"><a href="#MMU" class="headerlink" title="MMU"></a>MMU</h3><p>MMU（Memory Management Unit，内存管理单元）是CPU中用于管理虚拟内存和物理内存之间映射的<strong>硬件组件</strong>。它的核心功能是将程序访问的虚拟地址转换为实际的物理地址，同时进行内存保护、分页（或分段）等操作。</p>
+<p><img src="/assets/image-20250522091744316.png" alt="image-20250522091744316"></p>
+<h4 id="MMU的物理结构"><a href="#MMU的物理结构" class="headerlink" title="MMU的物理结构"></a>MMU的物理结构</h4><p>MMU内部主要包含2个组件：</p>
 <ul>
 <li>TLB：一个高速缓存，用于缓存页表转换的结果，从而缩短页表查询的时间</li>
 <li>TWU：一个页表遍历模块，页表是由操作系统维护在物理内存中，但是页表的&#x3D;&#x3D;遍历查询是由TWU完成&#x3D;&#x3D;的，这样减少对CPU资源的消耗</li>
 </ul>
-<h3 id="MMU的主要功能"><a href="#MMU的主要功能" class="headerlink" title="MMU的主要功能"></a>MMU的主要功能</h3><ol>
+<h4 id="MMU的主要功能"><a href="#MMU的主要功能" class="headerlink" title="MMU的主要功能"></a>MMU的主要功能</h4><ol>
 <li><strong>虚拟地址到物理地址的转换</strong>：<ul>
 <li><strong>虚拟内存</strong>：现代操作系统使用虚拟内存技术，将程序的地址空间与物理内存分离。每个程序认为自己有独立的内存空间，这种空间称为虚拟地址空间</li>
 <li><strong>地址转换</strong>：当程序访问某个虚拟地址时，MMU会将该虚拟地址转换为相应的物理地址。这个过程通常通过查阅页表（Page Table）来完成，页表存储了虚拟地址与物理地址的映射关系</li>
@@ -659,11 +718,11 @@
 <li><strong>缓存管理</strong>： 为了提高虚拟地址到物理地址转换的效率，现代MMU通常配备了<strong>TLB</strong>（Translation Lookaside Buffer，翻译后备缓冲区），它是MMU内的一个高速缓存，用于存储最近使用的虚拟地址到物理地址的映射。通过查阅TLB，MMU能够更快地完成地址转换</li>
 <li><strong>分段管理</strong>（可选）： 除了分页外，MMU还可以支持<strong>分段</strong>（Segmentation）机制。分段将内存划分为&#x3D;&#x3D;大小不等&#x3D;&#x3D;的块（段），每个段有自己的基地址和长度。程序访问某一段时，MMU根据段号和偏移量进行转换。分段可以用于更灵活的内存管理，特别是在需要支持不同类型内存区（如代码段、数据段、堆栈段等）的情况下。</li>
 </ol>
-<h3 id="MMU的工作原理"><a href="#MMU的工作原理" class="headerlink" title="MMU的工作原理"></a>MMU的工作原理</h3><p>MMU是一个硬件，它对于内存的映射都是自动的，只要通过设置对应的控制寄存器就能开启MMU，在设置了其页表地址的寄存器后，再访问内存地址时，他就会自动的根据页表来把虚拟地址翻译成物理地址。且在进程切换时，也要修改对应的寄存器来切换页表</p>
+<h4 id="MMU的工作原理"><a href="#MMU的工作原理" class="headerlink" title="MMU的工作原理"></a>MMU的工作原理</h4><p>MMU是一个硬件，它对于内存的映射都是自动的，只要通过设置对应的控制寄存器就能开启MMU，在设置了其页表地址的寄存器后，再访问内存地址时，他就会自动的根据页表来把虚拟地址翻译成物理地址。且在进程切换时，也要修改对应的寄存器来切换页表</p>
 <blockquote>
 <p>页表是就是个保存了va–&gt;pa映射关系的一个数组，它由OS内核维护，每个PCB都有一个独立的页表</p>
 </blockquote>
-<h3 id="MMU的工作流程"><a href="#MMU的工作流程" class="headerlink" title="MMU的工作流程"></a>MMU的工作流程</h3><ol>
+<h4 id="MMU的工作流程"><a href="#MMU的工作流程" class="headerlink" title="MMU的工作流程"></a>MMU的工作流程</h4><ol>
 <li>程序发出对某个虚拟地址的访问请求</li>
 <li>MMU接收到虚拟地址，并查阅TLB来检查该虚拟地址是否有对应的物理地址映射<ul>
 <li>如果<strong>TLB命中</strong>，MMU直接使用该映射地址进行访问</li>
@@ -672,17 +731,32 @@
 </li>
 <li>当 CPU 访问一个虚拟地址时，若其对应的页表项（PTE）中不存在有效的物理地址映射（或权限不足），则会触发 Page Fault，操作系统将从硬盘加载相应的页面到内存</li>
 </ol>
-<h3 id="MMU的地址转换机制"><a href="#MMU的地址转换机制" class="headerlink" title="MMU的地址转换机制"></a>MMU的地址转换机制</h3><p>MMU的地址转换过程通常是通过<strong>多级页表</strong>和<strong>虚拟地址的分段</strong>来实现的</p>
+<h4 id="MMU的地址转换机制"><a href="#MMU的地址转换机制" class="headerlink" title="MMU的地址转换机制"></a>MMU的地址转换机制</h4><p>MMU的地址转换过程通常是通过<strong>多级页表</strong>和<strong>虚拟地址的分段</strong>来实现的</p>
 <p>虚拟地址通常分为以下几部分：</p>
 <ul>
 <li><strong>页目录索引</strong>（Page Directory Index）</li>
 <li><strong>页表索引</strong>（Page Table Index）</li>
 <li><strong>页内偏移</strong>（Page Offset）</li>
 </ul>
-<h3 id="参考链接-2"><a href="#参考链接-2" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<h3 id="TLB"><a href="#TLB" class="headerlink" title="TLB"></a>TLB</h3><p>TLB（Translation Lookaside Buffer，翻译后备缓冲区）是一种高速缓存，用于加速虚拟地址到物理地址的转换。注意：&#x3D;&#x3D;TLB是MMU内部的一个组件&#x3D;&#x3D;</p>
+<h4 id="TLB的作用"><a href="#TLB的作用" class="headerlink" title="TLB的作用"></a>TLB的作用</h4><p>缓存最近使用的虚拟地址到物理地址的映射。通过缓存这些映射，TLB可以减少每次访问内存时MMU查找页表的时间，从而加速内存访问</p>
+<h4 id="TLB的工作原理"><a href="#TLB的工作原理" class="headerlink" title="TLB的工作原理"></a>TLB的工作原理</h4><p>当CPU发出对虚拟地址的访问请求时，TLB会首先检查这个虚拟地址是否已经在缓存中</p>
+<ol>
+<li><strong>TLB命中</strong>：如果TLB中已有该虚拟地址的映射，MMU可以直接使用该物理地址进行内存访问，无需查找页表</li>
+<li><strong>TLB未命中</strong>：如果TLB中没有该映射，MMU会查找页表获取虚拟地址到物理地址的映射，并将该映射加载到TLB中，以便后续使用</li>
+</ol>
+<h4 id="TLB的结构"><a href="#TLB的结构" class="headerlink" title="TLB的结构"></a>TLB的结构</h4><p>TLB中的每一条条目包含以下信息：</p>
+<ul>
+<li><strong>虚拟页号（VPN）</strong>：虚拟地址中的一部分，用于在页表中查找对应的物理地址</li>
+<li><strong>物理页号（PPN）</strong>：物理地址中的一部分，表示内存中的位置</li>
+<li><strong>有效位（Valid bit）</strong>：标记该条目是否有效，无效条目可能会被替换</li>
+<li><strong>权限位</strong>：如只读、可执行、用户&#x2F;内核模式等</li>
+<li><strong>标记位</strong>：标记该映射是否已被修改，或者用于其他一些标志</li>
+</ul>
+<h3 id="面试问题-1"><a href="#面试问题-1" class="headerlink" title="面试问题"></a>面试问题</h3><ul>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/596039345">一文搞懂MMU工作原理 - 知乎</a></li>
 </ul>
-<h3 id="面试问题-1"><a href="#面试问题-1" class="headerlink" title="面试问题"></a>面试问题</h3><p>1.说下CPU访问内存过程</p>
+<p>1.说下CPU访问内存过程</p>
 <ul>
 <li>首先看TLB缓存是否命中。命中的话直接使用TLB中的映射地址进行访问</li>
 <li>若TLB未命中,CPU会发出请求,请求MMU进行地址转换,MMU会先检查页表是否有该虚拟地址的映射,如果有,MMU会将该映射加载到TLB中,以备后续使用</li>
@@ -708,170 +782,5 @@
 <ul>
 <li>IOMMU是集成在 SoC 系统互连中的硬件单元，它位于外设（如 GPU、网卡）和主内存之间。它的核心功能是为设备发起的 DMA 操作提供地址转换（将设备虚拟地址 IOVA 映射为物理地址 PA），从而实现内存保护、隔离（防止恶意 DMA 访问）和 I&#x2F;O 虚拟化（让虚拟机安全使用物理设备）</li>
 </ul>
-<h2 id="10-TLB"><a href="#10-TLB" class="headerlink" title="10.TLB"></a>10.TLB</h2><p>TLB（Translation Lookaside Buffer，翻译后备缓冲区）是一种高速缓存，用于加速虚拟地址到物理地址的转换。注意：&#x3D;&#x3D;TLB是MMU内部的一个组件&#x3D;&#x3D;</p>
-<h3 id="TLB的作用"><a href="#TLB的作用" class="headerlink" title="TLB的作用"></a>TLB的作用</h3><p>缓存最近使用的虚拟地址到物理地址的映射。通过缓存这些映射，TLB可以减少每次访问内存时MMU查找页表的时间，从而加速内存访问</p>
-<h3 id="TLB的工作原理"><a href="#TLB的工作原理" class="headerlink" title="TLB的工作原理"></a>TLB的工作原理</h3><p>当CPU发出对虚拟地址的访问请求时，TLB会首先检查这个虚拟地址是否已经在缓存中</p>
-<ol>
-<li><strong>TLB命中</strong>：如果TLB中已有该虚拟地址的映射，MMU可以直接使用该物理地址进行内存访问，无需查找页表</li>
-<li><strong>TLB未命中</strong>：如果TLB中没有该映射，MMU会查找页表获取虚拟地址到物理地址的映射，并将该映射加载到TLB中，以便后续使用</li>
-</ol>
-<h3 id="TLB的结构"><a href="#TLB的结构" class="headerlink" title="TLB的结构"></a>TLB的结构</h3><p>TLB中的每一条条目包含以下信息：</p>
-<ul>
-<li><strong>虚拟页号（VPN）</strong>：虚拟地址中的一部分，用于在页表中查找对应的物理地址</li>
-<li><strong>物理页号（PPN）</strong>：物理地址中的一部分，表示内存中的位置</li>
-<li><strong>有效位（Valid bit）</strong>：标记该条目是否有效，无效条目可能会被替换</li>
-<li><strong>权限位</strong>：如只读、可执行、用户&#x2F;内核模式等</li>
-<li><strong>标记位</strong>：标记该映射是否已被修改，或者用于其他一些标志</li>
-</ul>
-<h3 id="TLB的类型"><a href="#TLB的类型" class="headerlink" title="TLB的类型"></a>TLB的类型</h3><ol>
-<li><strong>一级TLB（L1 TLB）</strong>：直接集成在CPU核心内部，通常较小，但速度非常快。每个CPU核心通常有自己的L1 TLB</li>
-<li><strong>二级TLB（L2 TLB）</strong>：在一些处理器中，L2 TLB用于多个核心共享，容量比L1 TLB大一些，但访问速度稍慢。通常用于存储更大范围的虚拟地址到物理地址的映射</li>
-<li><strong>多级TLB</strong>：一些高级处理器可能具有多个级别的TLB，比如L1和L2共享部分地址映射，而L3可能用于更广泛的映射</li>
-</ol>
-<h3 id="TLB的替换策略"><a href="#TLB的替换策略" class="headerlink" title="TLB的替换策略"></a>TLB的替换策略</h3><p>当TLB缓存满时，需要选择一个条目进行替换。常见的替换策略包括：</p>
-<ul>
-<li><strong>LRU（Least Recently Used）</strong>：替换最近最少使用的条目</li>
-<li><strong>FIFO（First In First Out）</strong>：替换最早加载的条目</li>
-<li><strong>随机替换</strong>：随机选择一个条目进行替换</li>
-</ul>
-<h3 id="TLB一致性问题"><a href="#TLB一致性问题" class="headerlink" title="TLB一致性问题"></a>TLB一致性问题</h3><p>在多核处理器系统中，每个核心可能会有自己的TLB。如果一个核心更新了虚拟地址到物理地址的映射，其他核心的TLB可能会变得过时，导致一致性问题。为了避免这种情况，现代处理器通常会采用<strong>TLB一致性协议</strong>来确保各个核心的TLB保持同步</p>
-<h2 id="11-总线"><a href="#11-总线" class="headerlink" title="11.总线"></a>11.总线</h2><p>总线是计算机系统中用于在不同硬件组件（如CPU、内存、外设等）之间传输数据、地址和控制信号的通道（物理上来看就是电路板上的几根线，由于这几根线是个整体，所以叫总线）。它是系统内部各个部件之间通信的基础设施。总线设计的好坏直接影响系统的性能和稳定性</p>
-<h3 id="总线的组成"><a href="#总线的组成" class="headerlink" title="总线的组成"></a>总线的组成</h3><p>总线通常由多个信号线组成，每一条信号线承担不同的功能，一种总线由以下部分组成：</p>
-<ul>
-<li>数据总线：用于传输数据，数据总线的宽度（即信号线的数量）决定了每次传输的数据量，通常为8位、16位、32位或64位</li>
-<li>地址总线：用于传输内存地址或外设的地址。地址总线的宽度决定了系统能够访问的内存空间的大小。例如，32位地址总线可以寻址2^32个内存地址（即4GB内存）</li>
-<li>控制总线：用于传输控制信号，协调各个硬件部件的工作。例如，控制信号可以指示内存是否需要读取或写入数据，或者表示数据的方向（从CPU到内存还是从内存到CPU）</li>
-</ul>
-<h3 id="总线的工作原理"><a href="#总线的工作原理" class="headerlink" title="总线的工作原理"></a>总线的工作原理</h3><p>总线的工作原理依赖于计算机系统中不同组件之间的协调。具体来说，数据传输过程通常包括以下几个步骤：</p>
-<ol>
-<li>发起传输请求：当CPU需要从内存读取数据或向内存写入数据时，它通过控制总线发起传输请求</li>
-<li>地址传输：CPU将目标地址传送到地址总线上，标明要访问的内存位置或外设地址</li>
-<li>数据传输：数据通过数据总线传输到目标组件，数据总线将存储在寄存器中的数据传输到内存或外设，反之亦然</li>
-<li>控制信号：控制总线发送信号来确保数据传输的正确性，如控制读&#x2F;写操作、数据传输的方向等</li>
-</ol>
-<h3 id="总线的带宽与速度"><a href="#总线的带宽与速度" class="headerlink" title="总线的带宽与速度"></a>总线的带宽与速度</h3><p>总线的带宽（即每秒钟能传输的数据量）和速度（即数据传输的速度）是两个重要的性能指标。总线带宽通常与总线的位宽和时钟频率相关：</p>
-<ul>
-<li>位宽：总线的位宽决定了每次数据传输的比特数，例如，32位总线每次能传输32个比特的数据</li>
-<li>时钟频率：总线的时钟频率越高，单位时间内传输的数据量越大，从而提高总线的传输速度</li>
-</ul>
-<p>例如，PCI Express（PCIe）是一种高速的串行总线标准，具有较高的带宽和速度，可以支持多个设备并行通信</p>
-<h3 id="常见的总线类型"><a href="#常见的总线类型" class="headerlink" title="常见的总线类型"></a>常见的总线类型</h3><ol>
-<li>PCI&#x2F;PCI Express（PCIe）：广泛用于计算机主板中，用于连接各种扩展卡（如显卡、网卡、硬盘控制器等）。PCIe采用串行传输，支持高带宽，且逐渐取代了传统的PCI总线</li>
-<li>USB：主要用于连接外设，如鼠标、键盘、打印机、硬盘等。USB支持热插拔，并提供电力给设备，具有较强的扩展性</li>
-<li>SATA（串行ATA）：主要用于连接硬盘、光驱等存储设备，采用串行传输，速度相较于并行ATA有显著提升</li>
-<li>I2C&#x2F;SPI：用于连接低速外设，如传感器、显示器等。I2C是串行的双线总线，而SPI支持高速的数据传输，常用于嵌入式系统</li>
-<li>AHB&#x2F;APB&#x2F;AXI：是AMBA总线标准中的一些总线，用于SoC内部各种硬件（CPU、DMA、各种外设间）的连接</li>
-</ol>
-<h2 id="12-DMA"><a href="#12-DMA" class="headerlink" title="12.DMA"></a>12.DMA</h2><p>DMA（Direct Memory Access）是用于高效数据传输的一种技术，能够实现<strong>外设和内存</strong>之间直接交换数据，而无需CPU干预，它通常以独立的控制器存在。DMA不仅减轻了CPU负担，提高了数据传输效率，还能在数据传输过程中保持CPU的<strong>并行计算能力</strong>，适用于大数据量、高带宽的应用场景</p>
-<h3 id="DMA的工作模式"><a href="#DMA的工作模式" class="headerlink" title="DMA的工作模式"></a>DMA的工作模式</h3><p>DMA有几种常见的传输模式，具体方式取决于传输的源和目标设备以及数据的传输方向：</p>
-<ol>
-<li>内存到内存<ul>
-<li>数据从一个内存位置传输到另一个内存位置</li>
-<li>通常用于大数据块的移动，如从一个缓冲区复制数据到另一个缓冲区</li>
-</ul>
-</li>
-<li>外设到内存<ul>
-<li>数据从外设（例如传感器、ADC）传输到内存</li>
-<li>比如一个传感器的测量结果可以直接写入内存供后续处理</li>
-</ul>
-</li>
-<li>内存到外设<ul>
-<li>数据从内存传输到外设</li>
-<li>比如，将数据从内存直接写入到输出设备（如DAC、显示器）</li>
-</ul>
-</li>
-<li>外设到外设<ul>
-<li>数据从一个外设传输到另一个外设</li>
-<li>比如在某些设备之间直接传输数据，而不通过内存（例如数据采集系统中，数据直接从一个外设转移到另一个外设）</li>
-</ul>
-</li>
-</ol>
-<h3 id="DMA控制器的工作流程"><a href="#DMA控制器的工作流程" class="headerlink" title="DMA控制器的工作流程"></a>DMA控制器的工作流程</h3><ol>
-<li>请求：外设发起DMA请求，告诉DMA控制器需要进行数据传输</li>
-<li>授予：DMA控制器检查是否可以访问总线如果没有其他设备正在使用总线，则控制器将授予DMA传输权限</li>
-<li>传输：DMA控制器执行数据传输过程，直接在内存与外设之间传输数据</li>
-<li>完成：传输完成后，DMA控制器会生成中断信号通知CPU此时，CPU可以处理传输后的数据</li>
-</ol>
-<h3 id="DMA的优势"><a href="#DMA的优势" class="headerlink" title="DMA的优势"></a>DMA的优势</h3><ul>
-<li>减轻CPU负担：CPU可以将时间集中在计算和其他任务上，而不需要管理低效的数据传输操作</li>
-<li>并行处理：DMA可以与CPU并行工作，CPU和DMA可以在同一时刻执行不同的任务，从而提高系统效率</li>
-<li>高效传输：在大规模数据传输（如音视频流、网络传输等）中，DMA的效率要比传统的CPU控制的方式高得多</li>
-</ul>
-<h3 id="DMA的缺点"><a href="#DMA的缺点" class="headerlink" title="DMA的缺点"></a>DMA的缺点</h3><ul>
-<li>硬件需求：需要专门的DMA控制器，有时这可能增加硬件设计的复杂度和成本</li>
-<li>可能的冲突：DMA控制器直接访问内存时，可能会与CPU访问内存发生冲突，特别是在高频繁数据访问的情况下。现代系统通过<strong>总线仲裁</strong>来解决这个问题</li>
-<li>中断管理复杂：DMA传输完毕后需要通过中断通知CPU，这可能会带来中断处理的开销，尤其在高频率的传输中</li>
-</ul>
-<h3 id="DMA的实际应用"><a href="#DMA的实际应用" class="headerlink" title="DMA的实际应用"></a>DMA的实际应用</h3><ul>
-<li>音视频数据传输：DMA常用于音视频设备中，大数据的传输速度要求非常高，CPU不可能直接参与每个数据的传输，因此使用DMA可以让外设与内存之间高效交换数据</li>
-<li>网络数据传输：在网络芯片与内存之间的数据交换中，DMA大幅度提升了吞吐量</li>
-<li>存储设备：如硬盘、固态硬盘（SSD）等设备的数据传输，也通常使用DMA来提升性能</li>
-<li>嵌入式系统：在一些传感器数据读取、显示驱动等任务中，DMA也被广泛应用</li>
-</ul>
-<h3 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h3><p>1.有解决过CPU和DMA的问题吗？</p>
-<ul>
-<li>回答解决使用DMA引入的缓存一致性问题</li>
-</ul>
-<p>2.DMA使用的内存如何分配</p>
-<ul>
-<li>DMA必须使用连续的内存，所以得用<code>kalloc()</code>或者<code>dma_alloc_coherent()</code>分配，不能用<code>vmalloc()</code>分配</li>
-<li>用<code>kalloc()</code>分配的内存时，要手动处理缓存一致性问题</li>
-</ul>
-<h2 id="13-IOMMU"><a href="#13-IOMMU" class="headerlink" title="13.IOMMU"></a>13.IOMMU</h2><p>IOMMU（Input–Output Memory Management Unit，输入输出内存管理单元）是一个专门用于外设（DMA 设备）的 <strong>地址转换与保护单元</strong>。它在现代操作系统和硬件平台中扮演着类似于 CPU MMU 的角色，但作用对象是<strong>外设的DMA访问</strong></p>
-<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><table>
-<thead>
-<tr>
-<th>功能</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>地址转换（DMA remapping）</td>
-<td>将外设发出的 DMA 虚拟地址（IOVA, I&#x2F;O Virtual Address）转换为物理内存地址。设备可以使用 IOVA，就像 CPU 使用虚拟地址一样</td>
-</tr>
-<tr>
-<td>隔离保护</td>
-<td>防止外设访问不属于自己的内存区域，类似于 CPU 的内存保护，增强系统安全</td>
-</tr>
-<tr>
-<td>支持虚拟化</td>
-<td>在虚拟机环境中，IOMMU 可以让多个虚拟机安全地共享物理设备，同时每个虚拟机看到的 DMA 地址是虚拟化后的地址</td>
-</tr>
-<tr>
-<td>扩展 DMA 能力</td>
-<td>支持 64 位 DMA 地址、打破物理连续性限制；设备不再必须访问物理连续内存</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>打破物理连续性限制</p>
-<ul>
-<li><p>没有 IOMMU 时，设备进行 DMA 访问时必须访问物理连续内存，这在大内存、碎片化严重的系统中很难保证</p>
-</li>
-<li><p>有了 IOMMU，设备可以访问 <strong>不连续物理页</strong>，IOMMU 会把连续的 IOVA 映射到实际的物理页</p>
-</li>
-</ul>
-</li>
-<li><p>增加安全性</p>
-<ul>
-<li><p>防止 DMA 攻击（恶意设备或驱动访问任意内存）</p>
-</li>
-<li><p>通过 IOMMU，可以只允许设备访问指定的内存区域</p>
-</li>
-</ul>
-</li>
-<li><p>支持虚拟化</p>
-<ul>
-<li><p>虚拟机中的设备可以访问 DMA 虚拟地址</p>
-</li>
-<li><p>IOMMU 将这些地址映射到宿主机的物理内存，实现 <strong>DMA 隔离</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h3><ul>
-<li>设备发出 DMA 请求，提供 IOVA（类似虚拟地址）</li>
-<li>IOMMU 查 <strong>页表</strong>，将 IOVA 转换为实际物理地址</li>
-<li>DMA 控制器通过物理总线访问物理内存</li>
-<li>CPU 也可以通过内核提供的接口管理 IOMMU 表</li>
-</ul>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html">https://li-ruiqi777.github.io/01-计算机基础八股/03-计算机组成原理.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/head.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/04-%E6%80%BB%E7%BA%BF%E5%8D%8F%E8%AE%AE.html" title="04 总线协议"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">04 总线协议</div></div><div class="info-2"><div class="info-item-1">总线协议对比UART总线概述定义：  UART(Universal Asynchronous Receiver&#x2F;Transmitter)通用异步收发器：异步、串行、全双工通信 USART(Universal Synchronous&#x2F;Asynchronous Receiver&#x2F;Transmitter)通用同步&#x2F;异步收发器：同步或者异步、串行、全双工通信 异步时靠波特率进行数据同步 同步时需要额外的CLK线     UART和USART不是总线，是点对点通信  特点：  点对点通信 传输距离较远(可达几十米) 硬件简单，成本低  硬件结构   信号线 作用    TX 发送数据线   RX 接收数据线   GND 共地线    UART原始输出是TTL电平，可通过PHY芯片转成别的电平，比如RS232、RS485、USB  通信时序数据帧格式 起始位：1位低电平  数据位：5-9位(通常8位)  校验位：可选(奇校验&#x2F;偶校验&#x2F;无校验)  停止位：1-2位高电平   波特率 双方必须约定相同的波特率(如9600,...</div></div></div></a><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html" title="02 计算机体系结构"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">02 计算机体系结构</div></div><div class="info-2"><div class="info-item-1">计算机体系结构基本概念体系结构vs组成原理 体系结构：能被程序员看到的计算机系统的属性，即概念性的结构和功能特性（主要是被汇编程序员所看到的属性，包括指令集、数据类型、存储器寻址技术、IO机理等…）  示例：  冯诺依曼架构  哈佛架构  核心内容：  多核协同：一致性协议（如 MESI）、互联总线（如 AMBA ACE）  内存子系统：NUMA 支持、内存控制器设计  外设与扩展：PCIe、USB 控制器、加速器（如 NPU）的集成  安全与虚拟化：TrustZone、IOMMU、虚拟化扩展（如 ARM SMMU）        组成原理：指如何实现计算机体系结构所体现的属性，它包含了很多对程序员来说是透明的硬件细节。比如规定一台计算机有哪些属性属于体系结构的问题，但如何通过电路实现这些指令，属于组成原理的问题      对比维度 体系结构 组成原理    关注点 软件可见的属性 硬件如何实现这些属性   面向对象 程序员 &#x2F;...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">127</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86"><span class="toc-text">计算机组成原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">1.计算机的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AD%98%E5%82%A8%E5%99%A8"><span class="toc-text">2.存储器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-CPU%E7%9A%84%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="toc-text">3.CPU的运行原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%8C%87%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">4.指令执行的步骤</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-text">5.流水线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%8D%8F%E5%A4%84%E7%90%86%E5%99%A8"><span class="toc-text">6.协处理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E5%92%8C%E5%93%88%E4%BD%9B%E6%9E%B6%E6%9E%84"><span class="toc-text">7.冯诺依曼和哈佛架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Cache"><span class="toc-text">8.Cache</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">Cache的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">Cache的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-text">Cache的层次结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="toc-text">Cache的物理结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%9A%84%E7%BB%84%E7%BB%87%E6%96%B9%E5%BC%8F"><span class="toc-text">Cache的组织方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%92%E5%88%86"><span class="toc-text">内存地址的划分</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5"><span class="toc-text">Cache替换策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E7%9A%84%E5%86%99%E5%85%A5%E7%AD%96%E7%95%A5"><span class="toc-text">Cache的写入策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">缓存一致性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">缓存不一致的原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A0%B8%E9%97%B4%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">核间缓存一致性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#DMA%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">DMA缓存一致性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5-1"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98"><span class="toc-text">面试问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-MMU"><span class="toc-text">9.MMU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="toc-text">MMU的物理结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-text">MMU的主要功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">MMU的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">MMU的工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU%E7%9A%84%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%9C%BA%E5%88%B6"><span class="toc-text">MMU的地址转换机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5-2"><span class="toc-text">参考链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98-1"><span class="toc-text">面试问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-TLB"><span class="toc-text">10.TLB</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">TLB的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">TLB的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">TLB的结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">TLB的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E7%9A%84%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5"><span class="toc-text">TLB的替换策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-text">TLB一致性问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-%E6%80%BB%E7%BA%BF"><span class="toc-text">11.总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">总线的组成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">总线的工作原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BA%BF%E7%9A%84%E5%B8%A6%E5%AE%BD%E4%B8%8E%E9%80%9F%E5%BA%A6"><span class="toc-text">总线的带宽与速度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E6%80%BB%E7%BA%BF%E7%B1%BB%E5%9E%8B"><span class="toc-text">常见的总线类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-DMA"><span class="toc-text">12.DMA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">DMA的工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E6%8E%A7%E5%88%B6%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">DMA控制器的工作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-text">DMA的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="toc-text">DMA的缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DMA%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-text">DMA的实际应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-text">面试题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-IOMMU"><span class="toc-text">13.IOMMU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-text">作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">工作原理</span></a></li></ol></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+<h2 id="C906微架构"><a href="#C906微架构" class="headerlink" title="C906微架构"></a>C906微架构</h2><p><img src="/assets/image-20251219174110640.png" alt="image-20251219174110640"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://Li-Ruiqi777.github.io">Li Ruiqi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://li-ruiqi777.github.io/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/03-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86.html">https://li-ruiqi777.github.io/01-计算机基础八股/03-计算机组成原理.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/01.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/04-Linux/01-Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/10-%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7.html" title="10 包管理工具"><img class="cover" src="/img/09.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">10 包管理工具</div></div><div class="info-2"><div class="info-item-1">包管理工具在Linux系统中，包管理工具是软件安装、升级、卸载和维护的核心组成部分，它们极大地简化了软件管理过程。不同的Linux发行版采用了不同的包管理体系，比如Debian系用的是apt、RetHat系用的是yun… dpkg dpkg是Debian系列发行版中最底层的包管理工具，它直接面向本地.deb格式的软件包 dpkg的主要职责是对单个软件包进行操作，例如安装、卸载、查看包信息等 它本身并不具备自动解决依赖关系的能力，因此在使用dpkg安装软件时，如果该软件依赖的其他库或组件尚未安装，dpkg只会报错并终止操作，需要用户手动处理依赖问题  123456789101112131415161718192021222324# 安装本地的.deb软件包,如果依赖缺失会报错但不会自动解决dpkg -i package.deb# 卸载已安装的软件包（但不删除/etc下的配置文件，适合以后重新安装）dpkg -r package_name# 完全卸载软件包（同时删除配置文件）dpkg -P package_name#...</div></div></div></a><a class="pagination-related" href="/01-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E5%85%AB%E8%82%A1/02-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84.html" title="02 计算机体系结构"><img class="cover" src="/img/12.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">02 计算机体系结构</div></div><div class="info-2"><div class="info-item-1">计算机体系结构什么是体系结构 在讨论计算机设计时，有几个概念经常被混在一起。实际上，它们对应的是从不同抽象层次、不同视角去看同一台计算机。自上而下来看，可以大致分为以下几个层级。  1.体系结构（Architecture）&#x2F; 指令集架构（ISA）    体系结构 &#x3D; 软件眼里的CPU 这一层是从软件视角来看计算机，ISA的内容包括： 指令集：属于RISC还是CISC、支持的指令（如 ADD、MOV）、指令格式、操作数类型 寄存器结构：通用寄存器、状态寄存器（如 x86 的 EFLAGS、ARM 的 CPSR），各寄存器宽度 内存管理：虚拟内存映射，地址空间、对齐要求、内存访问语义、字节序 中断与异常模型：异常类型（如缺页、非法指令）、处理流程 特权级别：定义特权模式（如 x86 的 Ring 0-3、ARM 的...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/head.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Li Ruiqi</div><div class="author-info-description">总有低谷</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">138</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Li-Ruiqi777"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Li-Ruiqi777" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:1009962019@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86"><span class="toc-text">计算机组成原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%BB%84%E6%88%90"><span class="toc-text">计算机的基本组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CPU"><span class="toc-text">CPU</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="toc-text">指令的执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9E%B6%E6%9E%84%E5%B1%82%E6%AC%A1"><span class="toc-text">微架构层次</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF"><span class="toc-text">前端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E4%B8%8E%E5%8F%91%E5%B0%84"><span class="toc-text">调度与发射</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%AB%AF"><span class="toc-text">后端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E4%BA%A4%E4%B8%8E%E5%9B%9E%E9%80%80"><span class="toc-text">提交与回退</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD%E6%8F%90%E5%8D%87%E6%9C%BA%E5%88%B6"><span class="toc-text">性能提升机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B6%85%E6%A0%87%E9%87%8F"><span class="toc-text">超标量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%B1%E5%BA%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">乱序执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8%E9%87%8D%E5%91%BD%E5%90%8D"><span class="toc-text">寄存器重命名</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F"><span class="toc-text">存储系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%AF%E8%AF%BA%E4%BE%9D%E6%9B%BC%E5%92%8C%E5%93%88%E4%BD%9B%E7%BB%93%E6%9E%84"><span class="toc-text">冯诺依曼和哈佛结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-text">存储系统层次结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E6%9C%BA%E5%88%B6"><span class="toc-text">Cache机制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-text">Cache的层次结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Cache-line%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">Cache line的结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%A0%E5%B0%84%E6%96%B9%E5%BC%8F"><span class="toc-text">映射方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%99%E7%AD%96%E7%95%A5"><span class="toc-text">写策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5"><span class="toc-text">替换策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cache%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">Cache一致性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="toc-text">缓存不一致的原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E9%97%B4%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">核间一致性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU-DMA%E4%B8%80%E8%87%B4%E6%80%A7"><span class="toc-text">CPU-DMA一致性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98"><span class="toc-text">面试问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">地址转换的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MMU"><span class="toc-text">MMU</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MMU%E7%9A%84%E7%89%A9%E7%90%86%E7%BB%93%E6%9E%84"><span class="toc-text">MMU的物理结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MMU%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-text">MMU的主要功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MMU%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">MMU的工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MMU%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">MMU的工作流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MMU%E7%9A%84%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%9C%BA%E5%88%B6"><span class="toc-text">MMU的地址转换机制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TLB"><span class="toc-text">TLB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TLB%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-text">TLB的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TLB%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">TLB的工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TLB%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">TLB的结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98-1"><span class="toc-text">面试问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C906%E5%BE%AE%E6%9E%B6%E6%9E%84"><span class="toc-text">C906微架构</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/claudecode.html" title="claudecode"><img src="/img/09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="claudecode"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/claudecode.html" title="claudecode">claudecode</a><time datetime="2026-04-14T16:00:00.000Z" title="Created 2026-04-15 00:00:00">2026-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/26-PCIE.html" title="26 PCIE"><img src="/img/12.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="26 PCIE"/></a><div class="content"><a class="title" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/26-PCIE.html" title="26 PCIE">26 PCIE</a><time datetime="2026-04-13T16:00:00.000Z" title="Created 2026-04-14 00:00:00">2026-04-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/autoconf.html" title="autoconf"><img src="/img/01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="autoconf"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/autoconf.html" title="autoconf">autoconf</a><time datetime="2026-03-20T16:00:00.000Z" title="Created 2026-03-21 00:00:00">2026-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git"/></a><div class="content"><a class="title" href="/02-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/git.html" title="git">git</a><time datetime="2026-02-09T16:00:00.000Z" title="Created 2026-02-10 00:00:00">2026-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html" title="25 IIO子系统"><img src="/img/09.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="25 IIO子系统"/></a><div class="content"><a class="title" href="/04-Linux/03-%E5%86%85%E6%A0%B8%E5%BC%80%E5%8F%91/25-IIO%E5%AD%90%E7%B3%BB%E7%BB%9F.html" title="25 IIO子系统">25 IIO子系统</a><time datetime="2026-01-26T16:00:00.000Z" title="Created 2026-01-27 00:00:00">2026-01-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2026 By Li Ruiqi</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">人因梦想而伟大</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" defer="defer" color="100,200,255" opacity="0.3" zIndex="-1" count="100" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
